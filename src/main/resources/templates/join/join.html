@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+<head>
+    <title>join</title>
+    <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
+    <script th:src="@{js/join.js}">
+    </script>
+</head>
+<div layout:fragment="content">
+    <h2>회원가입</h2>
+    <form name="memberJoinForm" action="/join" method="post" onsubmit="return joinChk()">
+        <label for="user_id">아이디</label>
+        <input type="text" id="user_id" name="user_id" placeholder="아이디을 입력하세요" onkeyup="idChk()"><br>
+        <span id="chkIdmsg"></span><br>
+        <label for="user_password">패스워드</label>
+        <input type="password" id="user_password" name="user_password" placeholder="비밀번호를 입력하세요"><br>
+        <label for="user_repassword">패스워드 확인</label>
+        <input type="password" id="user_repassword" name="user_repassword" placeholder="비밀번호를 입력하세요" onkeyup="pwdCheck()"><br>
+        <small id="chkmsg" name="chkmsg"></small><br>
+        <label for="user_name">이름</label>
+        <input type="text" id="user_name" name="user_name" placeholder="이름을 입력하세요"><br>
+        <label for="user_pn">휴대폰 번호</label>
+        <input type="text" id="user_pn" name="user_pn" placeholder="-를 제외하고 숫자만 입력"><br>
+        <label for="user_email">이메일</label>
+        <input type="email" id="user_email" name="user_email" placeholder="you@example.com"><br>
+        <label for="user_addr"></label>
+        <input placeholder="우편번호" name="user_addr" id="user_addr" type="text" readonly="readonly" >
+        <button type="button" onclick="execPostCode();">우편번호 찾기</button>
+        <label for="user_addr2"></label>
+        <input placeholder="도로명 주소" name="user_addr2" id="user_addr2" type="text" readonly="readonly" />
+        <label for="user_addr3"></label>
+        <input placeholder="상세주소" name="user_addr3" id="user_addr3" type="text"  />
+        <label for="user_rrn"></label>
+        <input type="text" name="user_rrn" id="user_rrn" placeholder="주민번호">
+        <div class="btn">
+            <input type="submit" value="회원가입" id="joinbtn">
+        </div>
+    </form>
+</div>
+</html>
+
