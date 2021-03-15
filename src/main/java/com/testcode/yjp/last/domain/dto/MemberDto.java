@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain.dto;
 
+import com.testcode.yjp.last.domain.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,11 +16,13 @@ public class MemberDto {
     private String user_id;
     private String user_password;
     private String user_name;
-    private int user_pn;
+    private Integer user_pn;
     private String user_email;
-    private int user_addr;
-    private String user_addr2;
-    private String user_addr3;
+    private String address_normal;
+    private String address_detail;
+    private Integer user_rrn;
+    private String user_gender;
+    private UserRole userRole;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 

@@ -7,6 +7,7 @@
     <title>join</title>
     <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
     <script th:src="@{js/join.js}">
+
     </script>
 </head>
 <div layout:fragment="content">
@@ -24,17 +25,24 @@
         <input type="text" id="user_name" name="user_name" placeholder="이름을 입력하세요"><br>
         <label for="user_pn">휴대폰 번호</label>
         <input type="text" id="user_pn" name="user_pn" placeholder="-를 제외하고 숫자만 입력"><br>
+<!--        <input type="button" id="sendUser_pn" name="sendUser_pn" value="인증번호전송" onclick="sendUser()"><br>-->
+<!--        <label for="inputCertifiedNumber">인증번호</label>-->
+<!--        <input type="text" id="inputCertifiedNumber" name="inputCertifiedNumber">-->
+<!--        <input type="button" id="checkBtn" name="checkBtn" value="인증번호확인"><br>-->
         <label for="user_email">이메일</label>
         <input type="email" id="user_email" name="user_email" placeholder="you@example.com"><br>
         <label for="user_addr"></label>
         <input placeholder="우편번호" name="user_addr" id="user_addr" type="text" readonly="readonly" >
         <button type="button" onclick="execPostCode();">우편번호 찾기</button>
-        <label for="user_addr2"></label>
-        <input placeholder="도로명 주소" name="user_addr2" id="user_addr2" type="text" readonly="readonly" />
-        <label for="user_addr3"></label>
-        <input placeholder="상세주소" name="user_addr3" id="user_addr3" type="text"  />
+        <label for="address_normal"></label>
+        <input placeholder="도로명 주소" name="address_normal" id="address_normal" type="text" readonly="readonly" />
+        <label for="address_detail"></label>
+        <input placeholder="상세주소" name="address_detail" id="address_detail" type="text"  /><br>
         <label for="user_rrn"></label>
-        <input type="text" name="user_rrn" id="user_rrn" placeholder="주민번호">
+        <input type="text" name="user_rrn" id="user_rrn" placeholder="주민번호">-
+        <input type="text" name="user_gender" id="user_gender" placeholder="주민번호뒷자리"><br>
+        <label for="user_tr_if">트레이너 여부</label>
+        <input type="checkbox" name="user_tr_if" id="user_tr_if">
         <div class="btn">
             <input type="submit" value="회원가입" id="joinbtn">
         </div>

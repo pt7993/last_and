@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.domain.dto;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +17,13 @@ public class MemberFindIdDto {
     private String user_id;
     private String user_password;
     private String user_name;
-    private int user_pn;
+    private Integer user_pn;
     private String user_email;
-    private int user_addr;
-    private String user_addr2;
-    private String user_addr3;
-    private String user_rrn;
+    private String address_normal;
+    private String address_detail;
+    private Integer user_rrn;
+    private String user_gender;
+    private UserRole userRole;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
@@ -32,9 +34,10 @@ public class MemberFindIdDto {
         this.user_name = member.getUser_name();
         this.user_pn = member.getUser_pn();
         this.user_email = member.getUser_email();
-        this.user_addr = member.getUser_addr();
-        this.user_addr2 = member.getUser_addr2();
-        this.user_addr3 = member.getUser_addr3();
+        this.address_normal = member.getAddress_normal();
+        this.address_detail = member.getAddress_detail();
         this.user_rrn = member.getUser_rrn();
+        this.user_gender = member.getUser_gender();
+        this.userRole = member.getUserRole();
     }
 }

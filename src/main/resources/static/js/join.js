@@ -1,5 +1,7 @@
 // 회원가입 유효성 검사
+var car = false;
 function joinChk() {
+    var data = false;
     var frm = document.memberJoinForm;
     //조건1. 6~20 영문 대소문자 , 최소 1개의 숫자 혹은 특수 문자를 포함해야 함
     var pwRule = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,16}$/;
@@ -35,7 +37,15 @@ function joinChk() {
         alert("아이디를 다시 입력해 주세요.");
         frm.user_id.focus();
         return false;
+    } else if (frm.inputCertifiedNumber.value.length == 0) {
+        alert("핸드폰 인증번호를 해주세요");
+        frm.inputCertifiedNumber.focus();
+        return false;
+    } else if(car==false){
+        alert('인증번호가 틀렸습니다')
+        return false;
     }
+    // 추가된 부분
 }
 
 // 비밀번호 일치 여부
@@ -107,12 +117,58 @@ function execPostCode() {
 
 
             $("[name=user_addr]").val(data.zonecode);
-            $("[name=user_addr2]").val(fullRoadAddr);
+            $("[name=address_normal]").val(fullRoadAddr);
 
             /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
             document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
             document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
         }
     }).open();
+}
+
+/*휴대폰번호 인증 이벤트 추가*/
+
+function sendUser(){
+        //input text 휴대폰번호 = inputPhoneNumber, phoneNumber에 저장
+        let phoneNumber = $('#user_pn').val();
+        alert('인증번호 발송 완료!')
+
+        //
+        $.ajax({
+            type: "GET",
+            url: "/send" +
+                "SMS",
+            data: {
+                "phoneNumber" : phoneNumber
+            },
+            success: function(res){
+                $('#checkBtn').click(function(){
+                    if($.trim(res) ==$('#inputCertifiedNumber').val()){
+                        /*인증성공 했을 때 car값 true로 만들어줌.*/
+                        car=true;
+                        alert(
+                            '인증성공!'
+                        );
+
+                        // $.ajax({
+                        //     type: "GET",
+                        //     url: "/update/phone",
+                        //     data: {
+                        //         "phoneNumber" : $('#user_pn').val()
+                        //     }
+                        // })
+                        // document.location.href="/home";
+                    }else{
+                        alert({
+                            icon: 'error',
+                            title: '인증오류',
+                            text: '인증번호가 올바르지 않습니다!',
+                            footer: '<a href="/join">다음에 인증하기</a>'
+                        })
+                    }
+                })
+            }
+        })
+
 }
 
