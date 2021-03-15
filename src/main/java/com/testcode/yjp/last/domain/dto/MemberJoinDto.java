@@ -3,7 +3,6 @@ package com.testcode.yjp.last.domain.dto;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.UserRole;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
