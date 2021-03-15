@@ -1,0 +1,47 @@
+.chat-message-right {
+    text-align: right;
+}
+
+.chat-message-right div {
+    text-align: left;
+}
+
+.chat-message-left {
+    text-align: left;
+}
+
+.chat-message-height {
+    height: 600px;
+    max-height: 600px;
+    overflow: auto;
+}
+
+.bg-color-yellow {
+    background-color: rgb(248, 248, 102);
+}
+
+.chat-message-block {
+    display: inline-block;
+    border-radius: 10px;
+    max-width: 60%;
+
+}
+
+
+.bg-color-gray {
+    background-color: rgb(221, 221, 221);
+}
+
+.text-height {
+    height: 70px
+}
+
+.image-width {
+    width: 40px;
+    height: 40px;
+
+}
+
+.text-display-block {
+    display: inline-block;
+}

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container { max-width: 1260px; margin: 50px auto; padding: 0 40px; }
+
+.title { display: flex; justify-content: center; margin: 50px auto; }
+button { border: none; background-color: transparent; }
+.btn { padding: 8px 18px; border: 1px solid #ddd; cursor: pointer; }
+.btn.zip_btn { padding: 5px 18px; }
+
+.resp_member_join { line-height:1.4; }
+.resp_member_join input[type=text], .resp_member_join input[type=password], .resp_member_join input[type=email], .resp_member_join input[type=tel] { padding:0 9px; width:200px; height:32px; font-size:14px; line-height:32px; color:#333; border:1px #ccc solid; border-radius:2px; }
+.resp_member_join select {border:1px solid #ccc; background:#fff; height:32px; min-width:50px; padding:0 0 0 5px; border-radius:2px; font-size:13px; vertical-align:bottom; max-width:100%; }
+.resp_member_join input[readonly], .resp_member_join select[disabled] { background:#f4f4f4 !important; border-color:#ccc !important; cursor:default; }
+.resp_member_join input[type].size_zip_all { width:76px; }
+.resp_member_join input[type].size_full { width:100%; }
+.resp_member_join input[type].size_address { width: 50%; }
+.resp_member_join input[type].size_phone { width:60px; }
+.resp_member_join input[type].size_mail1 { width:120px; }
+.resp_member_join input[type].size_mail2 { width:110px; }
+.resp_member_join .address_area { margin-top: 10px; }
+
+.resp_join_table { display:table; width:100%; table-layout:fixed; border-bottom:1px #ddd solid; font-size:13px; }
+.resp_join_table>ul { display:table-row; }
+.resp_join_table>ul>li { display:table-cell; border-top:1px #ddd solid; border-left:1px #eee solid; padding:8px; color:#666; vertical-align:middle; }
+.resp_join_table>ul>li:first-child { border-left:none; }
+.resp_join_table>ul>li.th { width:140px; text-align:left; padding:0;  color:#333; }
+.resp_join_table>ul>li.th>p { padding: 8px 22px 8px 10px; }
+
+.btn_area { display: flex; justify-content: flex-end; margin-top: 30px; }
+p {
+    margin-top:15px;
+}
