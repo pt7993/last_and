@@ -27,9 +27,9 @@
     <link rel="shortcut icon" href="#" />
 
     <!-- 부트 스트랩 css-->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <!-- 메인 css -->
-    <link href="static/css/app.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
   </head>
   <body>
     <div class="wrapper">
@@ -39,10 +39,11 @@
       <div class="main">
         <nav th:replace="fragments/topnav :: topnavFragment"></nav>
         <!-- 아래 div가 컨트롤러에 의해 교체되는 content 영역이다. -->
-        <main layout:fragment="content">
+        <main layout:fragment="content" class="content">
           <!--
              <a href="/join">회원가입</a>
           <a href="/login">로그인</a>-->
+          <div class="container-fluid p-0"></div>
         </main>
         <!-- body 태그 내부의 footer 를 담당하는 부분이다. -->
         <footer th:replace="fragments/footer :: footerFragment"></footer>

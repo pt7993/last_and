@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -17,42 +18,34 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
-    @Column
     private String user_id;
-
-    @Column
     private String user_password;
-
-    @Column
     private String user_name;
-
-    @Column
-    private int user_pn;
-
-    @Column
+    private Integer user_pn;
     private String user_email;
 
-    private int user_addr;
+    private String address_normal;
+    private String address_detail;
+    private Integer user_rrn;
+    private String user_gender;
 
-    private String user_addr2;
-
-    private String user_addr3;
-
-    private String user_rrn;
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'USER'")
+    private UserRole userRole;
 
     @Builder
-    public Member(Long id, String user_id, String user_password, String user_name, int user_pn, String user_email, int user_addr, String user_addr2, String user_addr3,String user_rrn) {
+    public Member(Long id, String user_id, String user_password, String user_name, Integer user_pn, String user_email,  String address_normal, String address_detail,Integer user_rrn,String user_gender,UserRole userRole) {
         this.id = id;
         this.user_id = user_id;
         this.user_password = user_password;
         this.user_name = user_name;
         this.user_pn = user_pn;
         this.user_email = user_email;
-        this.user_addr = user_addr;
-        this.user_addr2 = user_addr2;
-        this.user_addr3 = user_addr3;
+        this.address_normal = address_normal;
+        this.address_detail = address_detail;
         this.user_rrn = user_rrn;
+        this.user_gender = user_gender;
+        this.userRole = userRole;
     }
 
 //    public void update(String user_password,String user_name, int user_pn,String user_email){
