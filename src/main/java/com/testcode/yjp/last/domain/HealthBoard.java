@@ -1,4 +1,3 @@
-/*
 package com.testcode.yjp.last.domain;
 
 import javax.persistence.*;
@@ -26,4 +25,3 @@ public class HealthBoard extends BaseEntity {
 
 
 }
-*/

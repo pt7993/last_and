@@ -1,16 +1,16 @@
 package com.testcode.yjp.last.service;
 
 
-import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
+import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -24,6 +24,15 @@ public class MemberService {
     public Long save(MemberJoinDto memberJoinDto) {
         return memberRepository.save(memberJoinDto.toEntity()).getId();
     }
+
+    public MemberFindIdDto findIdDto(String id) {
+        Member entity = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다. id=" + id));
+        return new MemberFindIdDto(entity);
+    }
+//    public MemberResponseDto findById(String id) {
+//        Member entity = memberRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 정보가 없습니다. id="+id));
+//        return new MemberResponseDto(entity);
+//    }
 
     // 중복검사
     @Transactional
