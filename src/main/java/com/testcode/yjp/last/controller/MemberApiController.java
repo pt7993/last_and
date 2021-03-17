@@ -25,6 +25,7 @@ public class MemberApiController {
     public String IdChk(String user_id) throws Exception{
         System.out.println(user_id);
         String str = memberService.IdChk(user_id);
+        log.info("아이디체크로 들어옴");
         return str;
     }
 
