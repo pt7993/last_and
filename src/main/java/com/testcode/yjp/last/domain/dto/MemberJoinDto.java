@@ -36,9 +36,10 @@ public class MemberJoinDto {
                 .address_detail(address_detail)
                 .user_rrn(user_rrn)
                 .user_gender(user_gender)
-                .userRole(userRole)
+                .userRole(userRole.USER)
                 .build();
     }
+
 
     @Builder
     public MemberJoinDto(Long id, String user_id, String user_password, String user_name, Integer user_pn, String user_email,  String address_normal, String address_detail,Integer user_rrn,String user_gender,UserRole userRole){
