@@ -40,8 +40,8 @@ public class MemberContorller {
     }
 
     @PostMapping("/signIn")
-    public String signIn(Model model, String user_id, String user_password, HttpServletRequest request) {
-        Member member = memberRepository.findMember(user_id, user_password);
+    public String signIn(Model model, String user_id, String user_pw, HttpServletRequest request) {
+        Member member = memberRepository.findMember(user_id, user_pw);
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginUser", member.getUser_id());
         return "redirect:/";
