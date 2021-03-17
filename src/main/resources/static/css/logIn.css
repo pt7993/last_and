@@ -1,178 +1,118 @@
+@charset "UTF-8";
+
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    color: #333;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
-.dagym {
-    width: 100%;
-
+.container {
+  padding-left: 27%;
 }
 
-img {
-    width: 20%;
-    margin-right: 10px;
-
+.title {
+  margin: 20px auto;
+  text-align: center;
 }
 
-input {
-
-    text-rendering: auto;
-    color: initial;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    -webkit-appearance: textfield;
-    background-color: white;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 0px;
-    border-width: 2px;
-    border-style: inset;
-    border-color: initial;
-    border-image: initial;
+.login_form {
+  width: 320px;
+}
+.resp_member_login {
+  display: flex;
+}
+.resp_member_login input {
+  padding: 0 9px;
+  width: 200px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 32px;
+  color: #333;
+  border: 1px #ccc solid;
+  border-radius: 2px;
+}
+.resp_member_login .password {
+  margin-top: 5px;
+}
+.resp_member_login button {
+  margin-left: 5px;
+  background-color: #4a5164;
+  color: #fff;
+  border-radius: 3px;
+  padding: 8px 30px;
+  border: revert;
+  cursor: pointer;
+}
+form .save_id {
+  margin-top: 5px;
+}
+form .save_id span {
+  font-size: 14px;
 }
 
-.inner_login {
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    margin: -145px 0 0 -160px;
+.link_area {
+  margin-top: 30px;
+  border-top: 2px solid #aaa;
+  display: flex;
+  align-items: center;
+}
+.link_area a {
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 15px;
+}
+.link_area .middle {
+  width: 3px;
+  height: 25px;
+  background-color: #aaa;
 }
 
-.login_tistory {
-    position: relative;
-    width: 320px;
-    margin: 0 auto;
+.social-btn {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
-.screen_out {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    line-height: 0;
-    text-indent: -9999px;
+.social-btn img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
 }
 
-body,
-button,
-input,
-select,
-td,
-textarea,
-th {
-    font-size: 13px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+.social-btn span {
+  width: 150px;
 }
 
-fieldset,
-img {
-    border: 0;
+#google-login-btn {
+  background-color: #ea3d30;
+  color: #ffffff;
 }
 
-.login_tistory .box_login {
-    margin: 35px 0 0;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    background-color: #fff;
-    box-sizing: border-box;
+#kakao-login-btn {
+  background-color: #fce51e;
+  color: #333;
 }
 
-.login_tistory .inp_text {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    padding: 18px 19px 19px;
-    box-sizing: border-box;
+#naver-login-btn {
+  background-color: #01c73c;
+  color: #ffffff;
 }
 
-.login_tistory .inp_text+.inp_text {
-    border-top: 1px solid #ddd;
-}
-
-.inp_text input {
-    display: block;
-    width: 100%;
-    height: 100%;
-    font-size: 13px;
-    color: #000;
-    border: none;
-    outline: 0;
-    -webkit-appearance: none;
-    background-color: transparent;
-}
-
-.btn_login {
-    margin: 20px 0 0;
-    width: 100%;
-    height: 48px;
-    border-radius: 3px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #000;
-}
-
-.login_append {
-    overflow: hidden;
-    padding: 15px 0 0;
-}
-
-.inp_chk {
-    display: inline-block;
-    position: relative;
-    margin-bottom: -1px;
-}
-
-.login_append .inp_chk {
-    float: left;
-}
-
-.inp_chk .inp_radio {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 18px;
-    height: 18px;
-    border: 0;
-}
-
-.inp_chk .lab_g {
-    display: inline-block;
-    margin-right: 19px;
-    color: #909090;
-    font-size: 13px;
-    line-height: 19px;
-    vertical-align: top;
-}
-
-.inp_chk .ico_check {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    margin: 1px 4px 0 0;
-    background-position: -60px 0;
-    color: #333;
-}
-
-.inp_chk .txt_lab {
-    vertical-align: top;
-}
-
-.login_append .txt_find {
-    float: right;
-    color: #777;
-
+#facebook-login-btn {
+  background-color: #1877f2;
+  color: #ffffff;
 }
