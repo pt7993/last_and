@@ -15,7 +15,7 @@ public class MemberFindIdDto {
 
     private Long id;
     private String user_id;
-    private String user_password;
+    private String user_pw;
     private String user_name;
     private Integer user_pn;
     private String user_email;
@@ -30,7 +30,7 @@ public class MemberFindIdDto {
     public MemberFindIdDto(Member member){
         this.id = member.getId();
         this.user_id = member.getUser_id();
-        this.user_password = member.getUser_password();
+        this.user_pw = member.getUser_pw();
         this.user_name = member.getUser_name();
         this.user_pn = member.getUser_pn();
         this.user_email = member.getUser_email();

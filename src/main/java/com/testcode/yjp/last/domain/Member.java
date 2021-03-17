@@ -19,7 +19,7 @@ public class Member extends BaseEntity{
     @Column(name = "member_id")
     private Long id;
     private String user_id;
-    private String user_password;
+    private String user_pw;
     private String user_name;
     private Integer user_pn;
     private String user_email;
@@ -34,10 +34,10 @@ public class Member extends BaseEntity{
     private UserRole userRole;
 
     @Builder
-    public Member(Long id, String user_id, String user_password, String user_name, Integer user_pn, String user_email,  String address_normal, String address_detail,Integer user_rrn,String user_gender,UserRole userRole) {
+    public Member(Long id, String user_id, String user_pw, String user_name, Integer user_pn, String user_email,  String address_normal, String address_detail,Integer user_rrn,String user_gender,UserRole userRole) {
         this.id = id;
         this.user_id = user_id;
-        this.user_password = user_password;
+        this.user_pw = user_pw;
         this.user_name = user_name;
         this.user_pn = user_pn;
         this.user_email = user_email;
