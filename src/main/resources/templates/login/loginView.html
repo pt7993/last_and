@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+
+<div layout:fragment="content">
+    <h2>로그인</h2>
+<form action="/signIn" method="post">
+    <h1>Please sign in</h1>
+    <input type="text" id="user_id" name="user_id" placeholder="Id" required autofocus>
+    <input type="password" id="user_password" name="user_password" class="form-control" placeholder="Password" required>
+    <button class="login_size" type="submit">로그인</button>
+    <button class="login_size"><a href="/join">회원가입</a></button>
+</form>
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+</html>
