@@ -1,15 +1,17 @@
 package com.testcode.yjp.last.domain.dto;
 
-import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.UserRole;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class MemberJoinDto {
+public class MemberList {
 
     private Long id;
     private String user_id;
@@ -22,27 +24,11 @@ public class MemberJoinDto {
     private String user_rrn;
     private String user_gender;
     private UserRole userRole;
-    private LocalDateTime regDate, modDate;
-
-    public Member toEntity(){
-        return Member.builder()
-                .id(id)
-                .user_id(user_id)
-                .user_pw(user_pw)
-                .user_name(user_name)
-                .user_pn(user_pn)
-                .user_email(user_email)
-                .address_normal(address_normal)
-                .address_detail(address_detail)
-                .user_rrn(user_rrn)
-                .user_gender(user_gender)
-                .userRole(userRole.USER)
-                .build();
-    }
-
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 
     @Builder
-    public MemberJoinDto(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,UserRole userRole){
+    public MemberList(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,UserRole userRole) {
         this.id = id;
         this.user_id = user_id;
         this.user_pw = user_pw;
@@ -55,4 +41,5 @@ public class MemberJoinDto {
         this.user_gender = user_gender;
         this.userRole = userRole;
     }
+
 }

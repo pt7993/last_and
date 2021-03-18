@@ -21,12 +21,12 @@ public class Member extends BaseEntity{
     private String user_id;
     private String user_pw;
     private String user_name;
-    private Integer user_pn;
+    private String user_pn;
     private String user_email;
 
     private String address_normal;
     private String address_detail;
-    private Integer user_rrn;
+    private String user_rrn;
     private String user_gender;
 
     @Enumerated(EnumType.STRING)
@@ -34,7 +34,7 @@ public class Member extends BaseEntity{
     private UserRole userRole;
 
     @Builder
-    public Member(Long id, String user_id, String user_pw, String user_name, Integer user_pn, String user_email,  String address_normal, String address_detail,Integer user_rrn,String user_gender,UserRole userRole) {
+    public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,UserRole userRole) {
         this.id = id;
         this.user_id = user_id;
         this.user_pw = user_pw;

@@ -4,6 +4,7 @@ package com.testcode.yjp.last.service;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
+import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
@@ -12,7 +13,9 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +25,7 @@ public class MemberService {
 
     @Transactional
     public Long save(MemberJoinDto memberJoinDto) {
+
         return memberRepository.save(memberJoinDto.toEntity()).getId();
     }
 
@@ -69,4 +73,26 @@ public class MemberService {
 
     }
 
+    public List<MemberList> getMemberList() {
+        List<Member> memberEntities = memberRepository.findAll();
+        List<MemberList> memberLists = new ArrayList<>();
+
+        for (Member member : memberEntities) {
+            MemberList memberList = MemberList
+                    .builder()
+                    .user_id(member.getUser_id())
+                    .user_pw(member.getUser_pw())
+                    .user_name(member.getUser_name())
+                    .user_pn(member.getUser_pn())
+                    .user_email(member.getUser_email())
+                    .user_rrn(member.getUser_rrn())
+                    .user_gender(member.getUser_gender())
+                    .address_normal(member.getAddress_normal())
+                    .address_detail(member.getAddress_detail())
+                    .userRole(member.getUserRole())
+                    .build();
+            memberLists.add(memberList);
+        }
+        return memberLists;
+    }
 }

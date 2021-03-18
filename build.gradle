@@ -40,6 +40,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 
+//    SpringSecurity
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+
     /*net.nurigo 휴대폰 인증위해서 필요한 SDK, gradle에 추가*/
     compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 

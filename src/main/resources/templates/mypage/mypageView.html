@@ -7,7 +7,7 @@
     <title>join</title>
     <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
     <script th:src="@{js/join.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/join.css}"/>
+    <link rel="stylesheet" th:href="@{/css/join.css}" />
 </head>
 <div layout:fragment="content">
     <div class="container">
@@ -92,15 +92,15 @@
                             <p>핸드폰</p>
                         </li>
                         <li class="td">
-                            <input type="tel" name="pn" class="size_phone" maxlength="3"/>
+                            <input type="tel" name="pn" class="size_phone" maxlength="3" />
                             -
-                            <input type="tel" name="pn" class="size_phone" maxlength="4"/>
+                            <input type="tel" name="pn" class="size_phone" maxlength="4" />
                             -
-                            <input type="tel" name="pn" class="size_phone" maxlength="4"/>
+                            <input type="tel" name="pn" class="size_phone" maxlength="4" />
                             <input
                                     type="tel"
                                     name="user_pn"
-                                    id="user_pn"
+                                    id = "user_pn"
                                     class="size_phone"
                                     maxlength="4"
                                     style="display: none"
@@ -137,10 +137,10 @@
                             <p>이메일</p>
                         </li>
                         <li class="td">
-                            <input type="text" name="user_email1" class="size_mail1"/>
+                            <input type="text" name="user_email1" class="size_mail1" />
                             @
-                            <input type="text" name="user_email1" id="str_email02" class="size_mail2"/>
-                            <select name="selectEmail" id="selectEmail">
+                            <input type="text" name="user_email1" id="str_email02" class="size_mail2" />
+                            <select  name="selectEmail" id="selectEmail">
                                 <option value="1">직접입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
@@ -149,7 +149,7 @@
                                 <option value="nate.com">nate.com</option>
                             </select>
                         </li>
-                        <input type="text" name="user_email" style="display: none"/>
+                        <input type="text" name="user_email" style="display: none" />
                     </ul>
                     <!-- 주민등록번호 -->
                     <ul>
@@ -227,7 +227,7 @@
                             <p>주소</p>
                         </li>
                         <li class="td">
-                            <input type="text" name="user_addr" readonly="readonly" class="size_zip_all"/>
+                            <input type="text" name="user_addr" readonly="readonly" class="size_zip_all" />
                             <button
                                     type="button"
                                     class="btn zip_btn"
@@ -263,7 +263,7 @@
                             <p>트레이너 여부</p>
                         </li>
                         <li class="td">
-                            <input type="radio" name="user_role" class="user_tr_if"/>
+                            <input type="radio" name="user_role" class="user_tr_if" />
                             일반회원
                             <input
                                     type="radio"

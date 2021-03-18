@@ -16,11 +16,11 @@ public class MemberDto {
     private String user_id;
     private String user_pw;
     private String user_name;
-    private Integer user_pn;
+    private String user_pn;
     private String user_email;
     private String address_normal;
     private String address_detail;
-    private Integer user_rrn;
+    private String user_rrn;
     private String user_gender;
     private UserRole userRole;
     private LocalDateTime regDate;

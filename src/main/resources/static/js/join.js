@@ -24,7 +24,7 @@ function joinChk() {
     } else if (frm.user_pn.value.length == 0) {
         alert("폰번호를 입력하세요");
         frm.user_pn.focus();
-        return false;
+        return true;
     } else if (frm.user_email.value.length == 0) {
         alert(frm.user_email.value.length);
         alert("이메일을 입력하세요");
@@ -38,13 +38,14 @@ function joinChk() {
         alert("아이디를 다시 입력해 주세요.");
         frm.user_id.focus();
         return false;
-    } else if (frm.inputCertifiedNumber.value.length == 0) {
+    }
+    else if (frm.inputCertifiedNumber.value.length == 0) {
         alert("핸드폰 인증번호를 해주세요");
         frm.inputCertifiedNumber.focus();
-        return false;
-    } else if (car == false) {
+        return true;}
+    else if (car == false) {
         alert("인증번호가 틀렸습니다");
-        return false;
+        return true;
     }
     // 추가된 부분
 }
@@ -128,46 +129,46 @@ function execPostCode() {
 }
 
 /*휴대폰번호 인증 이벤트 추가*/
-
-function sendUser() {
-    //input text 휴대폰번호 = inputPhoneNumber, phoneNumber에 저장
-    let phoneNumber = $("#user_pn").val();
-    alert("인증번호 발송 완료!");
-
-    //
-    $.ajax({
-        type: "GET",
-        url: "/send" + "SMS",
-        data: {
-            phoneNumber: phoneNumber,
-        },
-        success: function (res) {
-            $("#checkBtn").click(function () {
-                if ($.trim(res) == $("#inputCertifiedNumber").val()) {
-                    /*인증성공 했을 때 car값 true로 만들어줌.*/
-                    car = true;
-                    alert("인증성공!");
-
-                    // $.ajax({
-                    //     type: "GET",
-                    //     url: "/update/phone",
-                    //     data: {
-                    //         "phoneNumber" : $('#user_pn').val()
-                    //     }
-                    // })
-                    // document.location.href="/home";
-                } else {
-                    alert({
-                        icon: "error",
-                        title: "인증오류",
-                        text: "인증번호가 올바르지 않습니다!",
-                        footer: '<a href="/join">다음에 인증하기</a>',
-                    });
-                }
-            });
-        },
-    });
-}
+//
+// function sendUser() {
+//     //input text 휴대폰번호 = inputPhoneNumber, phoneNumber에 저장
+//     let phoneNumber = $("#user_pn").val();
+//     alert("인증번호 발송 완료!");
+//
+//     //
+//     $.ajax({
+//         type: "GET",
+//         url: "/send" + "SMS",
+//         data: {
+//             phoneNumber: phoneNumber,
+//         },
+//         success: function (res) {
+//             $("#checkBtn").click(function () {
+//                 if ($.trim(res) == $("#inputCertifiedNumber").val()) {
+//                     /*인증성공 했을 때 car값 true로 만들어줌.*/
+//                     car = true;
+//                     alert("인증성공!");
+//
+//                     // $.ajax({
+//                     //     type: "GET",
+//                     //     url: "/update/phone",
+//                     //     data: {
+//                     //         "phoneNumber" : $('#user_pn').val()
+//                     //     }
+//                     // })
+//                     // document.location.href="/home";
+//                 } else {
+//                     alert({
+//                         icon: "error",
+//                         title: "인증오류",
+//                         text: "인증번호가 올바르지 않습니다!",
+//                         footer: '<a href="/join">다음에 인증하기</a>',
+//                     });
+//                 }
+//             });
+//         },
+//     });
+// }
 
 // 인풋 히든 값에 합친 값 넣기
 const str_concat = (name1, name2) => {

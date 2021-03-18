@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,16 @@ public class MemberContorller {
         session.removeAttribute("loginUser");
         session.invalidate();
         return "redirect:";
+    }
+
+    // 회원 업데이트
+
+    // 회원조회
+    @GetMapping("/mypage/mypageSelect")
+    public String memberList(Model model){
+        model.addAttribute("memberList", memberService.getMemberList());
+
+        return "mypage/mypageSelect";
     }
 
 
