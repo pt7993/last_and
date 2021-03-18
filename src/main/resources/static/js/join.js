@@ -1,4 +1,4 @@
-var car = true;
+var car = false;
 
 $(document).ready(function () {
   let memberJoinForm = document.getElementById('memberJoinForm');
@@ -206,41 +206,39 @@ function sendUser() {
     alert("휴대폰 번호를 다시 입력 해 주세요");
   } else {
   alert("인증번호 발송 완료!");
-  car = true;
-  //
-  // $.ajax({
-  //   type: "GET",
-  //   url: "/send" + "SMS",
-  //   data: {
-  //     phoneNumber: phoneNumber,
-  //   },
-  //   success: function (res) {
-  //     $("#checkBtn").click(function () {
-  //       if ($.trim(res) == $("#inputCertifiedNumber").val()) {
-  //         /*인증성공 했을 때 car값 true로 만들어줌.*/
-  //         car = true;
-  //         alert("인증성공!");
-  //
-  //         // $.ajax({
-  //         //     type: "GET",
-  //         //     url: "/update/phone",
-  //         //     data: {
-  //         //         "phoneNumber" : $('#user_pn').val()
-  //         //     }
-  //         // })
-  //         // document.location.href="/home";
-  //       } else {
-  //         alert("인증번호가 올바르지 않습니다!");
-  //         // alert({
-  //         //   icon: "error",
-  //         //   title: "인증오류",
-  //         //   text: "인증번호가 올바르지 않습니다!",
-  //         //   footer: '<a href="/join">다음에 인증하기</a>',
-  //         // });
-  //       }
-  //     });
-  //   },
-  // });
+  $.ajax({
+    type: "GET",
+    url: "/send" + "SMS",
+    data: {
+      phoneNumber: phoneNumber,
+    },
+    success: function (res) {
+      $("#checkBtn").click(function () {
+        if ($.trim(res) == $("#inputCertifiedNumber").val()) {
+          /*인증성공 했을 때 car값 true로 만들어줌.*/
+          car = true;
+          alert("인증성공!");
+
+          // $.ajax({
+          //     type: "GET",
+          //     url: "/update/phone",
+          //     data: {
+          //         "phoneNumber" : $('#user_pn').val()
+          //     }
+          // })
+          // document.location.href="/home";
+        } else {
+          alert("인증번호가 올바르지 않습니다!");
+          // alert({
+          //   icon: "error",
+          //   title: "인증오류",
+          //   text: "인증번호가 올바르지 않습니다!",
+          //   footer: '<a href="/join">다음에 인증하기</a>',
+          // });
+        }
+      });
+    },
+  });
   }
 }
 
