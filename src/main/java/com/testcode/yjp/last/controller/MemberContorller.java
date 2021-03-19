@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
@@ -46,6 +47,7 @@ public class MemberContorller {
     @PostMapping("/signIn")
     public String signIn(Model model, String user_id, String user_pw, HttpServletRequest request) {
         Member member = memberRepository.findMember(user_id, user_pw);
+
         HttpSession session = (HttpSession) request.getSession();
 
         session.setAttribute("loginUser", member.getId());
@@ -73,12 +75,26 @@ public class MemberContorller {
         return "mypage/mypageSelect";
     }
 
-    @GetMapping("/mypage/{id}")
-    public String memberUpdate(@PathVariable Long id , Model model) {
+    @GetMapping("/mypage")
+    public String memberUpdate(Long id, Model model) {
         MemberFindIdDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
 
         return "mypage/mypageView";
+    }
+
+    @PostMapping("/mypage")
+    public String update(Long id, MemberFindIdDto memberFindIdDto) {
+        log.info("post mypage controller");
+        memberService.update(id, memberFindIdDto);
+        System.out.println(memberFindIdDto.getUser_pw());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/IdPwCheck")
+    public String IdPwCheck(){
+        return "login/IdPwCheck";
     }
 
 

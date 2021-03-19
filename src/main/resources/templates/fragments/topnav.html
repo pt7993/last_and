@@ -55,15 +55,14 @@
 
             <a
                     class="nav-link dropdown-toggle d-none d-sm-inline-block"
-                    href="#"
                     data-toggle="dropdown"
             >
               <!-- 사용자 이름 -->
-              <span class="text-dark" th:text="${session.loginName }"><strong>김수혁 </strong>님</span>
+              <span class="text-dark"><strong th:text="${session.loginName}"></strong>님</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- 마이페이지 -->
-              <a class="dropdown-item" th:href="@{/mypage/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}">
+              <a class="dropdown-item" th:href="@{/mypage(id = ${session.loginUser})}" th:if="${session.loginUser != null}">
                 <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -112,5 +111,4 @@
     </nav>
     <!-- 상단 nav 끝 -->
 </header>
-</body>
 </html>

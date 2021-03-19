@@ -5,7 +5,6 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
-import com.testcode.yjp.last.domain.dto.MemberUpdate;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -101,12 +99,14 @@ public class MemberService {
     }
 
 
-    public Long update(Long id,MemberUpdate memberUpdate) {
+    public Long update(Long id,MemberFindIdDto memberFindIdDto) {
         Member members = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
-        members.update(memberUpdate.getUser_pw(),memberUpdate.getUser_name(), memberUpdate.getUser_pn(),memberUpdate.getUser_email(),memberUpdate.getAddress_normal(),memberUpdate.getAddress_detail(),
-                memberUpdate.getUser_rrn(), memberUpdate.getUser_gender(),memberUpdate.getUserRole());
-        log.info("put service ");
+        members.update(memberFindIdDto.getUser_pw(),memberFindIdDto.getUser_name(), memberFindIdDto.getUser_pn(),memberFindIdDto.getUser_email(),memberFindIdDto.getAddress_normal(),memberFindIdDto.getAddress_detail(),
+                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(),memberFindIdDto.getUserRole());
+        log.info("post mypage service ");
         System.out.println(members.getUser_pw());
+
+        memberRepository.save(members);
         return id;
     }
     public MemberFindIdDto findById(Long id) {
@@ -116,4 +116,19 @@ public class MemberService {
 
         return new MemberFindIdDto(member);
     }
+
+/*
+* -Email을 통해 해당 email로 가입된 정보가 있는지 확인하고,
+* 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
+ * */
+//    public boolean userEmailCheck(String user_name, String user_email) {
+//        Member member = memberRepository.findMemberByUser_id(user_email);
+//        if (member != null && member.getUser_name().equals(user_name)) {
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+//
+//    }
 }
