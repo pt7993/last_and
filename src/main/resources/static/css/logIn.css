@@ -12,7 +12,7 @@ a {
 }
 
 .container {
-  padding-left: 27%;
+  padding-left: 30%;
 }
 
 .title {
@@ -23,6 +23,7 @@ a {
 .login_form {
   width: 320px;
 }
+
 .resp_member_login {
   display: flex;
 }
@@ -48,15 +49,15 @@ a {
   border: revert;
   cursor: pointer;
 }
-form .save_id {
-  margin-top: 5px;
-}
+/*form .save_id {*/
+/*  margin-top: 5px;*/
+/*}*/
 form .save_id span {
   font-size: 14px;
 }
 
 .link_area {
-  margin-top: 30px;
+  margin-top: 10px;
   border-top: 2px solid #aaa;
   display: flex;
   align-items: center;
@@ -115,4 +116,13 @@ form .save_id span {
 #facebook-login-btn {
   background-color: #1877f2;
   color: #ffffff;
+}
+.login_size{
+  height: 80px;
+}
+@media all and (min-width:0px) and (max-width:767px) {
+  .container {
+    padding-left: 15%;
+  }
+
 }

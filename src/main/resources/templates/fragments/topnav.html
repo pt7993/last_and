@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-<header class="main-nav" th:fragment="topnavFragment">
+
+<div class="main-nav" th:fragment="topnavFragment">
     <!-- 상단 nav 시작 -->
     <nav class="navbar navbar-expand navbar-light navbar-bg">
       <!-- 상단 왼쪽 활성화하고 숨길수 있는 거-->
@@ -23,15 +23,14 @@
           <!-- 회원가입 -->
           <li class="nav-item">
             <a th:if="${session.loginUser == null}" href="/join">
-              <span class="text-dark">회원가입</span>
+              <span class="text-dark" style="padding-right: 30px;">회원가입</span>
             </a>
           </li>
 
           <!-- 사진 및 마이페이지 로그아웃 시작 -->
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" th:if="${session.loginUser != null}">
             <a
                     class="nav-icon dropdown-toggle d-inline-block d-sm-none"
-                    href="#"
                     data-toggle="dropdown"
             >
               <svg
@@ -53,15 +52,11 @@
               </svg>
             </a>
 
-            <a
-                    class="nav-link dropdown-toggle d-none d-sm-inline-block"
-                    href="#"
-                    data-toggle="dropdown"
-            >
+            <a  class="nav-link dropdown-toggle d-none d-sm-inline-block" data-toggle="dropdown">
               <!-- 사용자 이름 -->
-              <span class="text-dark" th:text="${session.loginName }"><strong>김수혁 </strong>님</span>
+              <span><strong th:text="${session.loginName }"></strong>님</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" >
               <!-- 마이페이지 -->
               <a class="dropdown-item" th:href="@{/mypage/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}">
                 <svg
@@ -111,6 +106,6 @@
       </div>
     </nav>
     <!-- 상단 nav 끝 -->
-</header>
-</body>
+</div>
+
 </html>
