@@ -50,7 +50,6 @@ public class MemberContorller {
 
         session.setAttribute("loginUser", member.getId());
         session.setAttribute("loginName", member.getUser_name());
-        System.out.println(member.getUser_name());
 
         return "redirect:/";
     }
@@ -74,18 +73,13 @@ public class MemberContorller {
         return "mypage/mypageSelect";
     }
 
-    @GetMapping("/mypage")
-    public String memberUpdate(Long id , Model model) {
+    @GetMapping("/mypage/{id}")
+    public String memberUpdate(@PathVariable Long id , Model model) {
         MemberFindIdDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
 
         return "mypage/mypageView";
     }
 
-    @PostMapping("/mypage")
-    public String update(Member member) {
-        memberService.update(member);
 
-        return "redirect:/";
-    }
 }

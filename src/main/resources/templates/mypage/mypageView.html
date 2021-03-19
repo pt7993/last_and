@@ -7,7 +7,7 @@
     <title>mypage</title>
 </head>
 <div layout:fragment="content">
-    <form th:action="@{/mypage(id = ${session.loginUser})}" th:object="${member}" method="post">
+    <form th:action="@{/mypage/{id}(id = ${session.loginUser})}" th:object="${member}" method="post">
         아이디 : <input type="text" th:field="*{user_id}" th:value="${member.user_id}" readonly><br>
         비밀번호 :<input type="password" th:field="*{user_pw}"><br>
         비밀번호 확인 :<input type="password" name="user_repw" id="user_repw"><br>

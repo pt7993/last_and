@@ -101,14 +101,13 @@ public class MemberService {
     }
 
 
-    public void update(Member member) {
-//        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
-//        member.update(memberUpdate.getUser_pw(),memberUpdate.getUser_name(), memberUpdate.getUser_pn(),memberUpdate.getUser_email(),memberUpdate.getAddress_normal(),memberUpdate.getAddress_detail(),
-//                memberUpdate.getUser_rrn(), memberUpdate.getUser_gender(),memberUpdate.getUserRole());
-        log.info("post mypage service ");
-        Optional<Member> update = memberRepository.findById(member.getId());
-
-
+    public Long update(Long id,MemberUpdate memberUpdate) {
+        Member members = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
+        members.update(memberUpdate.getUser_pw(),memberUpdate.getUser_name(), memberUpdate.getUser_pn(),memberUpdate.getUser_email(),memberUpdate.getAddress_normal(),memberUpdate.getAddress_detail(),
+                memberUpdate.getUser_rrn(), memberUpdate.getUser_gender(),memberUpdate.getUserRole());
+        log.info("put service ");
+        System.out.println(members.getUser_pw());
+        return id;
     }
     public MemberFindIdDto findById(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id="+id));

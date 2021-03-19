@@ -3,12 +3,14 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
+import com.testcode.yjp.last.domain.dto.MemberUpdate;
 import com.testcode.yjp.last.service.MemberService;
 import lombok.RequiredArgsConstructor;
 
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 import java.util.Random;
 
@@ -45,6 +47,15 @@ public class MemberApiController {
         System.out.println("인증번호 : " + numStr);
         memberService.certifiedPhoneNumber(phoneNumber, numStr);
         return numStr;
+    }
+
+
+    @PostMapping ("/mypage/{id}")
+    public String update(@PathVariable Long id , MemberUpdate memberUpdate) {
+        log.info("put controller");
+        memberService.update(id,memberUpdate);
+        System.out.println(memberUpdate.getUser_pw());
+        return "redirect:";
     }
 
 
