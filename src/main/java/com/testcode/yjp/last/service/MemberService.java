@@ -5,8 +5,10 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
+import com.testcode.yjp.last.domain.dto.MemberUpdate;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
@@ -16,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -29,10 +33,10 @@ public class MemberService {
         return memberRepository.save(memberJoinDto.toEntity()).getId();
     }
 
-    public MemberFindIdDto findIdDto(String id) {
-        Member entity = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다. id=" + id));
-        return new MemberFindIdDto(entity);
-    }
+//    public MemberFindIdDto findIdDto(String id) {
+//        Member entity = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다. id=" + id));
+//        return new MemberFindIdDto(entity);
+//    }
 //    public MemberResponseDto findById(String id) {
 //        Member entity = memberRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 정보가 없습니다. id="+id));
 //        return new MemberResponseDto(entity);
@@ -94,5 +98,23 @@ public class MemberService {
             memberLists.add(memberList);
         }
         return memberLists;
+    }
+
+
+    public void update(Member member) {
+//        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
+//        member.update(memberUpdate.getUser_pw(),memberUpdate.getUser_name(), memberUpdate.getUser_pn(),memberUpdate.getUser_email(),memberUpdate.getAddress_normal(),memberUpdate.getAddress_detail(),
+//                memberUpdate.getUser_rrn(), memberUpdate.getUser_gender(),memberUpdate.getUserRole());
+        log.info("post mypage service ");
+        Optional<Member> update = memberRepository.findById(member.getId());
+
+
+    }
+    public MemberFindIdDto findById(Long id) {
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id="+id));
+
+        log.info("get mypage");
+
+        return new MemberFindIdDto(member);
     }
 }

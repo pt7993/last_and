@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface MemberRepository  extends JpaRepository<Member,String> {
+public interface MemberRepository  extends JpaRepository<Member,Long> {
 
 
 //    // 로그인 정보값
@@ -19,4 +21,6 @@ public interface MemberRepository  extends JpaRepository<Member,String> {
     // 로그인 정보값
     @Query("select m from Member m where user_id = :user_id and user_pw = :user_pw")
     Member findMember(String user_id, String user_pw);
+
+
 }

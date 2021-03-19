@@ -18,6 +18,7 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
     private String user_id;
     private String user_pw;
     private String user_name;
@@ -48,12 +49,17 @@ public class Member extends BaseEntity{
         this.userRole = userRole;
     }
 
-//    public void update(String user_password,String user_name, int user_pn,String user_email){
-//        this.user_password = user_password;
-//        this.user_name = user_name;
-//        this.user_pn = user_pn;
-//        this.user_email = user_email;
-//    }
+    public void update(String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn,String user_gender, UserRole userRole) {
+        this.user_pw = user_pw;
+        this.user_name = user_name;
+        this.user_pn = user_pn;
+        this.user_email = user_email;
+        this.address_normal = address_normal;
+        this.address_detail = address_detail;
+        this.user_rrn = user_rrn;
+        this.user_gender = user_gender;
+        this.userRole = userRole;
+    }
 
 
 }
