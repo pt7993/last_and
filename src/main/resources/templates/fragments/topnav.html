@@ -11,7 +11,7 @@
 
       <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
-          <!-- 로그인 회원 가입 -->
+          <!-- 로그인 -->
           <li class="nav-item">
             <a th:if="${session.loginUser == null}" href="/login">
               <span class="text-dark" style="padding-right: 10px"
@@ -19,33 +19,98 @@
               >
             </a>
           </li>
+
+          <!-- 회원가입 -->
           <li class="nav-item">
             <a th:if="${session.loginUser == null}" href="/join">
               <span class="text-dark">회원가입</span>
             </a>
           </li>
-          <li>
-            <span th:text="${session.loginName }"></span>
-          </li>
-          <li class="nav-item">
-            <a th:if="${session.loginUser != null}" href="/logout">
-              <span class="text-dark">로그아웃</span>
+
+          <!-- 사진 및 마이페이지 로그아웃 시작 -->
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                    href="#"
+                    data-toggle="dropdown"
+            >
+              <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-settings align-middle"
+              >
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
             </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/mypage/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}">
-              <span class="text-dark">마이페이지</span>
+
+            <a
+                    class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                    href="#"
+                    data-toggle="dropdown"
+            >
+              <!-- 사용자 이름 -->
+              <span class="text-dark" th:text="${session.loginName }"><strong>김수혁 </strong>님</span>
             </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- 마이페이지 -->
+              <a class="dropdown-item" th:href="@{/mypage/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-user align-middle mr-1"
+                >
+                  <path
+                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                  ></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                마이페이지</a
+              >
+
+              <!--  로그아웃 -->
+              <a class="dropdown-item" th:if="${session.loginUser != null}" href="/logout">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-log-out align-middle mr-1"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                로그아웃</a
+              >
+            </div>
           </li>
-          <li class="nav-item">
-            <a th:href="@{/mypage/mypageSelect}">
-              <span class="text-dark"> 회원조회</span>
-            </a>
-          </li>
+
         </ul>
       </div>
     </nav>
     <!-- 상단 nav 끝 -->
 </header>
-
+</body>
 </html>
