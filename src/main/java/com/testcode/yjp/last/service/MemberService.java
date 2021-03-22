@@ -6,6 +6,7 @@ import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.MemberRepositoryTest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
@@ -24,6 +25,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberRepositoryTest memberRepositoryTest;
 
     @Transactional
     public Long save(MemberJoinDto memberJoinDto) {
@@ -117,7 +119,23 @@ public class MemberService {
         return new MemberFindIdDto(member);
     }
 
-/*
+    public String delete(Long id, String user_pw) {
+        log.info("service post delete");
+
+        List<Member> delete = memberRepository.findByMemberOut(id, user_pw);
+
+        if (delete.isEmpty()) {
+            return "1";
+        }else{
+            memberRepository.deleteById(id);
+            return "2";
+        }
+    }
+
+
+
+
+    /*
 * -Email을 통해 해당 email로 가입된 정보가 있는지 확인하고,
 * 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
  * */

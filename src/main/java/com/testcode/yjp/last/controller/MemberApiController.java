@@ -2,8 +2,8 @@ package com.testcode.yjp.last.controller;
 
 
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.MailDto;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.MemberRepositoryTest;
 import com.testcode.yjp.last.service.MemberService;
 //import com.testcode.yjp.last.service.SendEmailService;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @RestController
@@ -24,6 +24,7 @@ public class MemberApiController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 //    private final SendEmailService sendEmailService;
+    private final MemberRepositoryTest memberRepositoryTest;
 
 
     @PostMapping("/api/idChk")
@@ -64,7 +65,7 @@ public class MemberApiController {
         return checkId;
     }
 
-//    // 비밀번호 찾기
+    //    // 비밀번호 찾기
 //    // Email과 name의 일치여부를 check하는 컨트롤러
 //    @GetMapping("/PwCheck")
 //    public @ResponseBody
@@ -82,4 +83,17 @@ public class MemberApiController {
 //        MailDto dto = sendEmailService.createMailAndChangePassword(user_email, user_name);
 //        sendEmailService.mailSend(dto);
 //    }
+    @PostMapping("/memberOut")
+    @ResponseBody
+    public String memberOut(Long id, String user_pw, HttpSession session, ModelAndView mav) throws Exception {
+        log.info("memberout Post Controller");
+        System.out.println(id);
+        System.out.println(user_pw);
+
+        String ace = memberService.delete(id,user_pw);
+
+        session.removeAttribute("loginUser");
+        session.invalidate();
+        return ace;
+    }
 }

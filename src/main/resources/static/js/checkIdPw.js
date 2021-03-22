@@ -24,7 +24,7 @@ function IdCheck() {
         alert("일치하는 정보가 없습니다");
         },
         success : function(data){
-            if(data.user_id == '') {
+            if($.trim(data) == "YES") {
                 alert("일치하는 정보가 없습니다");
             } else{
                 alert("아이디는" + data.user_id + "입니다");

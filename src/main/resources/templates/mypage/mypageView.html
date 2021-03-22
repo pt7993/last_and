@@ -22,6 +22,7 @@
         일반회원
         <input type="radio" name="user_role" checked="checked"/>트레이너<br>
         <input type="submit" value="회원정보수정">
+        <a th:href="@{/memberOut(id = ${session.loginUser})}">회원탈퇴</a>
     </form>
 </div>
 </html>
