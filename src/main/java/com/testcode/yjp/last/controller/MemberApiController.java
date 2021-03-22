@@ -86,6 +86,7 @@ public class MemberApiController {
     public @ResponseBody void sendEmail(String user_email, String user_name){
         System.out.println(user_email);
         System.out.println(user_name);
+        log.info("post sendEmail controller");
         MailDto dto = sendEmailService.createMailAndChangePassword(user_email, user_name);
         sendEmailService.mailSend(dto);
     }

@@ -2,11 +2,12 @@ package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface MemberRepository  extends JpaRepository<Member,Long> {
@@ -33,8 +34,13 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     @Query("select m from Member m where id = :id and user_pw = :user_pw")
     List<Member> findByMemberOut(Long id, String user_pw);
 
-    @Query("update Member m set user_pw= :pw where user_id=:id")
-    void updateMemberPassword(Member id, String pw);
+    @Transactional
+    @Modifying
+    @Query("UPDATE Member m SET m.user_pw= :user_pw WHERE m.id=:id")
+    void updateMemberPassword(Long id, String user_pw);
+
+    @Query("select m from Member m where user_email = :user_email")
+    Member findByUser_email(String user_email);
 
 
 //    @Query("select m from Member m where user_pw = :user_pw")

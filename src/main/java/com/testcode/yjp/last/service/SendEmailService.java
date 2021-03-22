@@ -4,12 +4,16 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MailDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SendEmailService {
 /*
 * createMailAndChangePassword : DTO에 사용자가 원하는 내용과 제목을 저장
@@ -20,7 +24,7 @@ getTempPassword : 10자리의 랜덤난수를 생성하는 메소드
 
     private final MemberRepository memberRepository;
 
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
     private static final String FROM_ADDRESS = "ehgus8559@gmail.com";
 
 
@@ -35,11 +39,10 @@ getTempPassword : 10자리의 랜덤난수를 생성하는 메소드
         return dto;
     }
 
-    public void updatePassword(String user_pw, String user_email) {
-        Member id = memberRepository.findByUser_id(user_email);
+    public void updatePassword(String str, String user_email) {
+        Long id = memberRepository.findByUser_email(user_email).getId();
 //        memberRepository.updateMemberPassword(id,user_pw);
-        id.update(user_pw);
-        memberRepository.save(id);
+        memberRepository.updateMemberPassword(id, str);
     }
 
 
@@ -64,7 +67,7 @@ getTempPassword : 10자리의 랜덤난수를 생성하는 메소드
         message.setFrom(SendEmailService.FROM_ADDRESS);
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());
-
+        log.info("post sendEmail service");
         mailSender.send(message);
     }
 }
