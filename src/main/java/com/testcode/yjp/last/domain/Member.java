@@ -61,5 +61,9 @@ public class Member extends BaseEntity{
         this.userRole = userRole;
     }
 
+    public void update(String user_pw) {
+        this.user_pw = user_pw;
+    }
+
 
 }
