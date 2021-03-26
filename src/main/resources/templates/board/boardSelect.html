@@ -12,9 +12,10 @@
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
-            <th>게시글번호</th>
+            <th>번호</th>
             <th>제목</th>
-            <th>작성자</th>
+            <th>등록인</th>
+            <th>조회수</th>
             <th>최종수정일</th>
         </tr>
         </thead>
@@ -23,14 +24,15 @@
             <td th:text="${board.id}"></td>
 <!--            <td th:text="${board.title}"><a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == null}" ></a></td>-->
             <td>
-                <a th:href="@{/board/trainerBoard/update/{id}(id = ${board.id})}" th:text="${board.title}"></a>
+                <a th:href="@{/board/trainerBoard/detail(hb_num = ${board.id})}" th:text="${board.title}"></a>
             </td>
             <td th:text="${board.author}"></td>
+            <td th:text="${board.hit}"></td>
             <td th:text="${board.modifiedDate}"></td>
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/board/trainerBoard/save/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}" role="button" class="btn btn-secondary">글쓰기</a>
+    <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}" th:if="${session.loginUser != null}" class="btn btn-secondary">글쓰기</a>
 </div>
 
 

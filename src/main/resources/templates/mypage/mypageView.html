@@ -15,7 +15,7 @@
         <form
                 name="memberJoinForm"
                 id="memberJoinForm"
-                th:action="@{/member/mypage(id = ${session.loginUser})}"
+                th:action="@{/member/mypage(member_id = ${session.loginUser})}"
                 th:object="${member}"
                 method="post"
         >

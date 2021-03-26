@@ -34,21 +34,21 @@ public class BoardApiController {
     }
 
     //수정기능
-    @PostMapping("/trainerBoard/update/{id}")
-    public Long update(@PathVariable Long id,@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
+    @PostMapping("/trainerBoard/update")
+    public Long update(Long member_id,@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
         log.info("post update controller");
-        System.out.println(id);
+        System.out.println(member_id);
         System.out.println(boardUpdateRequestDto.getTitle());
         System.out.println(boardUpdateRequestDto.getContent());
-        return boardService.update(id, boardUpdateRequestDto);
+        return boardService.update(member_id, boardUpdateRequestDto);
     }
 
 
     //삭제기능
-    @PostMapping("/trainerBoard/delete/{id}")
-    public Long delete(@PathVariable Long id){
-        boardService.delete(id);
-        return id;
+    @PostMapping("/trainerBoard/delete}")
+    public Long delete(Long member_id){
+        boardService.delete(member_id);
+        return member_id;
     }
 
 }

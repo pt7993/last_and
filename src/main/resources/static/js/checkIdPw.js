@@ -58,7 +58,7 @@ function PwCheck() {
                     }
                 })
                 alert("본인의 이메일로 임시 비밀번호를 전송하였습니다.");
-                window.location = "/login";
+                window.location = "/member/login";
             }
             else alert("일치하는 정보가 없습니다");
         }

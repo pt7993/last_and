@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequiredArgsConstructor
 public class KakaoController {
-    private final MemberService soMemberService;
+    private final MemberService MemberService;
     private final MemberRepository memberRepository;
 
     @RequestMapping(value = "/login/kakao")
@@ -39,7 +39,7 @@ public class KakaoController {
         Member ckUserId = memberRepository.findByUser_id(user_id);
         if (ckUserId == null) {
             log.info("KakaoSave");
-            soMemberService.kakaoSave(memberSoDto);
+            MemberService.kakaoSave(memberSoDto);
         }
         ckUserId = memberRepository.findByUser_id(user_id);
 

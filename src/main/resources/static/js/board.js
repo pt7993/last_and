@@ -6,22 +6,22 @@ function save() {
         },
         save: function () {
             var data = {
-                id : $('#id').val(),
                 title: $('#title').val(),
                 author: $('#author').val(),
                 content: $('#content').val()
             };
             console.log("session login id="+data.id)
+            var id = $('#id').val();
 
             $.ajax({
                 type: 'post',
-                url: '/board/trainerBoard/save/'+data.id,
+                url: '/board/trainerBoard/save/'+id,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('등록되었습니다');
-                window.location.href = '/';
+                window.location.href = '/board';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             })
@@ -44,7 +44,7 @@ function update() {
             var id = $('#id').val();
             $.ajax({
                 type: 'POST',
-                url: '/board/trainerBoard/update/' + id,
+                url: '/board/trainerBoard/update',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -71,7 +71,7 @@ function Bdelete() {
 
             $.ajax({
                 type: 'post',
-                url: '/board/trainerBoard/delete/' + id,
+                url: '/board/trainerBoard/delete' ,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).done(function () {

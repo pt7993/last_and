@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -27,11 +28,11 @@ public class BoardService {
 
 
     // Board save 연관관계 매핑 처리부분
-    public Long save(Long id,BoardSaveRequestDto boardSaveRequestDto){
+    public Long save(Long member_id,BoardSaveRequestDto boardSaveRequestDto){
 
-        Optional<Member> memberId = memberRepository.findById(id);
+        Optional<Member> memberId = memberRepository.findById(member_id);
         log.info("save post service");
-        System.out.println(id);
+        System.out.println(member_id);
         System.out.println(memberId);
 
         return boardRepository.save(boardSaveRequestDto.toEntity()).getId();
@@ -46,26 +47,33 @@ public class BoardService {
     }
 
     // 게시판 findById
-    public BoardResponseDto findById(Long id) {
-        Board entity = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=id=" + id));
+    public BoardResponseDto findById(Long member_id) {
+        Board entity = boardRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=id=" + member_id));
         return new BoardResponseDto(entity);
     }
 
     // 게시판 수정
-    public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
+    public Long update(Long member_id, BoardUpdateRequestDto boardUpdateRequestDto) {
         log.info("update post controller");
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        Board board = boardRepository.findById(member_id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + member_id));
         board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
         System.out.println(boardUpdateRequestDto.getTitle());
         System.out.println(boardUpdateRequestDto.getContent());
         boardRepository.save(board);
-        return id;
+        return member_id;
     }
 
     // 게시판 삭제
-    public void delete(Long id) {
-        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+    public void delete(Long member_id) {
+        Board board = boardRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + member_id));
         boardRepository.delete(board);
+    }
+
+
+    @Transactional
+    public int updateView(Long id) {
+        log.info("조회수 증가 서비스");
+        return boardRepository.updateView(id);
     }
 }

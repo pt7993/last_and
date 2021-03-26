@@ -39,12 +39,13 @@ public class MemberController {
     @PostMapping("/join")
     public String save(MemberJoinDto memberJoinDto) {
         memberService.save(memberJoinDto);
-        return "redirect:/login";
+        return "redirect:/member/login";
     }
 
     // 로그인 뷰
     @GetMapping("/login")
     public String login() {
+        log.info("login page");
         return "login/loginView";
     }
 
@@ -82,8 +83,8 @@ public class MemberController {
 
     // 마이페이지 뷰
     @GetMapping("/mypage")
-    public String memberUpdate(Long id, Model model) {
-        MemberFindIdDto dto = memberService.findById(id);
+    public String memberUpdate(Long member_id, Model model) {
+        MemberFindIdDto dto = memberService.findById(member_id);
         model.addAttribute("member", dto);
 
         return "mypage/mypageView";
@@ -91,10 +92,10 @@ public class MemberController {
 
     // 마이페이지 
     @PostMapping("/mypage")
-    public String update(Long id, MemberFindIdDto memberFindIdDto) {
+    public String update(Long member_id, MemberFindIdDto memberFindIdDto) {
         log.info("post mypage controller");
-        System.out.println(id);
-        memberService.update(id, memberFindIdDto);
+        System.out.println(member_id);
+        memberService.update(member_id, memberFindIdDto);
         System.out.println(memberFindIdDto.getUser_pw());
 
         return "redirect:/";
@@ -108,9 +109,8 @@ public class MemberController {
 
     // 회원탈퇴
     @GetMapping("/memberOut")
-    public String memberOut(Long id) {
+    public String memberOut() {
         log.info("memberout get Controller");
-        System.out.println(id);
         return "mypage/memberOut";
     }
 

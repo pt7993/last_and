@@ -20,6 +20,9 @@ public class Board extends BaseEntity{
     private String content;
     @Column(name = "hb_author")
     private String author;
+
+    @Column(name = "hb_hit")
+    private int hit = 0;
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -32,10 +35,11 @@ public class Board extends BaseEntity{
 
 
     @Builder
-    public Board(String title, String content, String author){
+    public Board(String title, String content, String author, int hit){
         this.title = title;
         this.content = content;
         this.author = author;
+        this.hit = hit;
     }
 
     public void update(String title, String content ){

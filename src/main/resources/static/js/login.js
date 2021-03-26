@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    Kakao.init('07a8782c4835a3627204ba9cdfc84f4c');
 
     let userInputId = getCookie("userInputId");//저장된 쿠기값 가져오기
     $("input[name='user_id']").val(userInputId);
@@ -120,8 +121,6 @@ function init() {
     });
 }
 
-////// 카카오톡 //////
-Kakao.init('07a8782c4835a3627204ba9cdfc84f4c');
 
 //로그인 시
 function kakaoLogin() {
@@ -146,14 +145,22 @@ function kakaoLogin() {
                             console.log(userId);
                             console.log(userEmail);
                             console.log(userNickName);
-
+                            if (userEmail == null || userRrn == null || userGender == null) {
+                                Kakao.Auth.authorize({
+                                    redirectUri: 'https://localhost:8090/member/login/oauth2/code/kakao',
+                                    scope: 'account_Email, gender, birthday',
+                                })
+                            }
+                            userNickName = res.properties.nickname;
+                            userRrn = res.kakao_account.birthday;
+                            userGender = res.kakao_account.gender;
                             $.ajax({
                                 data: {
                                     userId: userId, // data 옵션
                                     userEmail: userEmail,
                                     userNickName: userNickName,
                                     userRrn: userRrn,
-                                    userGender: userGender
+                                    userGender: userGender,
                                 },	// 끝에 컴마(,)를 주의해야됨
                                 type: "post",
                                 url: "/login/kakao", // url 필수
@@ -163,7 +170,7 @@ function kakaoLogin() {
                             })
                             setTimeout(function () {
                                 location.href = '/';
-                            }, 500);
+                            }, 1000);
                         },
                         fail: function (error) {
                             console.error(error)

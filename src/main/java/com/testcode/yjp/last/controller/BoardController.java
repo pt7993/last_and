@@ -29,17 +29,29 @@ public class BoardController {
     }
 
     // 저장페이지
-    @GetMapping("/trainerBoard/save/{id}")
-    public String trainerBoardSave(@PathVariable Long id,Model model) {
+    @GetMapping("/trainerBoard/save")
+    public String trainerBoardSave(Long member_id,Model model) {
+        log.info("save get Controller");
+        System.out.println(member_id);
         return "board/boardView";
     }
 
     // 수정페이지
-    @GetMapping("/trainerBoard/update/{id}")
-    public String trainerBoardUpdate(@PathVariable Long id, Model model) {
-        BoardResponseDto dto = boardService.findById(id);
+    @GetMapping("/trainerBoard/update")
+    public String trainerBoardUpdate( Long member_id, Model model) {
+        BoardResponseDto dto = boardService.findById(member_id);
         model.addAttribute("boards", dto);
         return "board/boardUpdate";
+    }
+
+    // 게시판 디테일 페이지
+    @GetMapping("/trainerBoard/detail")
+    public String trainerBoardDetail(Long hb_num) {
+        // 왜두번?
+        log.info("조회수 증가 컨트롤러");
+        System.out.println(hb_num);
+        boardService.updateView(hb_num);
+        return "board/boardDetail";
     }
 
 

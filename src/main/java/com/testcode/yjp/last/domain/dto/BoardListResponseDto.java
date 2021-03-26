@@ -10,6 +10,7 @@ public class BoardListResponseDto {
     private Long id;
     private String title;
     private String author;
+    private int hit;
     private LocalDateTime modifiedDate;
 
     public BoardListResponseDto(Board entity){
@@ -17,5 +18,6 @@ public class BoardListResponseDto {
         this.title = entity.getTitle();
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModDate();
+        this.hit = entity.getHit();
     }
 }
