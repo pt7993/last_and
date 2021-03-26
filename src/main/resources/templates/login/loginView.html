@@ -7,6 +7,7 @@
 >
 <head>
   <title>login</title>
+  <script th:src="@{/js/login.js}"></script>
   <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
 <div layout:fragment="content">
@@ -44,13 +45,13 @@
 
         <div class="form-group save_id">
           <label for="save_id">
-            <input type="checkbox" name="" id="save_id" />
+            <input type="checkbox" id="save_id" />
             <span>아이디저장</span>
           </label>
         </div>
 
         <div class="link_area">
-          <a href="/IdPwCheck">ID/PW 찾기</a>
+          <a href="#">ID/PW 찾기</a>
           <span class="middle"></span>
           <a href="/join">회원가입</a>
         </div>
@@ -75,5 +76,5 @@
     </div>
   </div>
 </div>
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 </html>

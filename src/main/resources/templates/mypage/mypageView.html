@@ -50,6 +50,7 @@
                                     id="user_pw"
                                     name="user_pw"
                                     th:field="*{user_pw}"
+                                    placeholder="비밀번호를 입력하세요"
                             />
 
                             <span>(숫자, 문자포함 6~16자리)</span>
@@ -82,6 +83,7 @@
                                     name="user_name"
                                     th:field="*{user_name}"
                                     th:value="${member.user_name}"
+                                    readonly
                             />
                         </li>
                     </ul>
@@ -96,6 +98,7 @@
                                     name="pn"
                                     class="size_phone"
                                     maxlength="3"
+                                    readonly
                             />
                             -
                             <input
@@ -103,6 +106,7 @@
                                     name="pn"
                                     class="size_phone"
                                     maxlength="4"
+                                    readonly
                             />
                             -
                             <input
@@ -110,14 +114,16 @@
                                     name="pn"
                                     class="size_phone"
                                     maxlength="4"
+                                    readonly
                             />
                             <input
-                                    type="text"
+                                    type="tel"
                                     th:field="*{user_pn}"
                                     th:value="${member.user_pn}"
                                     name="user_pn"
                                     id="user_pn"
                                     class="size_phone"
+                                    style="display: none;"
                             />
                         </li>
                     </ul>
@@ -130,10 +136,13 @@
                         <li class="td">
                             <input
                                     type="text"
+                                    id="user_email"
                                     name="user_email"
                                     th:field="*{user_email}"
                                     th:value="${member.user_email}"
+                                    readonly
                             />
+
                         </li>
                     </ul>
                     <!-- 주민등록번호 -->
@@ -150,13 +159,14 @@
                                     th:value="${member.user_rrn}"
                                     maxlength="6"
                                     readonly
-                            />-
+                            /> -
                             <input
                                     type="text"
                                     th:field="*{user_gender}"
                                     th:value="${member.user_gender}"
                                     name="user_gender"
                                     id="user_gender"
+                                    class="size_ssn"
                                     maxlength="1"
                                     readonly
                             />
@@ -202,6 +212,8 @@
                                     maxlength="1"
                                     readonly
                             />
+
+
                         </li>
                     </ul>
                     <!-- 주소 -->
@@ -220,7 +232,6 @@
                                         th:value="${member.address_normal}"
                                         readonly
                                 />
-                                <span>기본주소</span>
                             </div>
                             <div class="address_area">
                                 <input
@@ -269,5 +280,6 @@
             </div>
         </form>
     </div>
+    <script th:src="@{~/js/myPage.js}"></script>
 </div>
 </html>
