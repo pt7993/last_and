@@ -14,16 +14,12 @@ public class Board extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hb_num")
     private Long id;
-
     @Column(name = "hb_title")
     private String title;
-
     @Column(name = "hb_content")
     private String content;
-
     @Column(name = "hb_author")
     private String author;
-
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

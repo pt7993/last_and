@@ -69,7 +69,7 @@ function pwdCheck() {
 // 아이디 중복확인
 function idChk() {
     $.ajax({
-        url: "/api/idChk",
+        url: "/member/idChk",
         type: "POST",
         data: {
             user_id: $("#user_id").val(),

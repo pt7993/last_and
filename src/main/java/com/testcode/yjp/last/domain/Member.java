@@ -20,16 +20,12 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
     @Column(unique = true)
     private String user_id;
-
     private String user_pw;
-
     private String user_name;
     private String user_pn;
     private String user_email;
-
     private String address_normal;
     private String address_detail;
     private String user_rrn;
@@ -69,10 +65,6 @@ public class Member extends BaseEntity{
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
         this.user_role = user_role;
-    }
-
-    public void update(String user_pw) {
-        this.user_pw = user_pw;
     }
 
 

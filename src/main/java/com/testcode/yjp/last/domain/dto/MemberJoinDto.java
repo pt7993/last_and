@@ -1,7 +1,6 @@
 package com.testcode.yjp.last.domain.dto;
 
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.UserRole;
 import lombok.*;
 
 import java.time.LocalDateTime;

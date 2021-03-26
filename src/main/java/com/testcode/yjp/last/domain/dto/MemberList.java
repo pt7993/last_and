@@ -1,6 +1,5 @@
 package com.testcode.yjp.last.domain.dto;
 
-import com.testcode.yjp.last.domain.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

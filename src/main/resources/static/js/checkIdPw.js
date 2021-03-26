@@ -13,7 +13,7 @@ function IdCheck() {
     }
 
     $.ajax({
-        url: "/IdCheck",
+        url: "/member/IdCheck",
         type : "POST",
         data: {
             user_name: $("#user_name").val(),
@@ -21,7 +21,7 @@ function IdCheck() {
         },
         dataType: "json",
         error: function () {
-        alert("일치하는 정보가 없습니다");
+            alert("일치하는 정보가 없습니다");
         },
         success : function(data){
             if($.trim(data) == "YES") {
@@ -35,30 +35,23 @@ function IdCheck() {
 
 function PwCheck() {
     let frm = document.checkPwForm;
-<<<<<<< HEAD
     let user_name = frm.user_name.value;
     let user_email = frm.user_email.value;
     console.log(user_name);
     console.log(user_email);
-=======
-    let user_id = frm.user_id.value;
-    let user_name = frm.user_name.value;
-    let user_email = frm.user_email.value;
->>>>>>> 8e9d84ed9e9fed2b772b9ed436bb227c17b8a520
     $.ajax({
         type: "GET",
-        url: "/findPw",
+        url: "/member/findPw",
         data: {
             "user_name": user_name,
             "user_email": user_email
         },
         success: function (res) {
-<<<<<<< HEAD
             console.log(res)
             if (res['check'] === true) {
                 $.ajax({
                     type: "POST",
-                    url: "/findPw/sendEmail",
+                    url: "/member/findPw/sendEmail",
                     data: {
                         "user_name": user_name,
                         "user_email": user_email
@@ -70,28 +63,4 @@ function PwCheck() {
             else alert("일치하는 정보가 없습니다");
         }
     })
-=======
-            if (res['check']) {
-                swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) => {
-                    if(OK) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/findPw/sendEmail",
-                            data: {
-                                "user_name": user_name,
-                                "user_email": user_email
-                            }
-                        })
-                        window.location = "/login";
-                    }
-                });
-                $('#checkMsg').html('<p style="color:#00008b"></p>');
-            } else {
-                $('#checkMsg').html('<p style="color:#ff0000">일치하는 정보가 없습니다.</p>');
-            }
-        }
-    })
-
-
->>>>>>> 8e9d84ed9e9fed2b772b9ed436bb227c17b8a520
 }

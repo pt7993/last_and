@@ -37,10 +37,11 @@ dependencies {
 //    implementation 'com.oracle.ojdbc:osdt_core:19.3.0.0'
 //    tool
     annotationProcessor 'org.projectlombok:lombok'
-        runtimeOnly 'mysql:mysql-connector-java:'
+//        runtimeOnly 'mysql:mysql-connector-java:'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 //    SpringSecurity
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 

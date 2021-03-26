@@ -105,8 +105,7 @@ function joinChk() {
     alert("상세주소를 입력하세요");
     frm.address_detail.focus();
     return false;
-  }
-  else {
+  } else {
     alert("회원가입이 완료 되었습니다.");
     return true;
   }
@@ -130,7 +129,7 @@ function pwdCheck() {
 // 아이디 중복확인
 function idChk() {
   $.ajax({
-    url: "/api/idChk",
+    url: "/member/idChk",
     type: "POST",
     data: {
       user_id: $("#user_id").val(),
@@ -208,7 +207,7 @@ function sendUser() {
     alert("인증번호 발송 완료!");
     $.ajax({
       type: "GET",
-      url: "/send" + "SMS",
+      url: "/member/send" + "SMS",
       data: {
         phoneNumber: phoneNumber,
       },

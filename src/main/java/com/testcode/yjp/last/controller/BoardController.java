@@ -20,20 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
 
+    // 전체조회
     @GetMapping("")
     public String BoardView(Model model) {
         model.addAttribute("boards", boardService.findAllDesc());
         return "/board/boardSelect";
     }
 
-
+    // 저장페이지
     @GetMapping("/trainerBoard/save/{id}")
     public String trainerBoardSave(@PathVariable Long id,Model model) {
         return "board/boardView";
     }
 
+    // 수정페이지
     @GetMapping("/trainerBoard/update/{id}")
     public String trainerBoardUpdate(@PathVariable Long id, Model model) {
         BoardResponseDto dto = boardService.findById(id);

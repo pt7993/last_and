@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
@@ -8,21 +9,24 @@ import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-public class MemberContorller {
+@RequestMapping("/member")
+public class MemberController {
 
     private final MemberService memberService;
-
     private final MemberRepository memberRepository;
 
     // 회원가입
@@ -38,14 +42,18 @@ public class MemberContorller {
         return "redirect:/login";
     }
 
+    // 로그인 뷰
     @GetMapping("/login")
     public String login() {
         return "login/loginView";
     }
 
+    // 로그인 
     @PostMapping("/signIn")
-    public String signIn(Model model, String user_id, String user_pw, HttpServletRequest request) {
+    public String signIn(String user_id, String user_pw,
+                         HttpServletRequest request, HttpServletResponse response) {
         Member member = memberRepository.findMember(user_id, user_pw);
+
         HttpSession session = (HttpSession) request.getSession();
 
         session.setAttribute("loginUser", member.getId());
@@ -54,15 +62,14 @@ public class MemberContorller {
         return "redirect:/";
     }
 
+    // 로그아웃
     @GetMapping("/logout")
     public String signOut(HttpServletRequest request) {
         HttpSession session = (HttpSession) request.getSession();
         session.removeAttribute("loginUser");
         session.invalidate();
-        return "redirect:";
+        return "redirect:/";
     }
-
-    // 회원 업데이트
 
     // 회원조회
     @GetMapping("/mypage/mypageSelect")
@@ -73,13 +80,38 @@ public class MemberContorller {
         return "mypage/mypageSelect";
     }
 
-    @GetMapping("/mypage/{id}")
-    public String memberUpdate(@PathVariable Long id , Model model) {
+    // 마이페이지 뷰
+    @GetMapping("/mypage")
+    public String memberUpdate(Long id, Model model) {
         MemberFindIdDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
 
         return "mypage/mypageView";
     }
 
+    // 마이페이지 
+    @PostMapping("/mypage")
+    public String update(Long id, MemberFindIdDto memberFindIdDto) {
+        log.info("post mypage controller");
+        System.out.println(id);
+        memberService.update(id, memberFindIdDto);
+        System.out.println(memberFindIdDto.getUser_pw());
+
+        return "redirect:/";
+    }
+
+    // ID PW 체크
+    @GetMapping("/IdPwCheck")
+    public String IdPwCheck(){
+        return "login/IdPwCheck";
+    }
+
+    // 회원탈퇴
+    @GetMapping("/memberOut")
+    public String memberOut(Long id) {
+        log.info("memberout get Controller");
+        System.out.println(id);
+        return "mypage/memberOut";
+    }
 
 }

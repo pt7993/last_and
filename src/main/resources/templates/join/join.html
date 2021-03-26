@@ -20,7 +20,7 @@
       <form
         name="memberJoinForm"
         id="memberJoinForm"
-        action="/join"
+        action="/member/join"
         method="post">
 
         <div class="resp_member_join">
@@ -274,10 +274,9 @@
                   name="user_role"
                   class="user_tr_if"
                   value="trainer"
-                  checked="checked"
                 />
                 트레이너
-                <input type="radio" name="user_role" class="user_tr_if" value="user" />
+                <input type="radio" name="user_role" class="user_tr_if" value="user" checked/>
                 일반회원
               </li>
             </ul>

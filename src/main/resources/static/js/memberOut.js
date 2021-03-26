@@ -13,7 +13,7 @@ function memberOut() {
         return false;
     }
     $.ajax({
-        url: "/memberOut",
+        url: "/member/memberOut",
         type: "POST",
         data: {
             user_pw: $("#user_pw").val(),
@@ -25,22 +25,14 @@ function memberOut() {
         },
         success: function (data) {
             console.log(data)
-<<<<<<< HEAD
             if (confirm("탈퇴 하시겠습니까")) {
-=======
->>>>>>> 8e9d84ed9e9fed2b772b9ed436bb227c17b8a520
                 if ($.trim(data) == "1") {
                     alert("비밀번호가 틀렸습니다");
                 } else {
                     alert("회원 탈퇴에 성공하셨습니다")
-<<<<<<< HEAD
                     window.location.href = "http://localhost:8090";
                 }
             }
-=======
-                        window.location.href = "http://localhost:8090";
-                }
->>>>>>> 8e9d84ed9e9fed2b772b9ed436bb227c17b8a520
         }
     });
 }

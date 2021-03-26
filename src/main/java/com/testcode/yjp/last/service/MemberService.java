@@ -5,8 +5,9 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
-import com.testcode.yjp.last.domain.dto.MemberUpdate;
+import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.MemberRepositoryTest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,21 +26,13 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberRepositoryTest memberRepositoryTest;
 
+    // 회원가입
     @Transactional
     public Long save(MemberJoinDto memberJoinDto) {
-
         return memberRepository.save(memberJoinDto.toEntity()).getId();
     }
-
-//    public MemberFindIdDto findIdDto(String id) {
-//        Member entity = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다. id=" + id));
-//        return new MemberFindIdDto(entity);
-//    }
-//    public MemberResponseDto findById(String id) {
-//        Member entity = memberRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 정보가 없습니다. id="+id));
-//        return new MemberResponseDto(entity);
-//    }
 
     // 중복검사
     @Transactional
@@ -53,12 +45,11 @@ public class MemberService {
         }
     }
 
+    // 휴대폰 인증 번호
     public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
-
         String api_key = "NCSE1LBEKZBYMTO4";
         String api_secret = "XDQAAVISPS9CJTKDVHWFA88MWTOBDQOS";
         Message coolsms = new Message(api_key, api_secret);
-
         // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", phoneNumber);    // 수신전화번호
@@ -66,7 +57,6 @@ public class MemberService {
         params.put("type", "SMS");
         params.put("text", "휴대폰인증 테스트 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
-
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
             System.out.println(obj.toString());
@@ -74,13 +64,12 @@ public class MemberService {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
         }
-
     }
 
+    // 회원 전체 조회
     public List<MemberList> getMemberList() {
         List<Member> memberEntities = memberRepository.findAll();
         List<MemberList> memberLists = new ArrayList<>();
-
         for (Member member : memberEntities) {
             MemberList memberList = MemberList
                     .builder()
@@ -93,7 +82,7 @@ public class MemberService {
                     .user_gender(member.getUser_gender())
                     .address_normal(member.getAddress_normal())
                     .address_detail(member.getAddress_detail())
-                    .userRole(member.getUserRole())
+                    .user_role(member.getUser_role())
                     .build();
             memberLists.add(memberList);
         }
@@ -101,19 +90,62 @@ public class MemberService {
     }
 
 
-    public Long update(Long id,MemberUpdate memberUpdate) {
+    // 회원업데이트
+    public Long update(Long id,MemberFindIdDto memberFindIdDto) {
         Member members = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
-        members.update(memberUpdate.getUser_pw(),memberUpdate.getUser_name(), memberUpdate.getUser_pn(),memberUpdate.getUser_email(),memberUpdate.getAddress_normal(),memberUpdate.getAddress_detail(),
-                memberUpdate.getUser_rrn(), memberUpdate.getUser_gender(),memberUpdate.getUserRole());
-        log.info("put service ");
+        members.update(memberFindIdDto.getUser_pw(),memberFindIdDto.getUser_name(), memberFindIdDto.getUser_pn(),memberFindIdDto.getUser_email(),memberFindIdDto.getAddress_normal(),memberFindIdDto.getAddress_detail(),
+                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(),memberFindIdDto.getUser_role());
+        log.info("post mypage service ");
         System.out.println(members.getUser_pw());
+
+        memberRepository.save(members);
         return id;
     }
+
+    // 회원 findById
     public MemberFindIdDto findById(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id="+id));
-
         log.info("get mypage");
-
         return new MemberFindIdDto(member);
     }
+
+    // 회원 삭제
+    public String delete(Long id, String user_pw) {
+        log.info("service post delete");
+        List<Member> delete = memberRepository.findByMemberOut(id, user_pw);
+        if (delete.isEmpty()) {
+            return "1";
+        }else{
+            memberRepository.deleteById(id);
+            return "2";
+        }
+    }
+    /*
+     * -Email을 통해 해당 email로 가입된 정보가 있는지 확인하고,
+     * 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
+     * */
+    @Transactional
+    public boolean userEmailCheck(String user_name, String user_email) {
+        Member member = memberRepository.findCheckId(user_name,user_email);
+        log.info("get userEmailCheck Service");
+        if (member != null && member.getUser_email().equals(user_email)) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+    // 소셜 구글 저장
+    public String googleSave(MemberSoDto memberSoDto) {
+        log.info("****googleSave Service In****");
+
+        return memberRepository.save(memberSoDto.googleEntity()).getUser_name();
+    }
+    // 소셜 카카오 저장
+    public String kakaoSave(MemberSoDto memberSoDto) {
+        log.info("***kakao service in***");
+        return memberRepository.save(memberSoDto.kakaoEntity()).getUser_name();
+    }
+
 }

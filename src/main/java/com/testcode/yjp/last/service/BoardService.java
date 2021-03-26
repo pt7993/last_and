@@ -26,6 +26,7 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
 
+    // Board save 연관관계 매핑 처리부분
     public Long save(Long id,BoardSaveRequestDto boardSaveRequestDto){
 
         Optional<Member> memberId = memberRepository.findById(id);
@@ -36,6 +37,7 @@ public class BoardService {
         return boardRepository.save(boardSaveRequestDto.toEntity()).getId();
     }
 
+    // 게시판 전체조회
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> findAllDesc(){
         return boardRepository.findAllDesc().stream()
@@ -43,11 +45,13 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    // 게시판 findById
     public BoardResponseDto findById(Long id) {
         Board entity = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=id=" + id));
         return new BoardResponseDto(entity);
     }
 
+    // 게시판 수정
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         log.info("update post controller");
         Board board = boardRepository.findById(id)
@@ -59,6 +63,7 @@ public class BoardService {
         return id;
     }
 
+    // 게시판 삭제
     public void delete(Long id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         boardRepository.delete(board);

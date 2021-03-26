@@ -23,8 +23,7 @@
             <td th:text="${board.id}"></td>
 <!--            <td th:text="${board.title}"><a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == null}" ></a></td>-->
             <td>
-                <a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == board.id}" th:text="${board.title}"></a>
-                <span th:text="${board.title}" th:if="${session.loginUser != board.id}"></span>
+                <a th:href="@{/board/trainerBoard/update/{id}(id = ${board.id})}" th:text="${board.title}"></a>
             </td>
             <td th:text="${board.author}"></td>
             <td th:text="${board.modifiedDate}"></td>

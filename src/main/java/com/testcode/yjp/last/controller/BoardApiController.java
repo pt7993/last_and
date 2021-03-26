@@ -20,11 +20,11 @@ import java.util.Optional;
 public class BoardApiController {
 
     private final BoardService boardService;
-
     private final BoardRepository boardRepository;
-
     private final MemberRepository memberRepository;
 
+
+    //등록기능
     @PostMapping("/trainerBoard/save/{id}")
     public Board save(@PathVariable Long id, @RequestBody Board board){
         Optional<Member> memberId = memberRepository.findById(id);
@@ -33,6 +33,7 @@ public class BoardApiController {
         return board;
     }
 
+    //수정기능
     @PostMapping("/trainerBoard/update/{id}")
     public Long update(@PathVariable Long id,@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
         log.info("post update controller");
