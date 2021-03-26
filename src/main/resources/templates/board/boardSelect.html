@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+<head>
+    <title>boardSelect</title>
+    <script th:src="@{/js/board.js}" ></script>
+
+</head>
+<div layout:fragment="content">
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>게시글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>최종수정일</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        <tr th:each="board : ${boards}">
+            <td th:text="${board.id}"></td>
+<!--            <td th:text="${board.title}"><a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == null}" ></a></td>-->
+            <td>
+                <a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == board.id}" th:text="${board.title}"></a>
+                <span th:text="${board.title}" th:if="${session.loginUser != board.id}"></span>
+            </td>
+            <td th:text="${board.author}"></td>
+            <td th:text="${board.modifiedDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/board/trainerBoard/save/{id}(id = ${session.loginUser})}" th:if="${session.loginUser != null}" role="button" class="btn btn-secondary">글쓰기</a>
+</div>
+
+
+</html>

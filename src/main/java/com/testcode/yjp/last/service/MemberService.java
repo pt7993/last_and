@@ -93,7 +93,7 @@ public class MemberService {
                     .user_gender(member.getUser_gender())
                     .address_normal(member.getAddress_normal())
                     .address_detail(member.getAddress_detail())
-                    .userRole(member.getUserRole())
+                    .user_role(member.getUser_role())
                     .build();
             memberLists.add(memberList);
         }
@@ -104,7 +104,7 @@ public class MemberService {
     public Long update(Long id,MemberFindIdDto memberFindIdDto) {
         Member members = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + id));
         members.update(memberFindIdDto.getUser_pw(),memberFindIdDto.getUser_name(), memberFindIdDto.getUser_pn(),memberFindIdDto.getUser_email(),memberFindIdDto.getAddress_normal(),memberFindIdDto.getAddress_detail(),
-                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(),memberFindIdDto.getUserRole());
+                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(),memberFindIdDto.getUser_role());
         log.info("post mypage service ");
         System.out.println(members.getUser_pw());
 

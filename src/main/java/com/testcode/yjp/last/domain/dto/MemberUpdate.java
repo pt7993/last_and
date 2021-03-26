@@ -18,7 +18,7 @@ public class MemberUpdate {
     private String address_detail;
     private String user_rrn;
     private String user_gender;
-    private UserRole userRole;
+    private String user_role;
 
 
     public MemberUpdate(Member member) {
@@ -30,7 +30,7 @@ public class MemberUpdate {
         this.address_detail = member.getAddress_detail();
         this.user_rrn = member.getUser_rrn();
         this.user_gender = member.getUser_gender();
-        this.userRole = member.getUserRole();
+        this.user_role = member.getUser_role();
     }
 
     public Member toEntity(){
@@ -43,13 +43,13 @@ public class MemberUpdate {
                 .address_detail(address_detail)
                 .user_rrn(user_rrn)
                 .user_gender(user_gender)
-                .userRole(userRole)
+                .user_role(user_role)
                 .build();
     }
 
 
     @Builder
-    public MemberUpdate( String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn, String user_gender, UserRole userRole){
+    public MemberUpdate( String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn, String user_gender, String user_role){
         this.user_pw = user_pw;
         this.user_name = user_name;
         this.user_pn = user_pn;
@@ -58,6 +58,6 @@ public class MemberUpdate {
         this.address_detail = address_detail;
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
-        this.userRole = userRole;
+        this.user_role = user_role;
     }
 }

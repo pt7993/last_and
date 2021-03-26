@@ -22,7 +22,7 @@ public class MemberDto {
     private String address_detail;
     private String user_rrn;
     private String user_gender;
-    private UserRole userRole;
+    private String user_role;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 

@@ -7,11 +7,13 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Member extends BaseEntity{
 
     @Id
@@ -19,8 +21,11 @@ public class Member extends BaseEntity{
     @Column(name = "member_id")
     private Long id;
 
+    @Column(unique = true)
     private String user_id;
+
     private String user_pw;
+
     private String user_name;
     private String user_pn;
     private String user_email;
@@ -30,12 +35,16 @@ public class Member extends BaseEntity{
     private String user_rrn;
     private String user_gender;
 
-    @Enumerated(EnumType.STRING)
-    @ColumnDefault("'USER'")
-    private UserRole userRole;
+//     기본 전략은 LAZY
+//    @OneToMany(mappedBy = "member")
+//    private List<Board> boards = new ArrayList<>();
+
+    private String user_role;
+
+
 
     @Builder
-    public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,UserRole userRole) {
+    public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,String user_role) {
         this.id = id;
         this.user_id = user_id;
         this.user_pw = user_pw;
@@ -46,10 +55,11 @@ public class Member extends BaseEntity{
         this.address_detail = address_detail;
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
-        this.userRole = userRole;
+        this.user_role = user_role;
     }
 
-    public void update(String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn,String user_gender, UserRole userRole) {
+
+    public void update(String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn,String user_gender, String user_role) {
         this.user_pw = user_pw;
         this.user_name = user_name;
         this.user_pn = user_pn;
@@ -58,7 +68,7 @@ public class Member extends BaseEntity{
         this.address_detail = address_detail;
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
-        this.userRole = userRole;
+        this.user_role = user_role;
     }
 
 
