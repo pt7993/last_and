@@ -21,7 +21,7 @@ public class MemberJoinDto {
     private String address_detail;
     private String user_rrn;
     private String user_gender;
-    private UserRole userRole;
+    private String user_role;
     private LocalDateTime regDate, modDate;
 
     public Member toEntity(){
@@ -36,13 +36,13 @@ public class MemberJoinDto {
                 .address_detail(address_detail)
                 .user_rrn(user_rrn)
                 .user_gender(user_gender)
-                .userRole(userRole.USER)
+                .user_role(user_role)
                 .build();
     }
 
 
     @Builder
-    public MemberJoinDto(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,UserRole userRole){
+    public MemberJoinDto(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,String user_role){
         this.id = id;
         this.user_id = user_id;
         this.user_pw = user_pw;
@@ -53,6 +53,6 @@ public class MemberJoinDto {
         this.address_detail = address_detail;
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
-        this.userRole = userRole;
+        this.user_role = user_role;
     }
 }

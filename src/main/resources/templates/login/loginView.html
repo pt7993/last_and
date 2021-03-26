@@ -1,80 +1,79 @@
 <!DOCTYPE html>
 <html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  data-layout-decorate="~{layout/default}"
 >
-<head>
-  <title>login</title>
-  <script th:src="@{/js/login.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/login.css}" />
-</head>
-<div layout:fragment="content">
-  <div class="container">
-    <div class="login_form">
-      <h2 class="title">LOGIN</h2>
+  <head>
+    <title>login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+  </head>
+  <div layout:fragment="content">
+    <div class="container">
+      <div class="login_form">
+        <h2 class="title">LOGIN</h2>
 
-      <form action="/signIn" method="post">
-        <div class="resp_member_login">
-          <div class="form-group">
+        <form action="/signIn" method="post">
+          <div class="resp_member_login">
             <div class="form-group">
-              <input
-                      type="text"
-                      id="user_id"
-                      name="user_id"
-                      placeholder="아이디"
-                      required
-                      autofocus
-              />
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="user_id"
+                  name="user_id"
+                  placeholder="Id"
+                  required
+                  autofocus
+                />
+              </div>
+              <div class="form-group password">
+                <input
+                  type="password"
+                  id="user_pw"
+                  name="user_pw"
+                  class="form-control"
+                  placeholder="패스워드"
+                  required
+                />
+              </div>
             </div>
-            <div class="form-group password">
-              <input
-                      type="password"
-                      id="user_pw"
-                      name="user_pw"
-                      class="form-control"
-                      placeholder="패스워드"
-                      required
-              />
-            </div>
+
+            <button type="submit" class="login_size btn">로그인</button>
           </div>
 
-          <button type="submit" class="login_size btn">로그인</button>
-        </div>
+          <div class="form-group save_id">
+            <label for="save_id">
+              <input type="checkbox" name="" id="save_id" />
+              <span>아이디저장</span>
+            </label>
+          </div>
 
-        <div class="form-group save_id">
-          <label for="save_id">
-            <input type="checkbox" id="save_id" />
-            <span>아이디저장</span>
-          </label>
-        </div>
+          <div class="link_area">
+            <a href="#">ID/PW 찾기</a>
+            <span class="middle"></span>
+            <a href="/join">회원가입</a>
+          </div>
+        </form>
 
-        <div class="link_area">
-          <a href="/IdPwCheck">ID/PW 찾기</a>
-          <span class="middle"></span>
-          <a href="/join">회원가입</a>
-        </div>
-      </form>
-
-      <button id="naver-login-btn" class="social-btn">
-        <img th:src="@{/image/naver.png}" alt="" />
-        <span>네이버로 로그인</span>
-      </button>
-      <button id="facebook-login-btn" class="social-btn">
-        <img th:src="@{/image/facebook.png}" alt="" />
-        <span>Facebook으로 로그인</span>
-      </button>
-      <button id="kakao-login-btn" class="social-btn">
-        <img th:src="@{/image/kakaotalk.png}" alt="" />
-        <span>카카오톡으로 로그인</span>
-      </button>
-      <button id="google-login-btn" class="social-btn">
-        <img th:src="@{/image/google.png}" alt="" />
-        <span>Google로 로그인</span>
-      </button>
+        <button id="naver-login-btn" class="social-btn">
+          <img th:src="@{/image/naver.png}" alt="" />
+          <span>네이버로 로그인</span>
+        </button>
+        <button id="facebook-login-btn" class="social-btn">
+          <img th:src="@{/image/facebook.png}" alt="" />
+          <span>Facebook으로 로그인</span>
+        </button>
+        <button id="kakao-login-btn" class="social-btn">
+          <img th:src="@{/image/kakaotalk.png}" alt="" />
+          <span>카카오톡으로 로그인</span>
+        </button>
+        <button id="google-login-btn" class="social-btn">
+          <img th:src="@{/image/google.png}" alt="" />
+          <span>Google로 로그인</span>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 </html>
