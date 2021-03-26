@@ -14,7 +14,7 @@ $(document).ready(function () {
   sendUser_pn.addEventListener("click",str_concat);
   sendUser_pn.addEventListener("click",sendUser);
   zip.addEventListener("click",execPostCode);
-  joinbtn.addEventListener("click", `email_concat`);
+  joinbtn.addEventListener("click", email_concat);
 
   emailChg();
 });
