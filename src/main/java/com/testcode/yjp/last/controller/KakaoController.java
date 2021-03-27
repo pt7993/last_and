@@ -22,20 +22,19 @@ public class KakaoController {
 
     @RequestMapping(value = "/login/kakao")
     public String kakao(@RequestParam("userId") String user_id, @RequestParam("userEmail") String user_email,
-                        @RequestParam("userNickName") String user_name,@RequestParam("userRrn") String user_rrn,
-                        @RequestParam("userGender") String user_gender, HttpServletRequest request) {
+                        @RequestParam("userNickName") String user_name, HttpServletRequest request) {
         log.info(user_id);
         log.info(user_email);
         log.info(user_name);
-        log.info(user_rrn);
-        log.info(user_gender);
-
-        if (user_gender.equals("male")) {
-            user_gender = "1";
-        } else {
-            user_gender = "2";
-        }
-        MemberSoDto memberSoDto = new MemberSoDto(user_id, user_name, user_email, user_rrn, user_gender);
+//        log.info(user_rrn);
+//        log.info(user_gender);
+//
+//        if (user_gender.equals("male")) {
+//            user_gender = "1";
+//        } else {
+//            user_gender = "2";
+//        }
+        MemberSoDto memberSoDto = new MemberSoDto(user_id, user_name, user_email);
         Member ckUserId = memberRepository.findByUser_id(user_id);
         if (ckUserId == null) {
             log.info("KakaoSave");

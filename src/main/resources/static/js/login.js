@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    Kakao.init('07a8782c4835a3627204ba9cdfc84f4c');
-
+    Kakao.init('68b1c0ad829dcea6227e9ff4fe7d44a9');
     let userInputId = getCookie("userInputId");//저장된 쿠기값 가져오기
     $("input[name='user_id']").val(userInputId);
 
@@ -121,16 +120,18 @@ function init() {
     });
 }
 
-
 //로그인 시
 function kakaoLogin() {
+    console.log("kakaologin");
+
     try {
+        console.log("try In");
         return new Promise((resolve => {
             if (!Kakao) {
                 reject('Kakao 인스턴스 존재 X');
             }
             Kakao.Auth.login({
-
+                scope: 'profile,account_Email',
                 success: (auth) => {
                     console.log('정상적으로 로그인 됐습니다.', auth);
 
@@ -138,39 +139,41 @@ function kakaoLogin() {
                         url: '/v2/user/me',
                         success: function (res) {
                             var userId = res.id;
-                            var userEmail = res.kakao_account.email; // 이메일값 못받아오게 바뀜.
                             var userNickName = res.properties.nickname;
-                            var userRrn = res.kakao_account.birthday;
-                            var userGender = res.kakao_account.gender;
+                            var userEmail = res.kakao_account.email;
+                            // var userRrn = res.kakao_account.birthday;
+                            // var userGender = res.kakao_account.gender;
                             console.log(userId);
                             console.log(userEmail);
                             console.log(userNickName);
-                            if (userEmail == null || userRrn == null || userGender == null) {
-                                Kakao.Auth.authorize({
-                                    redirectUri: 'https://localhost:8090/member/login/oauth2/code/kakao',
-                                    scope: 'account_Email, gender, birthday',
-                                })
+                            // console.log(userRrn);
+                            // console.log(userGender);
+                            if(userEmail==null){
+                                // Kakao.Auth.authorize({
+                                //     redirectUri: encodeURI('http://localhost:8090/member/login'),
+                                //     scope: 'account_Email, gender, birthday',
+                                //     success : ,
+                                // })
+                                alert("이메일, 성별, 생일 정보 동의를 해주세요.");
+                                return false;
                             }
-                            userNickName = res.properties.nickname;
-                            userRrn = res.kakao_account.birthday;
-                            userGender = res.kakao_account.gender;
                             $.ajax({
                                 data: {
                                     userId: userId, // data 옵션
                                     userEmail: userEmail,
                                     userNickName: userNickName,
-                                    userRrn: userRrn,
-                                    userGender: userGender,
-                                },	// 끝에 컴마(,)를 주의해야됨
+                                    // userRrn: userRrn,
+                                    // userGender: userGender
+                                },   // 끝에 컴마(,)를 주의해야됨
                                 type: "post",
                                 url: "/login/kakao", // url 필수
                                 success: function (data) { // success option
                                     console.log(data.length);
                                 }
-                            })
+                            });
                             setTimeout(function () {
                                 location.href = '/';
-                            }, 1000);
+                            }, 900);
                         },
                         fail: function (error) {
                             console.error(error)
@@ -178,6 +181,7 @@ function kakaoLogin() {
                     })
                 },
                 fail: (err) => {
+                    console.log("fail In");
                     console.error(err)
                 }
             });

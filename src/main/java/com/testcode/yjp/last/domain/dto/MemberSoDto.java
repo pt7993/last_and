@@ -15,13 +15,13 @@ public class MemberSoDto {
         this.user_email = user_email;
     }
 
-    public MemberSoDto(String user_id, String user_name, String user_email, String user_rrn, String user_gender) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.user_email = user_email;
-        this.user_rrn = user_rrn;
-        this.user_gender = user_gender;
-    }
+//    public MemberSoDto(String user_id, String user_name, String user_email, String user_rrn, String user_gender) {
+//        this.user_id = user_id;
+//        this.user_name = user_name;
+//        this.user_email = user_email;
+//        this.user_rrn = user_rrn;
+//        this.user_gender = user_gender;
+//    }
 
     public Member googleEntity() {
         return Member.builder()
@@ -36,8 +36,6 @@ public class MemberSoDto {
                 .user_id(user_id)
                 .user_name(user_name)
                 .user_email(user_email)
-                .user_rrn(user_rrn)
-                .user_gender(user_gender)
                 .build();
     }
 }

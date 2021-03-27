@@ -2,11 +2,6 @@ function memberOut() {
     var frm = document.frm;
     console.log(frm.user_pw.value);
     console.log(frm.info.value)
-    if (frm.user_pw.value.length == 0) {
-        alert("패스워드를 입력하세요.");
-        frm.user_pw.focus();
-        return false;
-    }
     if (frm.info.value.length == 0) {
         alert("탈퇴사유를 입력하세요");
         frm.info.focus();
