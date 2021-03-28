@@ -10,14 +10,14 @@
 </head>
 <div layout:fragment="content">
     <form>
-        <input type="hidden" th:value="${session.loginUser}" id="id" name="id">
+        <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
         </div>
         <div class="form-group">
             <label for="author">작성자</label>
-            <input class="form-control" id="author" th:value="${session.loginName}" readonly>
+            <input class="form-control" id="author" th:value="${session.loginId}" readonly>
         </div>
         <div class="form-group">
             <label for="content">내용</label>
@@ -26,6 +26,10 @@
     </form>
     <a href="/" role="button" class="btn btn-secondary">취소</a>
     <button type="button" class="btn btn-primary" id="btn-save" onclick="save()">등록</button>
+
+
 </div>
+
+
 
 </html>

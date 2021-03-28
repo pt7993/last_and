@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Test Error Page!</title>
+</head>
+<body>
+없는 페이지 입니다. url을 확인하세요
+<ul>
+    <li th:text="${'상태:' + status}"></li>
+    <li th:text="${'경로:' + path}"></li>
+    <li th:text="${'요청시각:' + timestamp}"></li>
+    <li th:text="${'예외:' + exception}"></li>
+    <li th:text="${'메시지:' + message}"></li>
+</ul>
+
+</body>
+</html>

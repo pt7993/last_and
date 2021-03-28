@@ -10,12 +10,14 @@ public class BoardListResponseDto {
     private Long id;
     private String title;
     private String author;
+    private String content;
     private int hit;
     private LocalDateTime modifiedDate;
 
     public BoardListResponseDto(Board entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
+        this.content = entity.getContent();
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModDate();
         this.hit = entity.getHit();

@@ -25,7 +25,7 @@ function memberOut() {
                     alert("비밀번호가 틀렸습니다");
                 } else {
                     alert("회원 탈퇴에 성공하셨습니다")
-                    window.location.href = "http://localhost:8090";
+                    window.location.href = "/";
                 }
             }
         }

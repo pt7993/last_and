@@ -11,7 +11,7 @@ function save() {
                 content: $('#content').val()
             };
             console.log("session login id="+data.id)
-            var id = $('#id').val();
+            var id = $('#member_id').val();
 
             $.ajax({
                 type: 'post',
@@ -44,7 +44,7 @@ function update() {
             var id = $('#id').val();
             $.ajax({
                 type: 'POST',
-                url: '/board/trainerBoard/update',
+                url: '/board/trainerBoard/update/'+id,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -71,7 +71,7 @@ function Bdelete() {
 
             $.ajax({
                 type: 'post',
-                url: '/board/trainerBoard/delete' ,
+                url: '/board/trainerBoard/delete/'+id ,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).done(function () {

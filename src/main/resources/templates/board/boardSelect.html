@@ -28,7 +28,7 @@
             </td>
             <td th:text="${board.author}"></td>
             <td th:text="${board.hit}"></td>
-            <td th:text="${board.modifiedDate}"></td>
+            <td th:text="${#temporals.format(board.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
         </tr>
         </tbody>
     </table>
