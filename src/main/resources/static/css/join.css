@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 
+
 .container {
   max-width: 1260px;
   margin: 50px auto;
@@ -25,6 +26,10 @@ button {
   padding: 8px 18px;
   border: 1px solid #ddd;
   cursor: pointer;
+}
+.btn a {
+  text-decoration: none;
+  color:black;
 }
 .btn.zip_btn {
   padding: 5px 18px;
@@ -118,10 +123,10 @@ button {
 }
 .resp_join_table > ul > li.th > p {
   padding: 8px 22px 8px 10px;
+  margin : 0 auto;
 }
 
 .btn_area {
-  display: flex;
-  justify-content: center;
   margin-top: 30px;
+  text-align: center;
 }

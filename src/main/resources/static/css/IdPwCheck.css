@@ -1,18 +1,112 @@
-* {
-    margin: 0;
+/*공통*/
+.idpw_box {
+    margin: 0 auto;
+}
+.hide {
+    position: absolute;
+    top: -10000em;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+}
+.logininput {
+    width: 100%;
+    height: 43px;
+    line-height: 43px;
     padding: 0;
-    box-sizing: border-box;
+    border-radius: 10px;
+    text-indent: 14px;
+    border: 1px solid #d4d4d4;
+    font-size: 16px;
+    box-shadow: none;
+}
+.flow {
+    height: 30px;
+    margin-top: 10px;
+    font-weight: 500;
 }
 
-.form_container { width: 95%; margin: 30px auto; display: flex;font-family: monospace; }
-.title { text-align: center; }
-h4.title { margin: 10px 0px; font-size: 14px; color: #666; }
+.idpw_box > h4 {
+    font-size: 24px;
+    color: #2f2f2f;
+}
+.idpw_box > p {
+    line-height: 20px;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #505050;
+}
 
-hr {  margin: 0px 50px; }
+/*아이디 비번찾기*/
 
-form { width: 420px; margin: 25px auto 0px }
-form p { font-size: 18px; }
-form label { display: block; margin: 5px 0px; font-size: 16px; }
-form input { margin-top: 15px; margin-bottom: 20px; padding:0 9px; width: 100%; height: 36px; font-size:14px; line-height:32px; color:#333; border:1px #ccc solid; border-radius:2px; }
-form textarea { margin-top: 10px; width: 100%; min-height: 150px; font-size:14px; color:#333; border:1px #ccc solid; border-radius:2px; }
-form button { margin-top: 10px; background-color: #4a5164; color: #fff; border-radius: 3px; padding: 8px 30px; border: none; cursor: pointer; width: 100%; }
+fieldset {
+    border: none;
+}
+/*
+    아이디 찾기
+    비밀번호 찾기
+    박스 크기
+*/
+.idpw_box {
+    width: 100%;
+    min-width: 450px;
+    max-width: 550px;
+}
+/*
+    아이디 찾기
+    비밀번호 찾기
+    박스 크기
+*/
+.idpw_box .id_box,
+.idpw_box .pw_box {
+    margin-top: 20px;
+    padding: 25px 25px;
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+}
+
+/* 비밀번호 찾기 박스 크기 */
+
+/*
+    아이디 찾기 버튼
+    비밀번호 찾기 버튼
+*/
+.idpw_box .id_box .id_btn,
+.idpw_box .pw_box .pw_btn {
+    display: block;
+    width: 110px;
+    height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: #666;
+    border: 1px solid #666;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+}
+.mt70 {
+    margin-top: 50px;
+}
+
+
+/*@charset "UTF-8";*/
+
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*.title { text-align: center; }*/
+/*h4.title { margin: 10px 0px; color: #666; }*/
+
+/*.form { border: 1px solid #666; padding: 20px;  }*/
+
+/*form { width: 400px; margin: 25px auto 0px }*/
+/*form label { display: block; margin: 5px 0px; font-size: 16px; }*/
+/*form input { margin-top: 10px; margin-bottom: 15px; padding:0 9px; width: 100%; height:32px; font-size:14px; line-height:32px; color:#333; border:1px #ccc solid; border-radius:2px; }*/
+/*form textarea { margin-top: 10px; width: 100%; min-height: 150px; font-size:14px; color:#333; border:1px #ccc solid; border-radius:2px; }*/
+/*form button { margin-top: 10px; background-color: #4a5164; color: #fff; border-radius: 3px; padding: 8px 30px; border: none; cursor: pointer; width: 100%; }*/

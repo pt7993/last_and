@@ -11,37 +11,110 @@
     <title>아이디, 비밀번호 찾기</title>
 </head>
 <div layout:fragment="content">
-    <div class="form_container">
-        <div class="find_form">
-            <h2 class="title">아이디 찾기</h2>
-            <h4 class="title">
+    <div class="cont_box">
+        <!--아이디 비번찾기-->
+        <div class="idpw_box">
+            <h4>아이디 찾기</h4>
+            <p>
                 회원가입 시 입력한 이름, 이메일 정보를 통해 아이디를 찾으실 수
-                있습니다
-            </h4>
-            <form name="checkForm" id="checkForm">
-                <p>이름</p>
-                <input type="text" id="user_name" name="user_name" /><br />
-                <p>이메일</p>
-                <input type="text" id="user_email" name="user_email" /><br />
-                <button type="button" onclick="IdCheck()">아이디 찾기</button>
-            </form>
+                있습니다.
+            </p>
+            <div class="id_box">
+                <div class="idcon">
+                    <form name="checkForm" id="idFrm" method="post">
+                        <fieldset>
+                            <legend class="hide">아이디 찾기</legend>
+                            <div class="id_inp">
+                                <div class="id_ip">
+                                    <div class="flow">
+                                        이름
+                                    </div>
+                                    <input
+                                            id="user_name"
+                                            class="logininput"
+                                            name="user_name"
+                                            maxlength="20"
+                                            type="text"
+                                    />
+                                </div>
+                                <div class="id_ip">
+                                    <div class="flow">
+                                        이메일
+                                    </div>
+                                    <input
+                                            id="user_email"
+                                            class="logininput"
+                                            name="user_email"
+                                            type="email"
+                                    />
+                                </div>
+                            </div>
+                            <button type="button" class="id_btn" id="id_btn">
+                                <span>아이디 찾기</span>
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+            <h4 class="mt70">비밀번호 찾기</h4>
+            <p>
+                회원가입 시 입력한 이름, 이메일 정보를 통해 비밀번호를 찾으실 수
+                있습니다.
+            </p>
+            <div class="pw_box">
+                <div class="pwcon">
+                    <form name="checkPwForm" id="pwFrm" method="post">
+                        <fieldset>
+                            <legend class="hide">비밀번호 찾기</legend>
+                            <div class="pw_inp">
+                                <div class="pw_ip">
+                                    <div class="flow">
+                                        아이디
+                                    </div>
+                                    <input
+                                            id="user_id"
+                                            class="logininput"
+                                            name="user_id"
+                                            maxlength="20"
+                                            type="text"
+                                    />
+                                </div>
+                                <div class="pw_ip">
+                                    <div class="flow">
+                                        이름
+                                    </div>
+                                    <input
+                                            id="user_name"
+                                            class="logininput"
+                                            name="user_name"
+                                            maxlength="20"
+                                            type="text"
+                                    />
+                                </div>
+                                <div class="pw_ip">
+                                    <div class="flow">
+                                        이메일
+                                    </div>
+                                    <input
+                                            id="user_email"
+                                            class="logininput"
+                                            name="user_email"
+                                            type="email"
+                                    />
+                                </div>
+                            </div>
+                            <button type="button" class="pw_btn" id="pw_btn">
+                                <span>비밀번호 찾기</span>
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
         </div>
-        <hr />
-        <div class="find_form">
-            <h2 class="title">비밀번호 찾기</h2>
-            <h4 class="title">입력된 정보로 임시 비밀번호가 전송됩니다.</h4>
-            <form name="checkPwForm">
-                <p>아이디</p>
-                <input type="text" name="user_id" /><br />
-                <p>이름</p>
-                <input type="text" name="user_name" /><br />
-                <p>이메일</p>
-                <input type="text" name="user_email" /><br />
-                <button type="button" onclick="PwCheck()">비밀번호 찾기</button>
-            </form>
-        </div>
-        <div id="checkMsg" style="color: #ff0000"></div>
+        <!--//아이디 비번찾기-->
     </div>
+
 </div>
 
 </html>

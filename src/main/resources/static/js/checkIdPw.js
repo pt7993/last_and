@@ -27,7 +27,7 @@ function IdCheck() {
             if($.trim(data) == "YES") {
                 alert("일치하는 정보가 없습니다");
             } else{
-                alert("아이디는" + data.user_id + "입니다");
+                alert("아이디는 " + data.user_id + " 입니다");
             }
         }
     })
@@ -64,3 +64,11 @@ function PwCheck() {
         }
     })
 }
+// 이벤트 등록
+$(document).ready(function () {
+    let id_btn = document.getElementById('id_btn');
+    let pw_btn = document.getElementById('pw_btn');
+
+    id_btn.addEventListener("click",IdCheck);
+    pw_btn.addEventListener("click",PwCheck);
+});

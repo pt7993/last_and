@@ -25,6 +25,7 @@ $(document).ready(function(){
         }
     });
 
+
 });
 
 function setCookie(cookieName, value, exdays){
@@ -190,3 +191,17 @@ function kakaoLogin() {
         console.error(err);
     }
 }
+
+
+// const idCheck = ()=>{
+//     let user_id = $("#user_id").val().length;
+//     let user_pw = $("#user_pw").val().length;
+//
+//     if(user_id == 0){
+//         alert('아이디를 입력하세요');
+//         return false;
+//     } else if(user_pw == 0) {
+//         alert('비밀번호를 입력하세요');
+//         return false;
+//     }
+// };
