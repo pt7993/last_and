@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<script>
+
+</script>
+<div layout:fragment="content">
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3">트레이너 조회</h1>
+        <form action="/ptUser/search" method="get">
+            <div>
+                <select name="head">
+                    <option value="user_name">이름 검색</option>
+                    <option value="user_id">아이디 검색</option>
+                    <option value="health_addr">헬스장이름 검색</option>
+                </select>
+                <input name="search" type="text" placeholder="이름 검색">
+                <button>검색하기</button>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-12 col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">트레이너</h5>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>아이디</th>
+                            <th>주소</th>
+                            <th>헬스장 이름</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="member : ${memberList}">
+                            <td><a th:text="${member.user_name}"></a></td>
+                            <td><span th:text="${member.user_id}"></span></td>
+                            <td><span th:text="${member.address_normal}"></span></td>
+                            <td><span th:text="${member.address_detail}"></span></td>
+                            <td><a th:href="@{/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}" th:if="${session.loginRole == 'user'}" th:text="신청"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

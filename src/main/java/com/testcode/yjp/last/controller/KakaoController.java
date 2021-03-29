@@ -45,6 +45,7 @@ public class KakaoController {
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginUser", ckUserId.getId());
         session.setAttribute("loginName", user_name);
+        session.setAttribute("loginRole", ckUserId.getUser_role());
 
         log.info("sendRedirect succ");
 

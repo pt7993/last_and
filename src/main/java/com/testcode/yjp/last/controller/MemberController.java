@@ -60,6 +60,7 @@ public class MemberController {
         session.setAttribute("loginUser", member.getId());
         session.setAttribute("loginName", member.getUser_name());
         session.setAttribute("loginId", member.getUser_id());
+        session.setAttribute("loginRole", member.getUser_role());
 
         return "redirect:/";
     }
@@ -93,11 +94,13 @@ public class MemberController {
 
     // 마이페이지 
     @PostMapping("/mypage")
-    public String update(Long member_id, MemberFindIdDto memberFindIdDto) {
+    public String update(Long member_id, MemberFindIdDto memberFindIdDto, HttpServletRequest request) {
         log.info("post mypage controller");
         System.out.println(member_id);
         memberService.update(member_id, memberFindIdDto);
         System.out.println(memberFindIdDto.getUser_pw());
+        HttpSession session = (HttpSession) request.getSession();
+        session.setAttribute("loginRole", memberFindIdDto.getUser_role());
 
         return "redirect:/";
     }
