@@ -47,6 +47,8 @@ public class KakaoController {
         session.setAttribute("loginName", user_name);
         session.setAttribute("loginRole", ckUserId.getUser_role());
 
+        session.setAttribute("social","social");
+
         log.info("sendRedirect succ");
 
         return "redirect:/";

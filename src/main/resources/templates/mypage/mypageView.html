@@ -274,8 +274,9 @@
             </div>
 
             <div class="btn_area">
+                <button type="button" class="btn" onclick="history.go(-1)">이전</button>
                 <button type="submit" class="btn" id="joinbtn">회원정보수정</button>
-                <button type="button" class="btn">
+                <button type="button" class="btn" th:if="${session.social != 'social'}">
                     <a href="/member/memberOut">회원탈퇴</a>
                 </button>
             </div>
