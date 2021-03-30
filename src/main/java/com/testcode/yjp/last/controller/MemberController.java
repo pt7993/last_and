@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -55,12 +56,16 @@ public class MemberController {
                          HttpServletRequest request, HttpServletResponse response) {
         Member member = memberRepository.findMember(user_id, user_pw);
 
-        HttpSession session = (HttpSession) request.getSession();
-
-        session.setAttribute("loginUser", member.getId());
-        session.setAttribute("loginName", member.getUser_name());
-        session.setAttribute("loginId", member.getUser_id());
-        session.setAttribute("loginRole", member.getUser_role());
+        try {
+            HttpSession session = (HttpSession) request.getSession();
+            session.setAttribute("loginUser", member.getId());
+            session.setAttribute("loginName", member.getUser_name());
+            session.setAttribute("loginId", member.getUser_id());
+            session.setAttribute("loginRole", member.getUser_role());
+        } catch (NullPointerException n) {
+            System.out.println(n);
+            return "redirect:/member/login";
+        }
 
         return "redirect:/";
     }

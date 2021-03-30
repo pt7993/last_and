@@ -4,7 +4,6 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MailDto;
 import com.testcode.yjp.last.repository.MemberRepository;
-import com.testcode.yjp.last.repository.MemberRepositoryTest;
 import com.testcode.yjp.last.service.MemberService;
 //import com.testcode.yjp.last.service.SendEmailService;
 import com.testcode.yjp.last.service.SendEmailService;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -31,9 +29,19 @@ public class MemberApiController {
     private final SendEmailService sendEmailService;
 
 
+    // ajax 로그인 값 처리
+    @PostMapping("/loginCheck")
+    public String loginCheck(String user_id, String user_pw) {
+        System.out.println(user_id);
+        System.out.println(user_pw);
+        String ace = memberService.findMember(user_id, user_pw);
+        return ace;
+    }
+
     // Json Id 중복검사
     @PostMapping("/idChk")
     public String IdChk(String user_id) throws Exception {
+
         System.out.println(user_id);
         String str = memberService.IdChk(user_id);
         log.info("아이디체크로 들어옴");

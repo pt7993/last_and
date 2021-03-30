@@ -193,15 +193,41 @@ function kakaoLogin() {
 }
 
 
-// const idCheck = ()=>{
-//     let user_id = $("#user_id").val().length;
-//     let user_pw = $("#user_pw").val().length;
-//
-//     if(user_id == 0){
-//         alert('아이디를 입력하세요');
-//         return false;
-//     } else if(user_pw == 0) {
-//         alert('비밀번호를 입력하세요');
-//         return false;
-//     }
-// };
+function login() {
+    var frm = document.loginForm;
+    if (frm.user_id.value.length == 0) {
+        alert("아이디를 입력하세요");
+        frm.user_id.focus();
+        return false;
+    } else if (frm.user_pw.value.length == 0) {
+        alert("비밀번호를 입력해주세요");
+        frm.user_pw.focus();
+        return false;
+    }
+    $.ajax({
+        type: "post",
+        url: "/member/loginCheck",
+        data: {
+            user_id: $("#user_id").val(),
+            user_pw: $("#user_pw").val()
+        },
+        dataType: "json",
+        error: function (error) {
+            alert("잘못된 정보입니다");
+            location.href = "/member/login";
+        },
+        success: function (data) {
+            console.log(data);
+            if ($.trim(data) == "1") {
+                alert("일치하는 정보가 없습니다");
+                return false;
+            } else if ($.trim(data) == "2") {
+                alert("로그인에 성공하셨습니다");
+                location.href = "/";
+            } else {
+                alert("잘못된 정보입니다");
+            }
+        },
+
+    });
+}

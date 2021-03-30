@@ -33,6 +33,8 @@ public class CommentsApiController {
         commentsRepository.save(comments);
         return comments;
     }
+
+
     //수정기능
 //    @PostMapping("/update/{id}")
 //    public Long commentUpdate(@PathVariable Long id,@RequestBody CommentsUpdateRequestDto commentsUpdateRequestDto){

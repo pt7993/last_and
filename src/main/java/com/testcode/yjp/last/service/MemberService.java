@@ -38,9 +38,9 @@ public class MemberService {
     @Transactional
     public String IdChk(String user_id) {
         System.out.println(memberRepository.findByUser_id(user_id));
-        if(memberRepository.findByUser_id(user_id) != null){
+        if (memberRepository.findByUser_id(user_id) != null) {
             return "YES";
-        }else{
+        } else {
             return "NO";
         }
     }
@@ -55,7 +55,7 @@ public class MemberService {
         params.put("to", phoneNumber);    // 수신전화번호
         params.put("from", "01039057545");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", "휴대폰인증 테스트 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
+        params.put("text", "휴대폰인증 테스트 메시지 : 인증번호는" + "[" + cerNum + "]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
@@ -91,10 +91,10 @@ public class MemberService {
 
 
     // 회원업데이트
-    public Long update(Long member_id,MemberFindIdDto memberFindIdDto) {
+    public Long update(Long member_id, MemberFindIdDto memberFindIdDto) {
         Member members = memberRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + member_id));
-        members.update(memberFindIdDto.getUser_pw(),memberFindIdDto.getUser_name(), memberFindIdDto.getUser_pn(),memberFindIdDto.getUser_email(),memberFindIdDto.getAddress_normal(),memberFindIdDto.getAddress_detail(),
-                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(),memberFindIdDto.getUser_role());
+        members.update(memberFindIdDto.getUser_pw(), memberFindIdDto.getUser_name(), memberFindIdDto.getUser_pn(), memberFindIdDto.getUser_email(), memberFindIdDto.getAddress_normal(), memberFindIdDto.getAddress_detail(),
+                memberFindIdDto.getUser_rrn(), memberFindIdDto.getUser_gender(), memberFindIdDto.getUser_role());
         log.info("post mypage service ");
         System.out.println(members.getUser_pw());
 
@@ -104,7 +104,7 @@ public class MemberService {
 
     // 회원 findById
     public MemberFindIdDto findById(Long member_id) {
-        Member member = memberRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id="+member_id));
+        Member member = memberRepository.findById(member_id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다. id=" + member_id));
         log.info("get mypage");
         return new MemberFindIdDto(member);
     }
@@ -115,37 +115,49 @@ public class MemberService {
         List<Member> delete = memberRepository.findByMemberOut(id, user_pw);
         if (delete.isEmpty()) {
             return "1";
-        }else{
+        } else {
             memberRepository.deleteById(id);
             return "2";
         }
     }
+
     /*
      * -Email을 통해 해당 email로 가입된 정보가 있는지 확인하고,
      * 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
      * */
     @Transactional
     public boolean userEmailCheck(String user_name, String user_email) {
-        Member member = memberRepository.findCheckId(user_name,user_email);
+        Member member = memberRepository.findCheckId(user_name, user_email);
         log.info("get userEmailCheck Service");
         if (member != null && member.getUser_email().equals(user_email)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
 
     }
+
     // 소셜 구글 저장
     public String googleSave(MemberSoDto memberSoDto) {
         log.info("****googleSave Service In****");
 
         return memberRepository.save(memberSoDto.googleEntity()).getUser_name();
     }
+
     // 소셜 카카오 저장
     public String kakaoSave(MemberSoDto memberSoDto) {
         log.info("***kakao service in***");
         return memberRepository.save(memberSoDto.kakaoEntity()).getUser_name();
+    }
+
+    // ajax 로그인 값 다를때
+    public String findMember(String user_id, String user_pw) {
+        List<Member> create = memberRepository.findByMemberIn(user_id, user_pw);
+        if (create.isEmpty()) {
+            return "1";
+        } else {
+            return "2";
+        }
     }
 
 }
