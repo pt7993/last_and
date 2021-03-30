@@ -1,4 +1,6 @@
 var car = false;
+var sendCheck = false;
+var sendCertified = false;
 
 $(document).ready(function () {
   let memberJoinForm = document.getElementById('memberJoinForm');
@@ -14,6 +16,7 @@ $(document).ready(function () {
   sendUser_pn.addEventListener("click",str_concat);
   sendUser_pn.addEventListener("click",sendUser);
   zip.addEventListener("click",execPostCode);
+  joinbtn.addEventListener("click",str_concat);
   joinbtn.addEventListener("click", email_concat);
 
   emailChg();
@@ -68,12 +71,25 @@ function joinChk() {
     frm.user_pn.focus();
     return false;
   }
+   else if (sendCheck == false) {
+    alert("문자인증을 눌러주세요");
+    return false;
+  }
   else if (frm.inputCertifiedNumber.value.length == 0) {
-    alert("핸드폰 인증번호를 해주세요");
+    alert("핸드폰 인증번호를 입력해 주세요");
     frm.inputCertifiedNumber.focus();
     return false;
-  } else if (car == false) {
+  }
+  else if (sendCertified == false) {
+    alert("인증번호 확인을 눌러 주세요");
+    return false;
+  }
+  else if (car == false) {
     alert("인증번호가 틀렸습니다");
+    return false;
+  }
+  else if (car == false && sendCheck == false) {
+    alert("인증번호 확인 해주세요");
     return false;
   }
   // 이메일
@@ -201,6 +217,8 @@ function execPostCode() {
 function sendUser() {
   //input text 휴대폰번호 = inputPhoneNumber, phoneNumber에 저장
   let phoneNumber = $("#user_pn").val();
+  sendCheck= true;
+
   if(!pnChk()){
     alert("휴대폰 번호를 다시 입력 해 주세요");
   } else {
@@ -217,7 +235,7 @@ function sendUser() {
             /*인증성공 했을 때 car값 true로 만들어줌.*/
             car = true;
             alert("인증성공!");
-
+            sendCertified = true;
             // $.ajax({
             //     type: "GET",
             //     url: "/update/phone",
@@ -228,6 +246,7 @@ function sendUser() {
             // document.location.href="/home";
           } else {
             alert("인증번호가 올바르지 않습니다!");
+            sendCertified = true;
             // alert({
             //   icon: "error",
             //   title: "인증오류",
