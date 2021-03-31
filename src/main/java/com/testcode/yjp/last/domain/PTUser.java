@@ -24,17 +24,15 @@ public class PTUser {
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
-    private Member trainer_id;
 
+    private Member trainer_id;
     private String user_id;
     private String user_name;
     private String user_pn;
     private String user_email;
-
     private LocalDateTime start_date;
     private LocalDateTime end_date;
-
-    private String accept_condition;
+    private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
 
     @Builder
     public PTUser(Long id, Member member_id, Member trainer_id, String user_id, String user_name, String user_pn, String user_email, LocalDateTime start_date, LocalDateTime end_date, String accept_condition) {

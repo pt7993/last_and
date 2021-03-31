@@ -16,6 +16,7 @@ import java.util.List;
 public class PTUserService {
     private final PTUserRepository ptUserRepository;
 
+    //이름검색
     public List<MemberList> nameSearch(String search) {
         log.info("service = " + search);
         List<Member> trainer = ptUserRepository.findTrainerN(search);
@@ -30,6 +31,7 @@ public class PTUserService {
         return memberLists;
     }
 
+    //id 검색
     public List<MemberList> idSearch(String search) {
         log.info("service = " + search);
         List<Member> trainer = ptUserRepository.findTrainerI(search);
@@ -44,6 +46,7 @@ public class PTUserService {
         return memberLists;
     }
 
+    //헬스장 검색
     public List<MemberList> addrSearch(String search) {
         log.info("service = " + search);
         List<Member> trainer = ptUserRepository.findTrainerA(search);
@@ -58,8 +61,9 @@ public class PTUserService {
         return memberLists;
     }
 
-    public List<MemberList> getMemberList(Long member_id ) {
-        List<Member> memberEntities = ptUserRepository.findId(member_id);
+
+    public List<MemberList> getMemberList(Long member_id) {
+        List<Member> memberEntities = ptUserRepository.findMemberId(member_id);
         List<MemberList> memberLists = new ArrayList<>();
         for (Member member : memberEntities) {
             MemberList memberList = MemberList
@@ -86,15 +90,10 @@ public class PTUserService {
                 .id(member.getId())
                 .user_name(member.getUser_name())
                 .user_id(member.getUser_id())
+                .user_pn(member.getUser_pn())
                 .address_normal(member.getAddress_normal())
                 .address_detail(member.getAddress_detail())
                 .build();
     }
-
-//    @Transactional
-//    public Long ptUser(PTApplyDto ptApplyDto) {
-//
-//        return ptUserRepository.save(ptApplyDto.toEntity()).getId();
-//    }
 
 }
