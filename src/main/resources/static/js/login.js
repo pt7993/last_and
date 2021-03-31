@@ -71,7 +71,7 @@ function checkLoginStatus() {
         });
         auth2.disconnect();
         setTimeout(function () {
-            location.href = '/';
+            location.href = '/member/mypage/social'; // 소셜 로그인시 마이페이지(소셜 정보 추가 입력)로 이동
         }, 1500);
     } else {
         console.log('dont login');
@@ -173,8 +173,9 @@ function kakaoLogin() {
                                 }
                             });
                             setTimeout(function () {
-                                location.href = '/';
-                            }, 900);
+                                // 소셜 로그인시 마이페이지(소셜 정보 추가 입력)로 이동
+                                location.href = '/member/mypage/social';
+                            }, 1500);
                         },
                         fail: function (error) {
                             console.error(error)

@@ -110,6 +110,43 @@ public class MemberController {
         return "redirect:/";
     }
 
+    // 소셜 마이페이지 추가 - 뷰
+    @GetMapping("/mypage/social")
+    public String socialUpdate(HttpServletRequest request, Model model) {
+        HttpSession session = (HttpSession) request.getSession();
+        Object member_id = session.getAttribute("loginUser");
+        Long id = Long.valueOf(member_id.toString());
+        log.info("소셜 member_id = " + id);
+        MemberFindIdDto byId = memberService.findById(id);
+        log.info("서비스 에서 컨트롤로 돌아옴.");
+
+        try {
+            String user_role = byId.getUser_role();
+            if (user_role.equals("user") || user_role.equals("trainer")) {
+                return "redirect:/";
+            }
+        } catch (NullPointerException e) {
+            model.addAttribute("member", byId);
+            return "mypage/mypageSocialView";
+        }
+
+        model.addAttribute("member", byId);
+        return "mypage/mypageSocialView";
+    }
+    // 소셜 마이페이지 추가 - 업데이트 / 구상한거는 끝남.(비번이나 이메일, 이름, 전화번호 등의
+    // 정보 입력은 추후에 바뀔 가능성 있음.
+    @PostMapping("/mypage/social")
+    public String socialUpdate(Long member_id, MemberFindIdDto memberFindIdDto, HttpServletRequest request) {
+        System.out.println(member_id);
+        log.info("social Controller. phonenum = " + memberFindIdDto.getUser_pn());
+        memberService.update(member_id, memberFindIdDto);
+        System.out.println(memberFindIdDto.getUser_pw());
+        HttpSession session = (HttpSession) request.getSession();
+        session.setAttribute("loginRole", memberFindIdDto.getUser_role());
+
+        return "redirect:/";
+    }
+
     // ID PW 체크
     @GetMapping("/IdPwCheck")
     public String IdPwCheck(){
