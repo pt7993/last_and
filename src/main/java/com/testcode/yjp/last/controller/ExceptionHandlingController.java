@@ -17,7 +17,9 @@ public class ExceptionHandlingController implements ErrorController {
 
         Object status = request.getAttribute("javax.servlet.error.status_code");
 
-        model.addAttribute("status", "상태" + status);
+        model.addAttribute("status", status);
+
+//        model.addAttribute("status", "상태" + status);
         model.addAttribute("path", request.getAttribute("javax.servlet.error.request_uri"));
         model.addAttribute("timestamp", new Date());
 
@@ -28,13 +30,14 @@ public class ExceptionHandlingController implements ErrorController {
             model.addAttribute("message", e.getMessage());
         }
 
-        if (status.equals(HttpStatus.SC_NOT_FOUND)) {
-            return "/error/404";
-        } else if (status.equals(405)) {
-            return "/error/405";
-        } else{
-            return "/error/500";
-        }
+//        if (status.equals(HttpStatus.SC_NOT_FOUND)) {
+//            return "/error/404";
+//        } else if (status.equals(405)) {
+//            return "/error/405";
+//        } else{
+//            return "/error/500";
+//        }
+        return "/error/errorPage";
     }
 
     @Override
