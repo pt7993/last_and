@@ -56,7 +56,7 @@ function joinChk() {
     }
     //주민번호
     else if (frm.user_rrn.value.length == 0) {
-        alert(frm.user_email.value);
+
         alert("주민번호를 입력하세요");
         frm.user_rrn.focus();
         return false;
