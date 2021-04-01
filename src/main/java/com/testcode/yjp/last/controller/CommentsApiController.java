@@ -5,6 +5,7 @@ import com.testcode.yjp.last.domain.Comments;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.BoardUpdateRequestDto;
 import com.testcode.yjp.last.domain.dto.CommentsUpdateRequestDto;
+import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.CommentsService;
@@ -23,13 +24,14 @@ public class CommentsApiController {
     private final MemberRepository memberRepository;
     private final CommentsRepository commentsRepository;
     private final CommentsService commentsService;
+    private final BoardRepository boardRepository;
 
     @PostMapping("/save/{id}")
     public Comments commentsSave(@PathVariable Long id, @RequestBody Comments comments) {
         log.info("comments save Controller");
         System.out.println(comments.getNickname());
-        Optional<Member> memberId = memberRepository.findById(id);
-        comments.setMember(memberId.get());
+        Optional<Board> boardId = boardRepository.findById(id);
+        comments.setBoard(boardId.get());
         commentsRepository.save(comments);
         return comments;
     }

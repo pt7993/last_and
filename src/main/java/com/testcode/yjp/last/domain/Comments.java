@@ -27,8 +27,8 @@ public class Comments extends BaseEntity{
     private String nickname;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "hb_num")
+    private Board board;
 
 
     public void update(String comments ){

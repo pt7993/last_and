@@ -108,7 +108,7 @@ function joinChk() {
   else if (frm.user_gender.value.length == 0) {
     alert("주민번호 뒷자리를 입력하세요");
     frm.user_gender.focus();
-    return false;
+    return false; 
   }
   // 주소
   else if (frm.address_normal.value.length == 0) {
