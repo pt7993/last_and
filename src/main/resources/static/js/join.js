@@ -20,6 +20,7 @@ $(document).ready(function () {
   joinbtn.addEventListener("click", email_concat);
 
   emailChg();
+
 });
 
 // 이메일 관련
@@ -123,6 +124,7 @@ function joinChk() {
     return false;
   } else {
     alert("회원가입이 완료 되었습니다.");
+    addr_concat();
     return true;
   }
   return false;
@@ -294,4 +296,15 @@ const email_concat = () => {
   }
   // 인풋 히든 의 값
   $(`[name="${name2}"]`).attr("value", str);
+};
+
+// 집코드 + 상세주소 합치기
+const addr_concat = () => {
+  // 네임 값
+  let zip = $('#zipCode').val();
+  let addr = $('#address_normal').val();
+
+  let zipAddr = zip + addr;
+
+  $('#address_normal').val(zipAddr);
 };
