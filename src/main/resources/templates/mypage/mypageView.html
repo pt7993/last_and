@@ -8,7 +8,7 @@
     <script
             th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"
     ></script>
-    <script th:src="@{/js/join.js}"></script>
+    <script th:src="@{/js/myPage.js}"></script>
     <link rel="stylesheet" th:href="@{/css/join.css}" />
 </head>
 <div layout:fragment="content">
@@ -144,27 +144,28 @@
 <!--                                    th:value="${member.user_email}"-->
 <!--                            />-->
 
-                            <input type="text" name="user_email1" class="size_mail1"
+                            <input type="text" name="user_email1" class="size_mail1" id="user_email1"
                             />
                             @
                             <input
                                     type="text"
                                     name="user_email1"
-                                    id="str_email02"
+                                    id="user_email2"
                                     class="size_mail2"
                             />
                             <select name="selectEmail" id="selectEmail">
                                 <option value="1">직접입력</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="daum.net">daum.net</option>
-                                <option value="google.com">google.com</option>
-                                <option value="nate.com">nate.com</option>
+                                <option name="emailOption" value="naver.com">naver.com</option>
+                                <option name="emailOption" value="gmail.com">gmail.com</option>
+                                <option name="emailOption" value="daum.net">daum.net</option>
+                                <option name="emailOption" value="google.com">google.com</option>
+                                <option name="emailOption" value="nate.com">nate.com</option>
                             </select>
                             <!--   이메일 보내는 input      -->
                             <input type="text" name="user_email"
                                    th:field="*{user_email}"
                                    th:value="${member.user_email}"
+                                   id="user_email"
                                    style="display: none" />
                         </li>
                     </ul>
@@ -251,6 +252,7 @@
                                         name="user_addr"
                                         readonly="readonly"
                                         class="size_zip_all"
+                                        id="zipCode"
                                 />
                                 <button
                                         type="button"
@@ -281,6 +283,7 @@
 
                                 />
                             </div>
+                            <input type="hidden" name="resultType" value="json"/>
                         </li>
                     </ul>
                     <!-- 트레이너 여부 -->
@@ -312,7 +315,7 @@
 
             <div class="btn_area">
                 <button type="button" class="btn" onclick="history.go(-1)">이전</button>
-                <button type="submit" class="btn" id="joinbtn">정보 수정</button>
+                <button type="submit" class="btn" id="joinBtn">정보 수정</button>
                 <button type="button" class="btn" th:if="${session.social != 'social'}">
                     <a href="/member/memberOut">회원탈퇴</a>
                 </button>
