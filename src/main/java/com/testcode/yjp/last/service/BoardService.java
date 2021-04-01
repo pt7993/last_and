@@ -2,19 +2,20 @@ package com.testcode.yjp.last.service;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.BoardListResponseDto;
-import com.testcode.yjp.last.domain.dto.BoardResponseDto;
-import com.testcode.yjp.last.domain.dto.BoardSaveRequestDto;
-import com.testcode.yjp.last.domain.dto.BoardUpdateRequestDto;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,4 +77,26 @@ public class BoardService {
         log.info("조회수 증가 서비스");
         return boardRepository.updateView(id);
     }
+
+    public PageResultDto<BoardDto, Board> getList(PageRequestDto requestDto) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<Board> result = boardRepository.findAll(pageable);
+        Function<Board, BoardDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    private BoardDto entityToDto(Board entity) {
+        BoardDto dto = BoardDto.builder()
+                .id(entity.getId())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .author(entity.getAuthor())
+                .hit(entity.getHit())
+                .regDate(entity.getRegDate())
+                .modifiedDate(entity.getModDate())
+                .build();
+        return dto;
+    }
+
+
 }

@@ -2,12 +2,14 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.dto.BoardResponseDto;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
+import com.testcode.yjp.last.domain.dto.PageRequestDto;
 import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.service.BoardService;
 import com.testcode.yjp.last.service.CommentsService;
 import com.testcode.yjp.last.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +29,10 @@ public class BoardController {
 
     // 전체조회
     @GetMapping("")
-    public String BoardView(Model model) {
+    public String BoardView(PageRequestDto pageRequestDto, Model model) {
         model.addAttribute("boards", boardService.findAllDesc());
+        model.addAttribute("result", boardService.getList(pageRequestDto));
+
         return "/board/boardSelect";
     }
 
