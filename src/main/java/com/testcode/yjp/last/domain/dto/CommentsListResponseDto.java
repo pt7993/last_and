@@ -1,7 +1,6 @@
 package com.testcode.yjp.last.domain.dto;
 
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Comments;
+import com.testcode.yjp.last.domain.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,16 +11,16 @@ import java.time.LocalDateTime;
 public class CommentsListResponseDto {
 
     private Long id;
+    private String user_id;
     private Long parentNum;
     private String comments;
-    private String nickname;
     private LocalDateTime modifiedDate;
 
-    public CommentsListResponseDto(Comments entity){
+    public CommentsListResponseDto(Comment entity){
         this.id = entity.getId();
+        this.user_id = entity.getUser_id();
         this.parentNum = entity.getParentNum();
         this.comments = entity.getComments();
-        this.nickname = entity.getNickname();
         this.modifiedDate = entity.getModDate();
     }
 }

@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +29,7 @@ public class BoardController {
     public String BoardView(PageRequestDto pageRequestDto, Model model) {
         model.addAttribute("boards", boardService.findAllDesc());
         model.addAttribute("result", boardService.getList(pageRequestDto));
+        model.addAttribute("PageRequestDto", pageRequestDto);
 
         return "/board/boardSelect";
     }
@@ -46,7 +44,7 @@ public class BoardController {
 
     // 수정페이지
     @GetMapping("/trainerBoard/update")
-    public String trainerBoardUpdate( Long hb_num, Model model) {
+    public String trainerBoardUpdate( Long hb_num, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         BoardResponseDto dto = boardService.findById(hb_num);
         model.addAttribute("boards", dto);
         return "board/boardUpdate";
@@ -54,7 +52,7 @@ public class BoardController {
 
     // 게시판 디테일 페이지
     @GetMapping("/trainerBoard/detail")
-    public String trainerBoardDetail(Long hb_num , Model model) {
+    public String trainerBoardDetail(Long hb_num , Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
 
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("comments", commentsService.findAllDesc());

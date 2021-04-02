@@ -1,8 +1,6 @@
 package com.testcode.yjp.last.service;
 
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Comments;
-import com.testcode.yjp.last.domain.dto.BoardUpdateRequestDto;
+import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.dto.CommentsListResponseDto;
 import com.testcode.yjp.last.domain.dto.CommentsUpdateRequestDto;
 import com.testcode.yjp.last.repository.CommentsRepository;
@@ -29,14 +27,14 @@ public class CommentsService {
     }
 
 
-    public Comments findByComments(Long ParentNum) {
-        return commentsRepository.findByParentNum(ParentNum);
-    }
+//    public Comment findByComments(Long ParentNum) {
+//        return commentsRepository.findBy(ParentNum);
+//    }
 
 
     public Long update(Long id, CommentsUpdateRequestDto commentsUpdateRequestDto) {
         log.info("comments update post service");
-        Comments comments = commentsRepository.findById(id)
+        Comment comments = commentsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. id=" + id));
         comments.update(commentsUpdateRequestDto.getComments());
         System.out.println(commentsUpdateRequestDto.getComments());
@@ -45,7 +43,7 @@ public class CommentsService {
     }
 
     public void delete(Long id) {
-        Comments comments = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다=id" + id));
+        Comment comments = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다=id" + id));
         commentsRepository.delete(comments);
     }
 }

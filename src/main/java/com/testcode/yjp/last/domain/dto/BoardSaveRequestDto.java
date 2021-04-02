@@ -13,15 +13,15 @@ import lombok.Setter;
 public class BoardSaveRequestDto {
     private Member member;
     private String title;
+    private String user_id;
     private String content;
     private int hit=0;
-    private String author;
 
     public Board toEntity(){
         return Board.builder()
                 .title(title)
                 .content(content)
-                .author(author)
+                .user_id(user_id)
                 .hit(hit)
                 .build();
     }

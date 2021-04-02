@@ -1,7 +1,11 @@
 package com.testcode.yjp.last.service;
 
+import com.fasterxml.jackson.databind.util.ArrayBuilders;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.QBoard;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
@@ -80,7 +84,8 @@ public class BoardService {
 
     public PageResultDto<BoardDto, Board> getList(PageRequestDto requestDto) {
         Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
-        Page<Board> result = boardRepository.findAll(pageable);
+        BooleanBuilder booleanBuilder = getSearch(requestDto);
+        Page<Board> result = boardRepository.findAll(booleanBuilder,pageable);
         Function<Board, BoardDto> fn = (entity -> entityToDto(entity));
         return new PageResultDto<>(result, fn);
     }
@@ -90,12 +95,44 @@ public class BoardService {
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
-                .author(entity.getAuthor())
+                .user_id(entity.getUser_id())
                 .hit(entity.getHit())
                 .regDate(entity.getRegDate())
                 .modifiedDate(entity.getModDate())
                 .build();
         return dto;
+    }
+
+    private BooleanBuilder getSearch(PageRequestDto requestDto) {  // Querydsl처리
+        String type = requestDto.getType();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QBoard qBoard = QBoard.board;
+        String keyword = requestDto.getKeyword();
+        BooleanExpression expression = qBoard.id.gt(0L);
+        booleanBuilder.and(expression);
+
+        //검색조건이 없는경우
+        if (type == null || type.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        // 검색조건을 작성하기
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if (type.contains("t")) {
+            conditionBuilder.or(qBoard.title.contains(keyword));
+        }
+        if (type.contains("c")) {
+            conditionBuilder.or(qBoard.content.contains(keyword));
+        }
+        if (type.contains("u")) {
+            conditionBuilder.or(qBoard.user_id.contains(keyword));
+        }
+
+        // 모든조건 통합
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
     }
 
 

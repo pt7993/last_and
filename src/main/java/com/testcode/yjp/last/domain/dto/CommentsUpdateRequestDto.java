@@ -1,7 +1,6 @@
 package com.testcode.yjp.last.domain.dto;
 
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Comments;
+import com.testcode.yjp.last.domain.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ public class CommentsUpdateRequestDto {
 
     private String comments;
 
-    public CommentsUpdateRequestDto(Comments comments) {
+    public CommentsUpdateRequestDto(Comment comments) {
         this.comments = comments.getComments();
     }
 

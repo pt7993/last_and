@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+
+<div layout:fragment="content">
+    <h2>파일업로드</h2>
+
+    <div class="container">
+        <form action="/file/fileinsert" method="post" enctype="multipart/form-data">
+            <input type="file" name="files">
+            <!-- 여기서 files는 controller에 @RequestPart MultipartFile files -->
+            <a th:href="@{/file/look}">파일보기</a>
+            <button type="submit" class="btn btn-dark">업로드</button>
+        </form>
+    </div>
+</div>
+</html>

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+
+<div layout:fragment="content">
+    <h2>사진확인</h2>
+
+    <div>
+        <img th:src="@{/image/${file.filename}}" style="width:300px;height:auto;">
+    </div>
+</div>
+</html>

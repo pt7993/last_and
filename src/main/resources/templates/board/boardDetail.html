@@ -1,66 +1,85 @@
 <!doctype html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layout/default}">
+
 <head>
     <title>상세보기</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <script th:src="@{/js/board.js}"></script>
     <script th:src="@{/js/comments.js}"></script>
 </head>
-<div layout:fragment="content">
-    <table>
-        <input type="hidden" th:text="${boards.id}" id="hb_num" name="hb_num">
-        <tr>
-            <td th:text="${boards.title}"></td>
-        </tr>
-        <tr>
-            <td th:text="${boards.author}"></td>
-            <td>수정날짜</td>
-            <td th:text="${#temporals.format(boards.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-            <td>조회수</td>
-            <td th:text="${boards.hit}" class="hit"></td>
-        </tr>
-    </table>
-    <hr>
-    <table>
-        <tr>
-            <td th:text="${boards.content}"></td>
-        </tr>
-    </table>
-    <a th:href="@{/board/trainerBoard/update(hb_num = ${boards.id})}" th:if="${session.loginId == boards.author}"
-       class="btn btn-secondary">글수정</a>
+<div layout:fragment="content" class="content">
 
-    <hr>
-    <br>
-    <form th:if="${boards.id != null}">
-        <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
+    <div class="post_header">
+        <input type="hidden" th:text="${boards.id}" id="hb_num" name="hb_num">
+        <div th:text="${boards.title}" class="post_title"></div>
+        <div class="post_info">
+            <div class="left">
+                <div th:text="${boards.user_id}" class="post_author"></div>
+            </div>
+            <div class="right">
+                <div class="update_at">
+                    <span>수정날짜:</span>
+                    <span th:text="${#temporals.format(boards.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+
+                    </span>
+                </div>
+                <div class="hits">
+                    <span>조회수:</span>
+                    <span th:text="${boards.hit}" class="hit"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="post_content" th:text="${boards.content}">
+
+    </div>
+
+    <div class="post_control_btn_area">
+        <a th:href="@{/board/trainerBoard/update(hb_num = ${boards.id},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" th:if="${session.loginId == boards.user_id}"
+        class="custom_btn post_update">글수정</a>
+        <a th:href="@{/board(page=${PageRequestDto.page},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">이전</a>
+    </div>
+
+    <div class="comments">
+
         <table>
             <tr>
-                <th></th>
                 <th>아이디</th>
                 <th>댓글내용</th>
                 <th>등록날짜</th>
             </tr>
-            <tr th:each="comment: ${comments}" th:if="${comment.parentNum == boards.id}">
-                <td><input type="hidden" th:value="${comment.id}" id="commentId" name="commentId"></td>
-                <td th:text="${comment.nickname}"></td>
+            <tr th:each="comment: ${comments}"  th:if="${comment.parentNum == boards.id}">
+                <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                <td th:text="${comment.user_id}"></td>
                 <td th:text="${comment.comments}"></td>
                 <td th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-                <td th:if="${session.loginId == comment.nickname}"><button type="button" class="btn btn-primary" onclick="CDelete()">삭제</button></td>
+                <td th:if="${session.loginId == comment.user_id}"><button type="button" class="btn btn-primary"
+                                                                           onclick="CDelete()">삭제</button></td>
             </tr>
         </table>
-        <table th:if="${session.loginId != null}">
-            <tr>
-                <input type="hidden" th:value="${boards.id}" id="parentNum" name="parentNum">
-                <input type="hidden" th:value="${session.loginId}" id="nickname" name="nickname">
-                <td><textarea name="comments" id="comments" cols="55" rows="4" placeholder="댓글을 남겨주세요"></textarea></td>
-                <td>
-                    <button type="button" onclick="CommentSave()">댓글달기</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+
+        <form th:if="${boards.id != null}">
+            <div th:if="${session.loginId != null}" class="comment_fm">
+                <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
+                <input type="hidden" th:value="${boards.id}" name="parentNum" id="parentNum">
+                <input type="hidden" th:value="${session.loginId}" id="user_id" name="user_id">
+                <div class="comment_write_area">
+                    <textarea name="comments" id="comments" cols="55" rows="4" placeholder="댓글을 남겨주세요"></textarea>
+                </div>
+                <button type="button" onclick="CommentSave()" class="comment_save_btn">댓글달기</button>
+            </div>
+        </form>
+
+    </div>
+
 </div>
 
 

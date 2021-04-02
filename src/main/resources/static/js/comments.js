@@ -8,15 +8,16 @@ function CommentSave() {
             var data = {
                 nickname: $('#nickname').val(),
                 comments: $('#comments').val(),
-                parentNum : $('#parentNum').val()
+                parentNum : $('#parentNum').val(),
+                user_id : $('#user_id').val()
             };
-            var id = $('#member_id').val();
-            var hb_num = $('#hb_num').val();
+            var parentNum = $('#parentNum').val();
             console.log("session login id=" + data.id)
+            console.log("session login id=" + data.parentNum)
 
             $.ajax({
                 type: 'post',
-                url: '/comments/save/' + id,
+                url: '/comments/save/' + parentNum,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -40,6 +41,7 @@ function CDelete() {
         },
         delete: function () {
             var id = $('#commentId').val();
+            console.log("id=" + id);
             $.ajax({
                 type: 'post',
                 url: '/comments/delete/'+id ,

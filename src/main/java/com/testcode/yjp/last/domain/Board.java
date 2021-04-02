@@ -16,10 +16,10 @@ public class Board extends BaseEntity{
     private Long id;
     @Column(name = "hb_title")
     private String title;
-    @Column(name = "hb_content")
+    @Column(name = "user_id")
+    private String user_id;
+    @Column(name = "hb_content" ,length = 2000)
     private String content;
-    @Column(name = "hb_author")
-    private String author;
 
     @Column(name = "hb_hit")
     private int hit = 0;
@@ -35,10 +35,10 @@ public class Board extends BaseEntity{
 
 
     @Builder
-    public Board(String title, String content, String author, int hit){
+    public Board(String title, String content, String user_id, int hit){
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.user_id = user_id;
         this.hit = hit;
     }
 

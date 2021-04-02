@@ -1,10 +1,7 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Comments;
-import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.BoardUpdateRequestDto;
-import com.testcode.yjp.last.domain.dto.CommentsUpdateRequestDto;
+import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
@@ -26,11 +23,11 @@ public class CommentsApiController {
     private final CommentsService commentsService;
     private final BoardRepository boardRepository;
 
-    @PostMapping("/save/{id}")
-    public Comments commentsSave(@PathVariable Long id, @RequestBody Comments comments) {
+    @PostMapping("/save/{parentNum}")
+    public Comment commentsSave(@PathVariable Long parentNum, @RequestBody Comment comments) {
         log.info("comments save Controller");
-        System.out.println(comments.getNickname());
-        Optional<Board> boardId = boardRepository.findById(id);
+        System.out.println(comments.getUser_id());
+        Optional<Board> boardId = boardRepository.findById(parentNum);
         comments.setBoard(boardId.get());
         commentsRepository.save(comments);
         return comments;

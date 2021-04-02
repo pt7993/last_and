@@ -22,7 +22,7 @@ public class BoardRepositoryTest {
             Board board = Board.builder()
                     .title("제목"+i)
                     .content("내용"+i)
-                    .author("작성자"+i)
+                    .user_id("작성자"+i)
                     .build();
             System.out.println(boardRepository.save(board));
         });
