@@ -7,6 +7,7 @@ import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.service.BoardService;
 import com.testcode.yjp.last.service.CommentsService;
 import com.testcode.yjp.last.service.MemberService;
+import com.testcode.yjp.last.service.ReCommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
@@ -23,6 +24,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final CommentsService commentsService;
+    private final ReCommentsService reCommentsService;
 
     // 전체조회
     @GetMapping("")
@@ -56,7 +58,7 @@ public class BoardController {
 
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("comments", commentsService.findAllDesc());
-//        model.addAttribute("commentId", commentsService.findByComments(hb_num));
+        model.addAttribute("recomments", reCommentsService.findAllDesc());
 
         boardService.updateView(hb_num);
         return "board/boardDetail";
