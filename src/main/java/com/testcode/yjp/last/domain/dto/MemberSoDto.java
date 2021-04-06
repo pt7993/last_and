@@ -1,7 +1,11 @@
 package com.testcode.yjp.last.domain.dto;
 
 import com.testcode.yjp.last.domain.Member;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class MemberSoDto {
     private String user_id;
     private String user_name;
