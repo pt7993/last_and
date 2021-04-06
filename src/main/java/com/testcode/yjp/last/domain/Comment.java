@@ -11,24 +11,25 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Setter
-public class Comments extends BaseEntity{
+public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "com_id")
+    @Column(name = "cm_id")
     private Long id;
 
-    @Column(name = "com_parentNum")
+    @Column(name = "user_id")
+    private String user_id;
+
     private Long parentNum;
 
-    @Column(name = "com_comments")
+    @Column(name = "cm_comments", length = 2000)
     private String comments;
 
-    @Column(name = "com_name")
-    private String nickname;
-
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "hb_num")
+    private Board board;
+
+
 
 
     public void update(String comments ){

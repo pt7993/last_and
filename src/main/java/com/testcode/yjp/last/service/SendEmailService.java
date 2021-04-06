@@ -32,8 +32,8 @@ getTempPassword : 10자리의 랜덤난수를 생성하는 메소드
         String str = getTempPassword();
         MailDto dto = new MailDto();
         dto.setAddress(user_email);
-        dto.setTitle(user_name + "님의 HOTTHINK 임시비밀번호 안내 이메일 입니다.");
-        dto.setMessage("안녕하세요. HOTTHINK 임시비밀번호 안내 관련 이메일 입니다." + "[" + user_name + "]" + "님의 임시 비밀번호는 "
+        dto.setTitle(user_name + "님의 DaGym 임시비밀번호 안내 이메일 입니다.");
+        dto.setMessage("안녕하세요. DaGym 임시비밀번호 안내 관련 이메일 입니다." + "[" + user_name + "]" + "님의 임시 비밀번호는 "
                 + str + " 입니다.");
         updatePassword(str, user_email);
         return dto;

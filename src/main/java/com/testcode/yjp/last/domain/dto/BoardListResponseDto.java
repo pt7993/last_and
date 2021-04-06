@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class BoardListResponseDto {
     private Long id;
     private String title;
-    private String author;
+    private String user_id;
     private String content;
     private int hit;
     private LocalDateTime modifiedDate;
@@ -18,7 +18,7 @@ public class BoardListResponseDto {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.author = entity.getAuthor();
+        this.user_id = entity.getUser_id();
         this.modifiedDate = entity.getModDate();
         this.hit = entity.getHit();
     }

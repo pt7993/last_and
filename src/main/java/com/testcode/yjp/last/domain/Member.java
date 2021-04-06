@@ -20,7 +20,6 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-    @Column(unique = true)
     private String user_id;
     private String user_pw;
     private String user_name;

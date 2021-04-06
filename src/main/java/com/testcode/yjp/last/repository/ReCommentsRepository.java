@@ -1,20 +1,19 @@
 package com.testcode.yjp.last.repository;
 
+
 import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.ReComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface CommentsRepository extends JpaRepository<Comment, Long> {
+public interface ReCommentsRepository extends JpaRepository<ReComment, Long> {
 
+    @Query("select r from ReComment r order by r.id DESC ")
+    List<ReComment> findAllDesc();
 
-
-    @Query("select c from Comment c order by c.id DESC ")
-    List<Comment> findAllDesc();
-
-//    @Query("select c from Comment c where c.board = :hb_num")
-//    Comment findByParentNum(Long hb_num);
 }

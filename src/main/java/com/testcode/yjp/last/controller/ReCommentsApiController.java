@@ -2,9 +2,11 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.ReComment;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.ReCommentsRepository;
 import com.testcode.yjp.last.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,23 +16,21 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/comments")
+@RequestMapping("/recomments")
 @Slf4j
-public class CommentsApiController {
-
-    private final MemberRepository memberRepository;
-    private final CommentsRepository commentsRepository;
-    private final CommentsService commentsService;
+public class ReCommentsApiController {
+    private final ReCommentsRepository reCommentsRepository;
     private final BoardRepository boardRepository;
+    private final CommentsRepository commentsRepository;
 
-    @PostMapping("/save/{parentNum}")
-    public Comment commentsSave(@PathVariable Long parentNum, @RequestBody Comment comments) {
-        log.info("comments save Controller");
-        System.out.println(comments.getUser_id());
-        Optional<Board> boardId = boardRepository.findById(parentNum);
-        comments.setBoard(boardId.get());
-        commentsRepository.save(comments);
-        return comments;
+    @PostMapping("/save/{re_parentCoNum}")
+    public ReComment RecommentsSave(@PathVariable Long re_parentCoNum, @RequestBody ReComment reComment) {
+        log.info("Recomments save Controller");
+        System.out.println(reComment.getRe_user_id());
+        Optional<Comment> result = commentsRepository.findById(re_parentCoNum);
+        reComment.setComment(result.get());
+        reCommentsRepository.save(reComment);
+        return reComment;
     }
 
 
@@ -43,10 +43,10 @@ public class CommentsApiController {
 //    }
 
     //삭제기능
-    @PostMapping("/delete/{id}")
-    public Long delete(@PathVariable Long id){
-        commentsService.delete(id);
-        return id;
-    }
+//    @PostMapping("/delete/{id}")
+//    public Long delete(@PathVariable Long id){
+//        commentsService.delete(id);
+//        return id;
+//    }
 
 }
