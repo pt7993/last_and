@@ -1,6 +1,5 @@
 package com.testcode.yjp.last.service;
 
-import com.fasterxml.jackson.databind.util.ArrayBuilders;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.testcode.yjp.last.domain.Board;
@@ -8,6 +7,7 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.QBoard;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
+import com.testcode.yjp.last.repository.LikeRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +30,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+    private final LikeRepository likeRepository;
 
 
     // Board save 연관관계 매핑 처리부분
@@ -97,6 +98,7 @@ public class BoardService {
                 .content(entity.getContent())
                 .user_id(entity.getUser_id())
                 .hit(entity.getHit())
+                .recommend(entity.getRecommends().size())
                 .regDate(entity.getRegDate())
                 .modifiedDate(entity.getModDate())
                 .build();
@@ -134,6 +136,7 @@ public class BoardService {
 
         return booleanBuilder;
     }
+
 
 
 }

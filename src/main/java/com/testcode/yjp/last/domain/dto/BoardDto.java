@@ -17,5 +17,6 @@ public class BoardDto {
     private String user_id;
     private String content;
     private int hit;
+    private int recommend;
     private LocalDateTime modifiedDate,regDate;
 }

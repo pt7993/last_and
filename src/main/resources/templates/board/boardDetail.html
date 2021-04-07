@@ -8,9 +8,9 @@
     <script th:src="@{/js/board.js}"></script>
     <script th:src="@{/js/comments.js}"></script>
     <style>
-        .reCmt {
-            display: none;
-        }
+        /*#reCmt {*/
+        /*    display: none;*/
+        /*}*/
     </style>
 </head>
 <div layout:fragment="content" class="content">
@@ -33,12 +33,23 @@
                     <span>조회수:</span>
                     <span th:text="${boards.hit}" class="hit"></span>
                 </div>
+                <div class="recommends">
+                    <span>추천:</span>
+                    <span th:text="${boards.recommends}"></span>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="post_content" th:text="${boards.content}">
 
+
+    </div>
+    <!--    // 추천 기능-->
+    <div style="text-align: center">
+        <input type="hidden" th:value="${session.loginId}" id="recommendId">
+        <input type="hidden" th:value="${boards.id}" id="boards_id">
+        <button type="button" onclick="recommend()">추천</button>
     </div>
 
     <div class="post_control_btn_area">
@@ -56,18 +67,19 @@
     </div>
 
     <div class="comments_count">
-        <h3>댓글 <span>0</span>개</h3>
+        <h3>댓글 <span th:text="${count}"></span>개</h3>
     </div>
 
+
     <!--댓글달기-->
-    <form th:if="${boards.id != null}">
+    <form>
         <div class="comment_fm">
             <input type="hidden" th:value="${boards.id}" id="parentNum" name="parentNum">
             <input type="hidden" th:value="${session.loginId}" id="user_id" name="user_id">
             <div class="comment_write_area">
                 <textarea name="comments" id="comments" cols="55" rows="4" placeholder="댓글을 남겨주세요"></textarea>
             </div>
-            <button type="button" onclick="CommentSave()" class="comment_save_btn">댓글달기</button>
+            <button type="button" id="comment_save" class="comment_save_btn">댓글달기</button>
         </div>
     </form>
     <!--댓글달기끝-->
@@ -76,8 +88,7 @@
     <div class="comments_area">
         <div class="comments">
 
-
-            <!--            일반 댓글 목록 시작-->
+            <!--            일반 댓글 목록 시작 if 게시판pk == 댓글에 board 값이 같으면  pk 보드에 맞는 댓글들을 보여준다-->
             <div class="comment" th:each="comment: ${comments}" th:if="${comment.parentNum == boards.id}">
                 <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
                 <div class="comment_info">
@@ -87,22 +98,33 @@
                     </div>
                 </div>
                 <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+                <!--                좋아요 처리하는곳-->
+                <div>
+                    <input type="hidden" th:value="${session.loginId}" id="likeId">
+                    <input type="hidden" th:value="${boards.id}" id="boardLike">
+                    <input type="hidden" th:value="${comment.id}" id="comId">
+                    <td><i style="cursor: pointer" class="far fa-thumbs-up" onclick="like()"
+                           th:text="${comment.likes}"></i></td>
+                    <td><i style="cursor: pointer" class="far fa-thumbs-down" onclick="unlike()"
+                            th:text="${comment.dislike}"></i></td>
+                </div>
+                <!--                좋아요 끝나는곳-->
+
                 <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                    <button type="button" onclick="CDelete()">삭제</button>
+                    <button type="button" id="delete">삭제</button>
                 </div>
                 <!--                일반 댓글 목록 끝-->
 
 
-                <!--                답글버튼 시작-->
-                <!--답글버튼 긑-->
                 <!--                  답글 누르면 스타트지점-->
-                <button type="button" onclick="CmtBtn()">답글</button>
-                <div class="reCmt">
+                <button type="button" class="recmt_button">답글</button>
+                <div id="reCmt">
                     <!--                    리댓 리스트-->
                     <div class="comment_control_btn_area" th:each="recomment: ${recomments}"
-                         th:if="${recomment.re_parentCoNum == comment.id}">
-                        <div th:if="${comment.id == recomment.re_parentCoNum}">
-                            <input type="hidden" th:value="${recomment.id}" id="recomment" name="recomment">
+                         th:if="${comment.id == recomment.re_parentCoNum}">
+                        <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                        <div>
+                            <input type="hidden" th:value="${recomment.id}" id="recommentId">
                             <div class="comment_info">
                                 <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
                                 <div class="created_at"
@@ -111,40 +133,32 @@
                                 </div>
                             </div>
                             <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                            <!--                            <div class="comment_control_btn_area" th:if="${session.loginId == recomment.re_user_id}">-->
-                            <!--                                <button type="button" onclick="CDelete()">삭제</button>-->
-                            <!--                            </div>-->
+                            <div class="comment_control_btn_area" th:if="${session.loginId == recomment.re_user_id}">
+                                <button type="button" id="RCDelete">삭제</button>
+                            </div>
                         </div>
                     </div>
+
+                    <!--                    리댓 리스트 종료-->
+                    <!--리댓 쓰기-->
+                    <form>
+                        <div>
+                            <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                            <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                            <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                            <div class="comment_write_area">
+                                <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                            </div>
+                            <button type="button" id="recomment_save" class="recomment_save_btn">답글달기</button>
+                        </div>
+                    </form>
+                    <!--리댓종료-->
                 </div>
-                <!--                    리댓 리스트 종료-->
-                <!--리댓 쓰기-->
-                <form th:each="result: ${recomments}" th:if="${result.re_parentCoNum == comment.id}" class="reCmt">
-                    <div>
-                        <input type="hidden" th:value="${session.loginId}" id="re_user_id" name="re_user_id">
-                        <input type="hidden" th:value="${boards.id}" id="re_parentNum" name="re_parentNum">
-                        <input type="hidden" th:value="${comment.id}" id="re_parentCoNum" name="re_parentCoNum">
-                        <div class="comment_write_area">
-                                    <textarea id="re_comments" name="re_comments" cols="55" rows="4"
-                                              placeholder="댓글을 남겨주세요"></textarea>
-                        </div>
-                        <button type="button" onclick="ReCommentSave()" class="comment_save_btn">답글달기</button>
-                    </div>
-                </form>
-                <!--리댓종료-->
 
             </div>
+            <!--  -->
         </div>
     </div>
-
-    <script th:inline="javascript">
-
-        function CmtBtn() {
-            // $('.reCmt').toggle();
-            $('.reCmt:nth-child(even)').show();
-        }
-
-    </script>
 </div>
 
 

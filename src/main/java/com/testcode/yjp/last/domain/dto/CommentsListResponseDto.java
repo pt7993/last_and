@@ -14,6 +14,8 @@ public class CommentsListResponseDto {
     private String user_id;
     private Long parentNum;
     private String comments;
+    private int dislike;
+    private int likes;
     private LocalDateTime modifiedDate;
 
     public CommentsListResponseDto(Comment entity){
@@ -21,6 +23,8 @@ public class CommentsListResponseDto {
         this.user_id = entity.getUser_id();
         this.parentNum = entity.getParentNum();
         this.comments = entity.getComments();
+        this.likes = entity.getLike_check();
+        this.dislike = entity.getDislike_check();
         this.modifiedDate = entity.getModDate();
     }
 }

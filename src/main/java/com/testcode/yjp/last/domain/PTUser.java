@@ -24,8 +24,8 @@ public class PTUser {
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
-
     private Member trainer_id;
+
     private String user_id;
     private String user_name;
     private String user_pn;

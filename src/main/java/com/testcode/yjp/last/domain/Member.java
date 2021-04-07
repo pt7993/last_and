@@ -31,7 +31,7 @@ public class Member extends BaseEntity{
     private String user_gender;
 
 //     기본 전략은 LAZY
-//    @OneToMany(mappedBy = "member")
+//    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
 //    private List<Board> boards = new ArrayList<>();
 
     private String user_role;

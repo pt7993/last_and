@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +22,13 @@ public class Comment extends BaseEntity{
     @Column(name = "user_id")
     private String user_id;
 
+    // 댓글 좋아요 수
+    private int like_check=0;
+
+    // 댓글 싫어요 수
+    private int dislike_check=0;
+
+    // board id
     private Long parentNum;
 
     @Column(name = "cm_comments", length = 2000)
@@ -30,11 +39,7 @@ public class Comment extends BaseEntity{
     private Board board;
 
 
-
-
     public void update(String comments ){
         this.comments = comments;
     }
-
-
 }

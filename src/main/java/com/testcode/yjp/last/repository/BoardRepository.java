@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface BoardRepository extends JpaRepository<Board, Long> ,
+public interface BoardRepository extends JpaRepository<Board, Long>,
         QuerydslPredicateExecutor<Board> {
 
     @Query("select b from Board b order by b.id DESC ")
@@ -17,5 +18,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> ,
     @Modifying
     @Query("update Board p set p.hit = p.hit + 1 where p.id = :hb_num")
     int updateView(Long hb_num);
+
 
 }

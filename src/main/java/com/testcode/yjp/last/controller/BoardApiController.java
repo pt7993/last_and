@@ -2,7 +2,6 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.BoardSaveRequestDto;
 import com.testcode.yjp.last.domain.dto.BoardUpdateRequestDto;
 import com.testcode.yjp.last.domain.dto.PageRequestDto;
 import com.testcode.yjp.last.repository.BoardRepository;
@@ -24,7 +23,6 @@ public class BoardApiController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-
 
     //등록기능
     @PostMapping("/trainerBoard/save/{member_id}")

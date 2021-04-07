@@ -8,8 +8,10 @@ import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.ReCommentsRepository;
 import com.testcode.yjp.last.service.CommentsService;
+import com.testcode.yjp.last.service.ReCommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,14 +24,18 @@ public class ReCommentsApiController {
     private final ReCommentsRepository reCommentsRepository;
     private final BoardRepository boardRepository;
     private final CommentsRepository commentsRepository;
+    private final ReCommentsService reCommentsService;
 
     @PostMapping("/save/{re_parentCoNum}")
-    public ReComment RecommentsSave(@PathVariable Long re_parentCoNum, @RequestBody ReComment reComment) {
+    public ReComment RecommentsSave(@PathVariable Long re_parentCoNum, @RequestBody ReComment reComment, Model model) {
         log.info("Recomments save Controller");
-        System.out.println(reComment.getRe_user_id());
+        System.out.println("로그인한 아이디"+reComment.getRe_user_id());
+        System.out.println("댓글부모"+reComment.getRe_parentCoNum());
         Optional<Comment> result = commentsRepository.findById(re_parentCoNum);
         reComment.setComment(result.get());
         reCommentsRepository.save(reComment);
+        model.addAttribute("reComment", commentsRepository.findById(re_parentCoNum));
+
         return reComment;
     }
 
@@ -42,11 +48,11 @@ public class ReCommentsApiController {
 //        return commentsService.update(id, commentsUpdateRequestDto);
 //    }
 
-    //삭제기능
-//    @PostMapping("/delete/{id}")
-//    public Long delete(@PathVariable Long id){
-//        commentsService.delete(id);
-//        return id;
-//    }
+//    삭제기능 url: '/recomments/delete/'+id ,
+    @PostMapping("/delete/{id}")
+    public Long delete(@PathVariable Long id){
+        reCommentsService.delete(id);
+        return id;
+    }
 
 }
