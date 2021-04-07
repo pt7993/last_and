@@ -6,6 +6,7 @@ import com.testcode.yjp.last.domain.dto.android.AndMemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindPwDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberLoginDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
+import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
 import com.testcode.yjp.last.repository.AndroidRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
@@ -111,6 +112,14 @@ public class AndroidController {
         } else {
             return byUser_id;
         }
+    }
 
+    @PutMapping("/mypage/{id}")
+    public Member mypageUpdate(@PathVariable("id") Long id, @RequestBody AndMemberMypageDto andMemberMypageDto) {
+        Member byId = memberRepository.findById(id).orElse(null);
+        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_pn(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role());
+        Member save = memberRepository.save(byId);
+
+        return save;
     }
 }
