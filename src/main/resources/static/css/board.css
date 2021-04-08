@@ -1,70 +1,92 @@
+@font-face {
+    font-family: "RIDIBatang";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
+    format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    background-color: #fafafa;
+    background-color: #fff;
+    font-family: "RIDIBatang";
 }
 
 .content {
-    width: 972px;
-    margin-top: 50px;
+    width: 1150px;
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
-    border-bottom: 2px solid #0002;
-    background-color: #fff;
-}
-
-.content .board_info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 10px;
+    /*border-bottom: 2px solid #0002;*/
+    /*background-color: #fff;*/
 }
 
 .content .board_search {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 }
 
+.content .board_search > * {
+    margin-left: 5px;
+}
+
 .content .board_search select {
-    padding: 5px 8px;
+    padding: 8px 8px;
+    margin-right: 0.5px;
     border: 1px solid #ddd;
 }
 
 .content .board_search input {
-    padding: 5px 8px;
+    padding: 8px 8px;
     border: 1px solid #ddd;
 }
 
+.content .board_search button {
+    color: #0d6efd;
+}
+
 .custom_btn {
-    padding: 5px 8px;
+    padding: 8px 8px;
     border: 1px solid #ddd;
-    background-color: transparent;
+    background-color: #fff;
     cursor: pointer;
 }
 
 .content .board {
     width: 100%;
-    border-top: 3px solid #000;
+    margin-top: 20px;
+    border-top: 2px solid #dbdbdb;
     border-collapse: collapse;
 }
 
-.content .board thead td, .content .board thead th{
+.content .board thead td,
+.content .board thead th {
     color: #7a7a7a;
     font-weight: bold;
 }
 
-.content .board td, .content .board th {
+.content .board td,
+.content .board th {
     border-bottom: 1px solid #dbdbdb;
-    padding: .7em .75em;
-    vertical-align: top;
+    padding: 0.7em 0.75em;
+    vertical-align: center;
     font-size: 15px;
+    text-align: center;
 }
 
 .pagination_area {
     margin-top: 20px;
+    margin-left: 50%;
+}
+
+.pagination_area li {
+    margin-right: 10px;
 }
 
 .post_write_btn_area {
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -76,17 +98,13 @@ a.custom_btn {
 
 .post_header {
     padding: 10px;
-    border-bottom: 2px solid #eee;
-    background-color: #e4f0fb;
+    /*border-bottom: 2px solid #eee;*/
+    background-color: #ffffff;
 }
 
 .post_title {
     font-size: 28px;
     font-weight: 400;
-}
-
-.post_author {
-    color: #f55959;
 }
 
 .post_info {
@@ -96,14 +114,25 @@ a.custom_btn {
     align-items: center;
 }
 
+.post_info .left {
+    display: flex;
+}
+
+.post_author {
+    color: #4458c8;
+    margin-left: 5px;
+}
+
 .post_info .right {
     display: flex;
 }
 
-.post_info .right .updated_at {
+.post_info .right .updated_at  {
     margin-right: 15px;
 }
-
+.hits{
+    margin-right: 5px;
+}
 .post_content {
     margin-top: 20px;
     padding-top: 30px;
@@ -139,7 +168,7 @@ a.custom_btn {
 }
 
 .comments .comment {
-    padding: 20px 0px;
+    padding-top: 20px;
     border-bottom: 2px solid #ddd;
 }
 
@@ -149,7 +178,7 @@ a.custom_btn {
 }
 
 .comments .comment .comment_info .writer {
-    color: #4458C8;
+    color: #4458c8;
     font-weight: bold;
 }
 
@@ -169,10 +198,14 @@ a.custom_btn {
 
 .comments .comment .comment_control_btn_area > button {
     padding: 4px 12px;
-    background-color: transparent;
+    background-color: #fff;
     border: 1px solid #ddd;
     outline: none;
     cursor: pointer;
+}
+
+.comments .comment .comment_control_btn_area > button.custom_btn:nth-child(1) {
+    margin-right: 10px;
 }
 
 .comment_fm {
@@ -184,15 +217,18 @@ a.custom_btn {
 }
 
 .comment_fm .comment_write_area {
-    border-top: 4px solid #000;
+    /*border-top: 2px solid #fff;*/
     width: 90%;
+    height: 100%;
     position: relative;
+    display: flex;
 }
 
 .comment_fm .comment_write_area textarea {
-    width: 98%;
-    padding: 8px;
+    width: 100%;
+    height: 100%;
     border: 2px solid #ddd;
+    resize: none;
 }
 
 .comment_save_btn {
@@ -206,3 +242,54 @@ a.custom_btn {
     border: none;
 }
 
+#hb_num {
+    display: none;
+}
+.comments_count {
+    border-bottom: 2px solid #ddd;
+}
+
+.like_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.like_area > div button {
+    margin-right: 10px;
+}
+
+.like_area > div {
+    display: flex;
+}
+
+.icon_area i {
+    margin: 0 5px;
+    font-size:17px;
+}
+i.far.fa-thumbs-up{
+    color: #4cacfb;
+}
+i.far.fa-thumbs-down{
+    color: #ff5252;
+}
+.reply {
+    padding: 20px;
+    background-color: #FBFCFD;
+}
+
+.reply_input input {
+    width: 90%;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+}
+
+.on {
+    display: block;
+}
+.off{
+    display: none;
+}

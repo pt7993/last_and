@@ -60,7 +60,7 @@ function CDelete() {
 }
 
 function ReCommentSave() {
-    let form = $(this).parent();
+    let form = $(this).parent('form');
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();
@@ -94,11 +94,14 @@ function ReCommentSave() {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function () {
-                alert('답글이 등록되었습니다');
+                alert('답글이 등록되었습니다.');
                 // window.location.href = '/board/trainerBoard/detail'+'hb_num'=hb_num;
                 location.reload();
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
+            }).fail(function (request, status, error) {
+                alert('답글 등록에 실패하였습니다.');
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                alert('댓글 등록이 실패하였습니다.')
+                console.log(JSON.stringify(error));
             });
         }
     };
@@ -173,6 +176,10 @@ function like() {
     var com = $('#comId').val();
     var id = $('#likeId').val();
 
+    // var boardLike = $(this).parent().parent().find('.board_id').val();
+    // var com = like_area.children('.comId').val();
+    // var id = like_area.children('.likeId').val();
+
     // if (likeId == 0) {
     //     confirm("로그인을 이용해주세요");
     //     location.href = "/member/login";
@@ -185,9 +192,9 @@ function like() {
         type: 'post',
         url: '/board/like/' + boardLike,
         data: {
-            likeId: $('#likeId').val(),
-            boardLike: $('#boardLike').val(),
-            comId: $('#comId').val()
+            likeId: id,
+            boardLike: boardLike,
+            comId: com,
         },
 
         dataType: "json",
@@ -220,7 +227,7 @@ function unlike() {
     var id = $('#likeId').val();
 
     if (likeId == 0) {
-        confirm("로그인을 이용해주세요");
+        confirm("로그인을 해주세요");
         location.href = "/member/login";
     }
     console.log("로그인 아이디" + id);
@@ -267,8 +274,8 @@ $(function () {
 
 });
 
+function buttonToggle(){
+    $(this).parent().parent().children('#reCmt').toggleClass("on off");
 
-function buttonToggle() {
-    $(this).next().toggle();
 
 }
