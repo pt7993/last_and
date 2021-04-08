@@ -27,6 +27,11 @@ public class AndroidController {
     private final AndroidRepository androidRepository;
     private final MemberService memberService;
 
+    @GetMapping("/selectAll") // READ
+    public List<Member> selectAll(){
+        return memberRepository.findAll();
+    }
+
     // 조회
     @GetMapping("/select")
     public List<Member> select() {
@@ -114,12 +119,37 @@ public class AndroidController {
         }
     }
 
+    // 회원 수정
     @PutMapping("/mypage/{id}")
     public Member mypageUpdate(@PathVariable("id") Long id, @RequestBody AndMemberMypageDto andMemberMypageDto) {
         Member byId = memberRepository.findById(id).orElse(null);
-        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_pn(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role());
+        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role());
         Member save = memberRepository.save(byId);
 
         return save;
     }
+
+
+    // 회원 탈퇴
+    @DeleteMapping("/userDelete/{id}")
+    public String userDelete(@PathVariable("id") Long id) {
+        log.info("delete In");
+        Member byId = memberRepository.findById(id).orElse(null);
+        log.info(String.valueOf(byId));
+        memberRepository.deleteById(byId.getId());
+
+        return "succ";
+    }
+
+    // 아이디로 회원 찾기
+    @PostMapping("/findMem")
+    public Member findMem(@RequestBody Long id) {
+        Member byId = memberRepository.findById(id).orElse(null);
+
+        return byId;
+    }
+
+
+
+
 }

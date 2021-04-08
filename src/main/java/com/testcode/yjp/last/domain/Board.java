@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "health_board")
 public class Board extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hb_num")
     private Long id;
     @Column(name = "hb_title")
@@ -41,7 +41,14 @@ public class Board extends BaseEntity{
 //    public void addMember(Member member) {
 //        member.getBoards().add(this);
 //    }
-
+    @Builder
+    public Board(String title, String user_id, String content, int hit, Member member) {
+        this.title = title;
+        this.user_id = user_id;
+        this.content = content;
+        this.hit = hit;
+        this.member = member;
+    }
 
     @Builder
     public Board(String title, String content, String user_id, int hit) {
@@ -50,6 +57,9 @@ public class Board extends BaseEntity{
         this.user_id = user_id;
         this.hit = hit;
     }
+
+
+
 
     public void update(String title, String content ){
         this.title = title;
