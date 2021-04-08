@@ -3,6 +3,8 @@ package com.testcode.yjp.last.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "health_board")
 public class Board extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "hb_num")
     private Long id;
     @Column(name = "hb_title")
@@ -21,13 +23,20 @@ public class Board extends BaseEntity{
     @Column(name = "hb_content" ,length = 2000)
     private String content;
 
+
     @Column(name = "hb_hit")
     private int hit = 0;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private Set<Recommend> recommends = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private Set<Likes> likes = new HashSet<>();
     // 연관관계 메소드 다대일
 //    public void addMember(Member member) {
 //        member.getBoards().add(this);
@@ -35,7 +44,7 @@ public class Board extends BaseEntity{
 
 
     @Builder
-    public Board(String title, String content, String user_id, int hit){
+    public Board(String title, String content, String user_id, int hit) {
         this.title = title;
         this.content = content;
         this.user_id = user_id;

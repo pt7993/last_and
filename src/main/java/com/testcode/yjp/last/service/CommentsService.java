@@ -42,8 +42,20 @@ public class CommentsService {
         return id;
     }
 
+    @Transactional
     public void delete(Long id) {
-        Comment comments = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다=id" + id));
-        commentsRepository.delete(comments);
+//        Comment comments = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다=id" + id));
+        commentsRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findAllCount(Long hb_num) {
+        return commentsRepository.findAllCount(hb_num).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+
+
+
 }

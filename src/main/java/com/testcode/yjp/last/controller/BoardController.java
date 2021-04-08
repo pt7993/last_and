@@ -1,19 +1,17 @@
 package com.testcode.yjp.last.controller;
 
-import com.testcode.yjp.last.domain.dto.BoardResponseDto;
-import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
-import com.testcode.yjp.last.domain.dto.PageRequestDto;
+import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.CommentsRepository;
-import com.testcode.yjp.last.service.BoardService;
-import com.testcode.yjp.last.service.CommentsService;
-import com.testcode.yjp.last.service.MemberService;
-import com.testcode.yjp.last.service.ReCommentsService;
+import com.testcode.yjp.last.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,9 +20,11 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
     private final CommentsService commentsService;
     private final ReCommentsService reCommentsService;
+    private final LikeService likeService;
+
+
 
     // 전체조회
     @GetMapping("")
@@ -32,6 +32,7 @@ public class BoardController {
         model.addAttribute("boards", boardService.findAllDesc());
         model.addAttribute("result", boardService.getList(pageRequestDto));
         model.addAttribute("PageRequestDto", pageRequestDto);
+
 
         return "/board/boardSelect";
     }
@@ -61,6 +62,11 @@ public class BoardController {
         model.addAttribute("recomments", reCommentsService.findAllDesc());
 
         boardService.updateView(hb_num);
+
+        List<CommentsListResponseDto> count = commentsService.findAllCount(hb_num);
+        model.addAttribute("count",count.size());
+        System.out.println("전체크기는"+count.size());
+
         return "board/boardDetail";
     }
 

@@ -27,6 +27,10 @@ public class ReCommentsService {
                 .collect(Collectors.toList());
     }
 
+    public void delete(Long id) {
+        reCommentsRepository.deleteById(id);
+    }
+
 
 //    public Comment findByComments(Long ParentNum) {
 //        return commentsRepository.findBy(ParentNum);
