@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class ReComment extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reCm_id")
     private Long id;
 

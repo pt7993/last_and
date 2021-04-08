@@ -100,7 +100,7 @@
                 <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
                 <!--                좋아요 처리하는곳-->
                 <div>
-                    <input type="hidden" th:value="${session.loginId}" id="likeId">
+                    <input type="hidden" th:value="${session.loginUser}" id="likeId">
                     <input type="hidden" th:value="${boards.id}" id="boardLike">
                     <input type="hidden" th:value="${comment.id}" id="comId">
                     <td><i style="cursor: pointer" class="far fa-thumbs-up" onclick="like()"
@@ -120,7 +120,7 @@
                 <button type="button" class="recmt_button">답글</button>
                 <div id="reCmt">
                     <!--                    리댓 리스트-->
-                    <div class="comment_control_btn_area" th:each="recomment: ${recomments}"
+                    <div class="comment_control_btn_area" th:each="recomment: ${re_comments}"
                          th:if="${comment.id == recomment.re_parentCoNum}">
                         <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
                         <div>

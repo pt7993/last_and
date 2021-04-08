@@ -1,5 +1,5 @@
 function CommentSave() {
-    var main = {
+    var CommentSave = {
         init: function () {
             var _this = this;
             _this.save();
@@ -23,14 +23,14 @@ function CommentSave() {
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('댓글이 등록되었습니다');
-                // window.location.href = '/board/trainerBoard/detail'+'hb_num'=hb_num;
                 location.reload();
             }).fail(function (error) {
+                alert("에러남");
                 alert(JSON.stringify(error));
             });
         }
     }
-    main.init();
+    CommentSave.init();
 }
 
 function CDelete() {
@@ -168,15 +168,15 @@ function RCDelete() {
 
 
 function like() {
-    var likeId = $('#likeId').val().length;
+    // var likeId = $('#likeId').val().length;
     var boardLike = $('#boardLike').val();
     var com = $('#comId').val();
     var id = $('#likeId').val();
 
-    if (likeId == 0) {
-        confirm("로그인을 이용해주세요");
-        location.href = "/member/login";
-    }
+    // if (likeId == 0) {
+    //     confirm("로그인을 이용해주세요");
+    //     location.href = "/member/login";
+    // }
     console.log("로그인 아이디" + id);
     console.log("게시글번호" + boardLike);
     console.log("댓글부모" + com);
@@ -197,10 +197,10 @@ function like() {
                 alert("댓글을 추천 하셨습니다");
                 location.reload();
             } else if (data === 2) {
-                alert("이미 추천하신 글입니다");
+                alert("댓글을 추천 하셨습니다");
                 location.reload();
             } else if (data === 3) {
-                alert("3번임")
+                alert("이미 추천하신 댓글입니다")
                 location.reload();
             } else if (data === 0) {
                 alert("댓글을 추천 하셨습니다")
@@ -241,9 +241,10 @@ function unlike() {
                 alert("댓글을 추천 하셨습니다");
                 location.reload();
             } else if (data === 2) {
-                alert("이미 추천하신 글입니다");
-            } else if (data === 3) {
                 alert("댓글을 추천 하셨습니다");
+                location.reload();
+            } else if (data === 3) {
+                alert("이미 추천하신 글입니다");
                 location.reload();
             } else if (data === 0) {
                 alert("댓글을 추천 하셨습니다")
