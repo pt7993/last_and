@@ -169,17 +169,18 @@ function RCDelete() {
     Rcdel.init();
 }
 
+function likeUnlike() {
+    var like_button = $(this).parent().parent();
+    var boardLike = like_button.children(".boardLike").val();
+    var com = like_button.children(".comId").val();
+    var id = like_button.children(".likeId").val();
 
-function like() {
-    // var likeId = $('#likeId').val().length;
-    var boardLike = $('#boardLike').val();
-    var com = $('#comId').val();
-    var id = $('#likeId').val();
-
-    // var boardLike = $(this).parent().parent().find('.board_id').val();
-    // var com = like_area.children('.comId').val();
-    // var id = like_area.children('.likeId').val();
-
+    var likeUrl = "/board/like/"+ boardLike;
+    var unlikeUrl = "/board/dislike/"+ boardLike;
+    var buttonClass = $(this).attr("class")
+    var url;
+    if(buttonClass=="like_button") url = likeUrl;
+    else url = unlikeUrl;
     // if (likeId == 0) {
     //     confirm("로그인을 이용해주세요");
     //     location.href = "/member/login";
@@ -188,9 +189,16 @@ function like() {
     console.log("게시글번호" + boardLike);
     console.log("댓글부모" + com);
 
+    var likeId = $('#likeId').val().length;
+
+    if (likeId == 0) {
+        confirm("로그인을 해주세요");
+        location.href = "/member/login";
+    }
+
     $.ajax({
         type: 'post',
-        url: '/board/like/' + boardLike,
+        url: url,
         data: {
             likeId: id,
             boardLike: boardLike,
@@ -215,67 +223,21 @@ function like() {
             }
         },
         error: function () {
-            alert("잘못된 접근방식입니다");
+            alert("잘못된 접근입니다");
         }
     })
 }
 
-function unlike() {
-    var likeId = $('#likeId').val().length;
-    var boardLike = $('#boardLike').val();
-    var com = $('#comId').val();
-    var id = $('#likeId').val();
-
-    if (likeId == 0) {
-        confirm("로그인을 해주세요");
-        location.href = "/member/login";
-    }
-    console.log("로그인 아이디" + id);
-    console.log("게시글번호" + boardLike);
-    console.log("댓글부모" + com);
-    $.ajax({
-        type: 'post',
-        url: '/board/dislike/' + boardLike,
-        data: {
-            likeId: $('#likeId').val(),
-            boardLike: $('#boardLike').val(),
-            comId: $('#comId').val()
-        },
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            if (data === 1) {
-                alert("댓글을 추천 하셨습니다");
-                location.reload();
-            } else if (data === 2) {
-                alert("댓글을 추천 하셨습니다");
-                location.reload();
-            } else if (data === 3) {
-                alert("이미 추천하신 글입니다");
-                location.reload();
-            } else if (data === 0) {
-                alert("댓글을 추천 하셨습니다")
-                location.reload();
-            }
-        },
-        error: function () {
-            alert("한개의 글에 한번만 클릭이 가능합니다");
-        }
-    })
+function buttonToggle(){
+    $(this).parent().parent().children('#reCmt').toggleClass("on off");
 }
 
 $(function () {
     $('#comment_save').on("click", CommentSave);
     $('#delete').on("click", CDelete);
     $('#RCDelete').on("click", RCDelete);
-
     $('.recomment_save_btn').on("click", ReCommentSave);
     $('.recmt_button').on("click", buttonToggle);
-
+    $('.like_button').on("click", likeUnlike);
+    $('.unlike_button').on("click", likeUnlike);
 });
-
-function buttonToggle(){
-    $(this).parent().parent().children('#reCmt').toggleClass("on off");
-
-
-}

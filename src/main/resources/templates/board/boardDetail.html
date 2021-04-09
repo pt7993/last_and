@@ -108,10 +108,11 @@
                     <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
                     <input type="hidden" th:value="${boards.id}" id="boardLike"  class="boardLike">
                     <input type="hidden" th:value="${comment.id}" id="comId"  class="comId">
+
                     <div>
-                    <span onclick="like()"><i style="cursor: pointer" class="far fa-thumbs-up"
+                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
                            th:text="${comment.likes}"></i></span>
-                    <span onclick="unlike()"><i style="cursor: pointer" class="far fa-thumbs-down"
+                    <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
                            th:text="${comment.dislike}"></i></span>
                     </div>
                 </div>
