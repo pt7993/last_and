@@ -7,13 +7,13 @@ let smm = document.getElementById("smm").getContext("2d");
 let label = ["", "월", "화", "수", "목", "금", "토", "일", ""];
 
 // 체중
-let weightData = [, 85, 83, 84, 87, 89, 91, 80];
+let weightData = [""];
 // 기초 대사량(Resting Metabolic Rate)
-let rmrData = [, 1840, 1900, 2020, 2200, 2300, 2400, 2500];
+let rmrData = [""];
 // 체지방률(Body fat percentage)
-let bfpData = [, 20, 21, 20, 18, 16, 14, 16];
+let bfpData = [""];
 // 골격근량(Skeletal muscle mass)
-let smmData = [, 40.3, 42.5, 43.5, 43, 44.5, 45, 48];
+let smmData = [""];
 
 createChart(weight, weightData);
 createChart(rmr, rmrData);
@@ -161,3 +161,21 @@ function createChart(name, data) {
         },
     });
 }
+
+// function importData() {
+//
+//     $.ajax({
+//         url: '/inBody/register/' + id,
+//         type: 'POST',
+//         data: data,
+//         dataType: "json",
+//         contentType: 'application/json; charset=utf-8',
+//         success: function (data) {
+//
+//             },
+//         error: function () {
+//             alert("인바디 등록에 실패하셨습니다");
+//             JSON.stringify(data)
+//         }
+//     })
+// }

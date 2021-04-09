@@ -18,7 +18,7 @@ function inBody() {
     $.ajax({
         url: '/inBody/register/' + id,
         type: 'POST',
-        data: JSON.stringify(data),
+        data: data,
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
