@@ -6,6 +6,7 @@
 <head>
     <title>boardSelect</title>
     <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link rel="stylesheet" href="board.css">
     <script th:src="@{/js/board.js}" ></script>
 
     <style>
@@ -20,25 +21,31 @@
             border: 0;
             float: left;
         }
+        h2{
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <div layout:fragment="content" class="content">
 
-    <form th:action="@{/board}" method="get" id="searchForm">
+    <form th:action="@{/board}" method="get" id="searchForm" class="board_info">
         <div>
+            <h2>트레이너 게시판</h2>
             <input type="hidden" name="page" value="1">
-            <select name="type">
-                <option th:selected="${PageRequestDto.type == null}"></option>
-                <option value="t" th:selected="${PageRequestDto.type == 't'}">제목</option>
-                <option value="c" th:selected="${PageRequestDto.type == 'c'}">내용</option>
-                <option value="u" th:selected="${PageRequestDto.type == 'u'}">작성자</option>
-                <option value="tc" th:selected="${PageRequestDto.type == 'tc'}">제목+내용</option>
-            </select>
-        </div>
-        <input name="keyword" th:value="${PageRequestDto.keyword}">
-        <div>
-            <button type="button" onclick="search()">검색</button>
-            <button type="button" onclick="Sclear()">초기화</button>
+            <div class="board_search">
+                <select name="type">
+                    <!--                <option th:selected="${PageRequestDto.type == null}"></option>-->
+                    <option value="t" th:selected="${PageRequestDto.type == 't'}">제목</option>
+                    <option value="c" th:selected="${PageRequestDto.type == 'c'}">내용</option>
+                    <option value="u" th:selected="${PageRequestDto.type == 'u'}">작성자</option>
+                    <option value="tc" th:selected="${PageRequestDto.type == 'tc'}">제목+내용</option>
+                </select>
+                <input name="keyword" th:value="${PageRequestDto.keyword}" placeholder="검색어">
+                <button type="button" class="custom_btn" onclick="search()">검색</button>
+                <button type="button" class="custom_btn" onclick="Sclear()">초기화</button>
+            </div>
         </div>
 
     </form>
@@ -47,11 +54,10 @@
         <thead class="thead-strong">
         <tr>
             <td width="10%">글번호</td>
-            <td width="50%">제목</td>
+            <td width="50%">글 제목</td>
             <td width="10%">작성자</td>
             <td width="10%">조회수</td>
-            <td width="10%">추천</td>
-            <td width="10%">글수정날짜</td>
+            <td width="20%">글수정날짜</td>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -66,7 +72,6 @@
             </td>
             <td th:text="${board.user_id}"></td>
             <td th:text="${board.hit}"></td>
-            <td th:text="${board.recommend}"></td>
             <td th:text="${#temporals.format(board.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
         </tr>
         </tbody>

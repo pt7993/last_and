@@ -19,17 +19,17 @@ import java.util.Optional;
 @Slf4j
 public class CommentsApiController {
 
-    private final MemberRepository memberRepository;
     private final CommentsRepository commentsRepository;
     private final CommentsService commentsService;
     private final BoardRepository boardRepository;
 
     @PostMapping("/save/{parentNum}")
-    public Comment commentsSave(@PathVariable Long parentNum, @RequestBody Comment comments, Model model) {
+    public Comment commentsSave(@PathVariable("parentNum") Long id, @RequestBody Comment comments) {
         log.info("comments save Controller");
         System.out.println(comments.getUser_id());
-        Optional<Board> boardId = boardRepository.findById(parentNum);
-        comments.setBoard(boardId.get());
+
+        Optional<Board> hb_num = boardRepository.findById(id);
+        comments.setBoard(hb_num.get());
         commentsRepository.save(comments);
 
         return comments;

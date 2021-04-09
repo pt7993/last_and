@@ -22,7 +22,6 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentsService commentsService;
     private final ReCommentsService reCommentsService;
-    private final LikeService likeService;
 
 
 
@@ -32,8 +31,6 @@ public class BoardController {
         model.addAttribute("boards", boardService.findAllDesc());
         model.addAttribute("result", boardService.getList(pageRequestDto));
         model.addAttribute("PageRequestDto", pageRequestDto);
-
-
         return "/board/boardSelect";
     }
 
@@ -59,7 +56,7 @@ public class BoardController {
 
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("comments", commentsService.findAllDesc());
-        model.addAttribute("recomments", reCommentsService.findAllDesc());
+        model.addAttribute("re_comments", reCommentsService.findAllDesc());
 
         boardService.updateView(hb_num);
 

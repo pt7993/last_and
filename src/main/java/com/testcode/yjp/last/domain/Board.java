@@ -10,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Setter
+@EqualsAndHashCode(callSuper = false, exclude = {"recommends"})
 @Table(name = "health_board")
 public class Board extends BaseEntity{
     @Id
@@ -35,8 +36,6 @@ public class Board extends BaseEntity{
     private Set<Recommend> recommends = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private Set<Likes> likes = new HashSet<>();
     // 연관관계 메소드 다대일
 //    public void addMember(Member member) {
 //        member.getBoards().add(this);

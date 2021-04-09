@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "board_likes")
+@Table(name = "reply_likes")
 public class Likes {
 
     // 중복 추천 체크
@@ -34,6 +34,13 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "cm_id")
     private Comment comment;
+
+    // 댓글 좋아요 수
+    private int like_check=0;
+
+    // 댓글 싫어요 수
+    private int dislike_check=0;
+
 
     public Likes(Member member, Board board, Comment comment) {
         this.member = member;

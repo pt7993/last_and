@@ -28,79 +28,70 @@ public class LikeService {
     private final CommentsRepository commentsRepository;
 
 
-    public int addLike(Long boardLike, String likeId, Long comId) {
+    public int addLike(Long hb_num, Long member_id, Long cm_id, int count) {
         log.info("service addLike post");
         // 2. board에 id 를 뽑고 member에 user_id를 값을 받는다
-        Board board = boardRepository.findById(boardLike).orElse(null);
-        Member member = memberRepository.findByUser_id(likeId);
-        Comment comment = commentsRepository.findById(comId).orElse(null);
+        Board board = boardRepository.findById(hb_num).orElse(null);
+        Member member = memberRepository.findById(member_id).orElse(null);
+        Comment comment = commentsRepository.findById(cm_id).orElse(null);
 
-        int count;
-
-        System.out.println(board);
-        System.out.println(member);
-        System.out.println(comment);
-        System.out.println(comment.getLike_check());
-        System.out.println(comment.getDislike_check());
-
-
-        // 중복 좋아요 방지지
-        if (CheckLike(board, member, comment)) {
+        System.out.println("count값은 ="+count);
+        if(!CheckLike(board, member, comment)){
             Likes like = new Likes(member, board, comment);
             likeRepository.save(like);
-            commentsRepository.like(comId); //1
-        } else {
-            if (comment.getLike_check() == 1 && comment.getDislike_check() == 0) {
-                count = 2;
-                return count;
-            }
-            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 0) {
-                commentsRepository.like(comId); //1
-                count = 1;
-                return count;
-            }
-            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 1) {
-                commentsRepository.Rlike(comId);
-                count = 3;
-                return count;
+        }
+//        System.out.println(board);
+//        System.out.println(member);
+//        System.out.println(comment);
+
+        Optional<Member> byId = memberRepository.findById(member_id);
+        Optional<Board> byBoardId = boardRepository.findById(hb_num);
+        Optional<Comment> bycm_id = commentsRepository.findById(cm_id);
+
+//        System.out.println(byId);
+//        System.out.println(byBoardId);
+//        System.out.println(bycm_id);
+        Likes select = likeRepository.select(byId.get(), byBoardId.get(), bycm_id.get());
+        Long id = likeRepository.select(byId.get(), byBoardId.get(), bycm_id.get()).getId();
+        int callback = 0;
+        System.out.println(likeRepository.select(byId.get(), byBoardId.get(), bycm_id.get()).getId());
+
+        if (count == 0) {
+            if (select.getLike_check() == 0 && select.getDislike_check() == 0) {
+                likeRepository.likeUp(id);
+                commentsRepository.like(cm_id);
+                callback = 1;
+                return callback;
+            } else if (select.getLike_check() == 0 && select.getDislike_check() == 1) {
+                likeRepository.dislikeChange(id);
+                commentsRepository.dislikeChange(cm_id);
+                callback = 2;
+                return callback;
+            } else if (select.getLike_check() == 1 && select.getDislike_check() == 0) {
+                callback = 3;
+                return callback;
             }
         }
-        return 0;
+
+        if (count == 1) {
+            if (select.getLike_check() == 0 && select.getDislike_check() == 0) {
+                likeRepository.disLikeUp(id);
+                commentsRepository.dislike(cm_id);
+                callback = 1;
+                return callback;
+            } else if (select.getLike_check() == 1 && select.getDislike_check() == 0) {
+                likeRepository.likeChange(id);
+                commentsRepository.likeChange(cm_id);
+                callback = 2;
+                return callback;
+            } else if (select.getLike_check() == 0 && select.getDislike_check() == 1) {
+                callback = 3;
+                return callback;
+            }
+        }
+        return callback;
     }
 
-    public int disLike(Long boardLike, String likeId, Long comId) {
-        log.info("service disLike post");
-        Board board = boardRepository.findById(boardLike).orElse(null);
-        Member member = memberRepository.findByUser_id(likeId);
-        Comment comment = commentsRepository.findById(comId).orElse(null);
-        System.out.println(board);
-        System.out.println(member);
-        System.out.println(comment);
-        System.out.println(comment.getLike_check());
-        System.out.println(comment.getDislike_check());
-        int count;
-        if (!CheckLike(board, member, comment)) {
-            Likes like = new Likes(member, board, comment);
-            likeRepository.save(like);
-            commentsRepository.dislike(comId); //1
-        } else {
-            if (comment.getLike_check() == 1 && comment.getDislike_check() == 0) {
-                commentsRepository.Clike(comId);
-                count = 3;
-                return count;
-            }
-            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 0) {
-                commentsRepository.dislike(comId); //1
-                count = 1;
-                return count;
-            }
-            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 1) {
-                count = 2;
-                return count;
-            }
-        }
-        return 0;
-    }
 
 
     //  중복값 확인 메소드

@@ -1,5 +1,5 @@
 function CommentSave() {
-    var main = {
+    var CommentSave = {
         init: function () {
             var _this = this;
             _this.save();
@@ -23,14 +23,14 @@ function CommentSave() {
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('댓글이 등록되었습니다');
-                // window.location.href = '/board/trainerBoard/detail'+'hb_num'=hb_num;
                 location.reload();
             }).fail(function (error) {
+                alert("에러남");
                 alert(JSON.stringify(error));
             });
         }
     }
-    main.init();
+    CommentSave.init();
 }
 
 function CDelete() {
@@ -60,7 +60,7 @@ function CDelete() {
 }
 
 function ReCommentSave() {
-    let form = $(this).parent();
+    let form = $(this).parent('form');
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();
@@ -71,6 +71,9 @@ function ReCommentSave() {
     //         location.href = "/member/login";
     //     }
     // });
+    console.log(re_user_id);
+    console.log(re_parentCoNum);
+    console.log(re_comments);
     var main = {
 
         init: function () {
@@ -94,11 +97,15 @@ function ReCommentSave() {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function () {
-                alert('답글이 등록되었습니다');
+                alert('답글이 등록되었습니다.');
                 // window.location.href = '/board/trainerBoard/detail'+'hb_num'=hb_num;
                 location.reload();
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
+            }).fail(function (request, status, error) {
+                alert(data.re_parentCoNum)
+                alert('답글 등록에 실패하였습니다.');
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                alert('댓글 등록이 실패하였습니다.')
+                console.log(JSON.stringify(error));
             });
         }
     };
@@ -166,28 +173,40 @@ function RCDelete() {
     Rcdel.init();
 }
 
+function likeUnlike() {
+    var like_button = $(this).parent().parent();
+    var boardLike = like_button.children(".boardLike").val();
+    var com = like_button.children(".comId").val();
+    var id = like_button.children(".likeId").val();
 
-function like() {
-    var likeId = $('#likeId').val().length;
-    var boardLike = $('#boardLike').val();
-    var com = $('#comId').val();
-    var id = $('#likeId').val();
-
-    if (likeId == 0) {
-        confirm("로그인을 이용해주세요");
-        location.href = "/member/login";
-    }
+    var likeUrl = "/board/like/"+ boardLike;
+    var unlikeUrl = "/board/dislike/"+ boardLike;
+    var buttonClass = $(this).attr("class")
+    var url;
+    if(buttonClass=="like_button") url = likeUrl;
+    else url = unlikeUrl;
+    // if (likeId == 0) {
+    //     confirm("로그인을 이용해주세요");
+    //     location.href = "/member/login";
+    // }
     console.log("로그인 아이디" + id);
     console.log("게시글번호" + boardLike);
     console.log("댓글부모" + com);
 
+    var likeId = $('#likeId').val().length;
+
+    if (likeId == 0) {
+        confirm("로그인을 해주세요");
+        location.href = "/member/login";
+    }
+
     $.ajax({
         type: 'post',
-        url: '/board/like/' + boardLike,
+        url: url,
         data: {
-            likeId: $('#likeId').val(),
-            boardLike: $('#boardLike').val(),
-            comId: $('#comId').val()
+            likeId: id,
+            boardLike: boardLike,
+            comId: com,
         },
 
         dataType: "json",
@@ -197,10 +216,10 @@ function like() {
                 alert("댓글을 추천 하셨습니다");
                 location.reload();
             } else if (data === 2) {
-                alert("이미 추천하신 글입니다");
+                alert("댓글을 추천 하셨습니다");
                 location.reload();
             } else if (data === 3) {
-                alert("3번임")
+                alert("이미 추천하신 댓글입니다")
                 location.reload();
             } else if (data === 0) {
                 alert("댓글을 추천 하셨습니다")
@@ -208,66 +227,21 @@ function like() {
             }
         },
         error: function () {
-            alert("잘못된 접근방식입니다");
+            alert("잘못된 접근입니다");
         }
     })
 }
 
-function unlike() {
-    var likeId = $('#likeId').val().length;
-    var boardLike = $('#boardLike').val();
-    var com = $('#comId').val();
-    var id = $('#likeId').val();
-
-    if (likeId == 0) {
-        confirm("로그인을 이용해주세요");
-        location.href = "/member/login";
-    }
-    console.log("로그인 아이디" + id);
-    console.log("게시글번호" + boardLike);
-    console.log("댓글부모" + com);
-    $.ajax({
-        type: 'post',
-        url: '/board/dislike/' + boardLike,
-        data: {
-            likeId: $('#likeId').val(),
-            boardLike: $('#boardLike').val(),
-            comId: $('#comId').val()
-        },
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            if (data === 1) {
-                alert("댓글을 추천 하셨습니다");
-                location.reload();
-            } else if (data === 2) {
-                alert("이미 추천하신 글입니다");
-            } else if (data === 3) {
-                alert("댓글을 추천 하셨습니다");
-                location.reload();
-            } else if (data === 0) {
-                alert("댓글을 추천 하셨습니다")
-                location.reload();
-            }
-        },
-        error: function () {
-            alert("한개의 글에 한번만 클릭이 가능합니다");
-        }
-    })
+function buttonToggle(){
+    $(this).parent().parent().children('#reCmt').toggleClass("on off");
 }
 
 $(function () {
     $('#comment_save').on("click", CommentSave);
     $('#delete').on("click", CDelete);
     $('#RCDelete').on("click", RCDelete);
-
     $('.recomment_save_btn').on("click", ReCommentSave);
     $('.recmt_button').on("click", buttonToggle);
-
+    $('.like_button').on("click", likeUnlike);
+    $('.unlike_button').on("click", likeUnlike);
 });
-
-
-function buttonToggle() {
-    $(this).next().toggle();
-
-}

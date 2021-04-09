@@ -22,20 +22,20 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> {
 
 
     @Modifying
-    @Query("update Comment c set c.like_check = c.like_check+1 where c.id=:comId")
-    void like(Long comId);
+    @Query("update Comment c set c.like_check = c.like_check+1 where c.id=:cm_id")
+    void like(Long cm_id);
 
     @Modifying
-    @Query("update Comment c set c.dislike_check = c.dislike_check+1 where c.id=:comId")
-    void dislike(Long comId);
+    @Query("update Comment c set c.dislike_check = c.dislike_check+1 where c.id=:cm_id")
+    void dislike(Long cm_id);
 
     @Modifying
-    @Query("update Comment c set c.like_check = c.like_check+1, c.dislike_check=c.dislike_check-1  where c.id=:comId")
-    void Rlike(Long comId);
+    @Query("update Comment c set c.like_check = c.like_check+1, c.dislike_check=c.dislike_check-1  where c.id=:cm_id")
+    void dislikeChange(Long cm_id);
 
     @Modifying
-    @Query("update Comment c set c.like_check = c.like_check-1, c.dislike_check=c.dislike_check+1  where c.id=:comId")
-    void Clike(Long comId);
+    @Query("update Comment c set c.like_check = c.like_check-1, c.dislike_check=c.dislike_check+1  where c.id=:cm_id")
+    void likeChange(Long cm_id);
 
 
 //    @Modifying
