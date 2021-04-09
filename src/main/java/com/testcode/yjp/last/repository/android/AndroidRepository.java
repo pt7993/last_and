@@ -1,4 +1,4 @@
-package com.testcode.yjp.last.repository;
+package com.testcode.yjp.last.repository.android;
 
 import com.testcode.yjp.last.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
