@@ -41,6 +41,7 @@ public class Likes {
     // 댓글 싫어요 수
     private int dislike_check=0;
 
+
     public Likes(Member member, Board board, Comment comment) {
         this.member = member;
         this.board = board;

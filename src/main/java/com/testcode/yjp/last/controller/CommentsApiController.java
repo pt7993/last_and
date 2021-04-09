@@ -27,6 +27,7 @@ public class CommentsApiController {
     public Comment commentsSave(@PathVariable("parentNum") Long id, @RequestBody Comment comments) {
         log.info("comments save Controller");
         System.out.println(comments.getUser_id());
+
         Optional<Board> hb_num = boardRepository.findById(id);
         comments.setBoard(hb_num.get());
         commentsRepository.save(comments);

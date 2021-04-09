@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name = "hb_recommend")
 public class Recommend {
 
+    // 회원이 해야하구요 회원이 여러 게시글에 따봉을 할수있구요 ,  Long board_id 값이 두번안대요
 
     // 중복 추천 체크
     @Id
@@ -27,7 +28,6 @@ public class Recommend {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
 
     // 게시판글에 대해서 1번만 추천이 가능함
     @ManyToOne

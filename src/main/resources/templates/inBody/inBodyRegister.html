@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+    <head>
+        <title>inbody</title>
+        <script th:src="@{/js/inBody.js}"></script>
+    </head>
+    <div layout:fragment="content">
+        <form name="inBodyForm" id="inBodyForm">
+            <input type="hidden" th:value="${session.loginUser}" name="inBody_member_id" id="inBody_member_id">
+            <input type="hidden" th:value="${session.loginId}" name="inBody_user_id" id="inBody_user_id"/><br/>
+            체중(kg) : <input type="text" name="inBody_weight" id="inBody_weight" /><br />
+            기초 대사량(kcal) : <input type="text" name="inBody_rmr" id="inBody_rmr"/><br />
+            체지방률(%) : <input type="text" name="inBody_bfp" id="inBody_bfp"/><br />
+            골격근량(kg) : <input type="text" name="inBody_smm" id="inBody_smm"/><br />
+            날짜 입력<input type="datetime-local" name="inBody_date" id="inBody_date"/><br />
+            <button type="submit" id="inBodyBtn">전송</button>
+        </form>
+        <a th:href="@{/inBody/inBodyResult}">인바디결과</a>
+
+
+    </div>
+</html>

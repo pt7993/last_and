@@ -92,42 +92,6 @@ public class LikeService {
         return callback;
     }
 
-//    public int disLike(Long hb_num, Long member_id, Long cm_id) {
-//        log.info("service disLike post");
-//        Board board = boardRepository.findById(hb_num).orElse(null);
-//        Member member = memberRepository.findById(member_id).orElse(null);
-//        Comment comment = commentsRepository.findById(cm_id).orElse(null);
-//        if(CheckLike(board, member, comment)){
-//            Likes like = new Likes(member, board, comment);
-//            likeRepository.save(like);
-//        }
-//        System.out.println(board);
-//        System.out.println(member);
-//        System.out.println(comment);
-//
-//        int count;
-////        if (!CheckLike(board, member, comment)) {
-////            Likes like = new Likes(member, board, comment);
-////            likeRepository.save(like);
-////            commentsRepository.dislike(cm_id); //1
-////        } else {
-////            if (comment.getLike_check() == 1 && comment.getDislike_check() == 0) {
-////                commentsRepository.Clike(cm_id);
-////                count = 3;
-////                return count;
-////            }
-////            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 0) {
-////                commentsRepository.dislike(cm_id); //1
-////                count = 1;
-////                return count;
-////            }
-////            else if (comment.getLike_check() == 0 && comment.getDislike_check() == 1) {
-////                count = 2;
-////                return count;
-////            }
-////        }
-//        return 0;
-//    }
 
 
     //  중복값 확인 메소드

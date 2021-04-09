@@ -71,6 +71,9 @@ function ReCommentSave() {
     //         location.href = "/member/login";
     //     }
     // });
+    console.log(re_user_id);
+    console.log(re_parentCoNum);
+    console.log(re_comments);
     var main = {
 
         init: function () {
@@ -98,6 +101,7 @@ function ReCommentSave() {
                 // window.location.href = '/board/trainerBoard/detail'+'hb_num'=hb_num;
                 location.reload();
             }).fail(function (request, status, error) {
+                alert(data.re_parentCoNum)
                 alert('답글 등록에 실패하였습니다.');
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                 alert('댓글 등록이 실패하였습니다.')
