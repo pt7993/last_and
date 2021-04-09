@@ -3,10 +3,12 @@ package com.testcode.yjp.last.service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.testcode.yjp.last.domain.Board;
+import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.QBoard;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
+import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.repository.LikeRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final LikeRepository likeRepository;
+    private final CommentsRepository commentsRepository;
+
 
 
     // Board save 연관관계 매핑 처리부분
@@ -83,6 +87,8 @@ public class BoardService {
         return boardRepository.updateView(id);
     }
 
+
+
     public PageResultDto<BoardDto, Board> getList(PageRequestDto requestDto) {
         Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
         BooleanBuilder booleanBuilder = getSearch(requestDto);
@@ -90,6 +96,7 @@ public class BoardService {
         Function<Board, BoardDto> fn = (entity -> entityToDto(entity));
         return new PageResultDto<>(result, fn);
     }
+
 
     private BoardDto entityToDto(Board entity) {
         BoardDto dto = BoardDto.builder()

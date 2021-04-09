@@ -148,21 +148,33 @@
                     <!--리댓 쓰기-->
                     <form>
                         <div>
-                            <input type="hidden" th:value="${session.loginId}" id="re_user_id" class="re_user_id">
-                            <input type="hidden" th:value="${boards.id}" id="re_parentNum" class="re_parentNum">
-                            <input type="hidden" th:value="${comment.id}" id="re_parentCoNum" class="re_parentCoNum">
+                            <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                            <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                            <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
                             <div class="comment_write_area">
-                                <input type="text" id="re_comments" class="re_comments" placeholder="댓글을 남겨주세요" >
+                                <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
                             </div>
                             <button type="button" id="recomment_save" class="recomment_save_btn">답글달기</button>
                         </div>
                     </form>
                     <!--리댓종료-->
                 </div>
-
             </div>
             <!--  -->
         </div>
+    </div>
+    <div class="pagination_area">
+        <ul>
+            <li th:if="${result.prev}">
+                <a class="custom_btn" th:href="@{/board/trainerBoard/detail(page = ${result.start -1})}">이전</a>
+            </li>
+            <li th:each="page: ${result.pageList}">
+                <a class="custom_btn" th:href="@{/board/trainerBoard/detail(page= ${page})}" th:text="${page}">1</a>
+            </li>
+            <li th:if="${result.next}">
+                <a class="custom_btn" th:href="@{/board/trainerBoard/detail(page = ${result.end +1})}">다음</a>
+            </li>
+        </ul>
     </div>
 </div>
 

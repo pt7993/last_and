@@ -18,7 +18,7 @@
             날짜 입력<input type="datetime-local" name="inBody_date" id="inBody_date"/><br />
             <button type="submit" id="inBodyBtn">전송</button>
         </form>
-        <a th:href="@{/inBody/inBodyResult}">인바디결과</a>
+        <a th:href="@{/inBody/inBodyResult(id=${session.loginUser})}">인바디결과</a>
 
 
     </div>

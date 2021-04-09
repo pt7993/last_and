@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain.dto;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.InBody;
 import com.testcode.yjp.last.domain.Member;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,17 @@ public class InBodyDto {
     private String inBody_smm;
     private LocalDateTime regDate, modDate;
     private Member member;
+
+    public InBodyDto(InBody entity) {
+        this.id = entity.getId();
+        this.inBody_user_id = entity.getInBody_user_id();
+        this.inBody_weight = entity.getInBody_weight();
+        this.inBody_rmr = entity.getInBody_rmr();
+        this.inBody_bfp = entity.getInBody_bfp();
+        this.inBody_smm = entity.getInBody_smm();
+        this.modDate = entity.getModDate();
+    }
+
 
     public InBody toEntity(){
         return InBody.builder()

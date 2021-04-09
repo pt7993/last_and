@@ -18,18 +18,19 @@ function inBody() {
     $.ajax({
         url: '/inBody/register/' + id,
         type: 'POST',
-        data: data,
         dataType: "json",
+        data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
+    })
+        .done(function (data) {
+            console.log(data)
+
             alert("인바디 등록에 성공하셨습니다");
             console.log(data);
-        },
-        error: function () {
-            alert("인바디 등록에 실패하셨습니다");
-            JSON.stringify(data)
-        }
-    })
+        })
+        .fail(function () {
+            alert("인바디 등록에 실패하셨씁니다");
+        });
 
 }
 
