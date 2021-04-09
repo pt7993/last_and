@@ -60,7 +60,8 @@ function CDelete() {
 }
 
 function ReCommentSave() {
-    let form = $(this).parent('form');
+    let form = $(this).parent();
+
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();

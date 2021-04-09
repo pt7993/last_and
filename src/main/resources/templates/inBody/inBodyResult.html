@@ -8,14 +8,14 @@
     <script th:src="@{/js/inBody.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script th:src="@{/js/chart.js}"></script>
-    <script th:src="@{/js/inBodyResult.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/chart.css}">
+    <link rel="stylesheet" th:href="@{/js/chart.js}">
 </head>
 <div layout:fragment="content">
     <canvas id="weight" width="300px" height="200px"></canvas>
     <canvas id="rmr" width="300px" height="200px"></canvas>
     <canvas id="bfp" width="300px" height="200px"></canvas>
     <canvas id="smm" width="300px" height="200px"></canvas>
-</div>
 
+    <script th:src="@{/js/inBodyResult.js}"></script>
+</div>
 </html>

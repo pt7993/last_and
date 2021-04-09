@@ -3,6 +3,9 @@ let rmr = document.getElementById("rmr").getContext("2d");
 let bfp = document.getElementById("bfp").getContext("2d");
 let smm = document.getElementById("smm").getContext("2d");
 
+//라벨 값들
+let label = ["", "월", "화", "수", "목", "금", "토", "일", ""];
+
 // 체중
 let weightData = [, 85, 83, 84, 87, 89, 91, 80];
 // 기초 대사량(Resting Metabolic Rate)
@@ -16,6 +19,7 @@ createChart(weight, weightData);
 createChart(rmr, rmrData);
 createChart(bfp, bfpData);
 createChart(smm, smmData);
+
 
 //   데이터 값 넣기
 //   rmr.data.datasets[0].data = [1, 2, 3, 4, 5, 6, 7];
@@ -43,7 +47,7 @@ function createChart(name, data) {
     let myChart = new Chart(name, {
         type: "line",
         data: {
-            labels: ["", "월", "화", "수", "목", "금", "토", "일", ""],
+            labels: label,
             datasets: [
                 {
                     data: data,
@@ -51,7 +55,7 @@ function createChart(name, data) {
                     backgroundColor: ["rgba(0, 0, 0, 0)"],
                     // 선 색깔
                     borderColor: [
-                        "rgba(246, 0, 0, 1)",
+                        "rgb(246,0,0)",
                         "rgba(246, 0, 0, 1)",
                         "rgba(246, 0, 0, 1)",
                         "rgba(246, 0, 0, 1)",

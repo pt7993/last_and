@@ -148,11 +148,11 @@
                     <!--리댓 쓰기-->
                     <form>
                         <div>
-                            <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                            <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                            <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                            <input type="hidden" th:value="${session.loginId}" id="re_user_id" class="re_user_id">
+                            <input type="hidden" th:value="${boards.id}" id="re_parentNum" class="re_parentNum">
+                            <input type="hidden" th:value="${comment.id}" id="re_parentCoNum" class="re_parentCoNum">
                             <div class="comment_write_area">
-                                <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                <input type="text" id="re_comments" class="re_comments" placeholder="댓글을 남겨주세요" >
                             </div>
                             <button type="button" id="recomment_save" class="recomment_save_btn">답글달기</button>
                         </div>
