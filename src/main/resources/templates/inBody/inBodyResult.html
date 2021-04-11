@@ -8,14 +8,32 @@
     <script th:src="@{/js/inBody.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script th:src="@{/js/chart.js}"></script>
-    <script th:src="@{/js/inBodyResult.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/chart.css}">
+    <link rel="stylesheet" th:href="@{/js/chart.js}">
 </head>
 <div layout:fragment="content">
+    <div>
+        <table border="1">
+        <tr>
+            <th>체중</th>
+            <th>기초대사량</th>
+            <th>체지방률</th>
+            <th>골격근량</th>
+            <th>생성날짜</th>
+        </tr>
+        <tr>
+            <td th:text="${inBody.inBody_weight}"></td>
+            <td th:text="${inBody.inBody_rmr}"></td>
+            <td th:text="${inBody.inBody_bfp}"></td>
+            <td th:text="${inBody.inBody_smm}"></td>
+            <td th:text="${inBody.modDate}"></td>
+        </tr>
+        </table>
+    </div>
     <canvas id="weight" width="300px" height="200px"></canvas>
     <canvas id="rmr" width="300px" height="200px"></canvas>
     <canvas id="bfp" width="300px" height="200px"></canvas>
     <canvas id="smm" width="300px" height="200px"></canvas>
-</div>
 
+    <script th:src="@{/js/inBodyResult.js}"></script>
+</div>
 </html>

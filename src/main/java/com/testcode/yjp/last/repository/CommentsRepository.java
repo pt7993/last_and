@@ -1,16 +1,23 @@
 package com.testcode.yjp.last.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CommentsRepository extends JpaRepository<Comment, Long> {
+public interface CommentsRepository extends JpaRepository<Comment, Long> , QuerydslPredicateExecutor<Comment>{
+
+
 
 
     @Query("select c from Comment c order by c.id DESC ")
@@ -36,6 +43,10 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> {
     @Modifying
     @Query("update Comment c set c.like_check = c.like_check-1, c.dislike_check=c.dislike_check+1  where c.id=:cm_id")
     void likeChange(Long cm_id);
+
+    @Query("select c from Comment c where c.parentNum = :parentNum")
+    List<Comment> findByparentNum(Long parentNum);
+
 
 
 //    @Modifying

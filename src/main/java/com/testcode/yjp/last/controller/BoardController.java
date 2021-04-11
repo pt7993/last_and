@@ -1,7 +1,9 @@
 package com.testcode.yjp.last.controller;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.dto.*;
+import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
 import com.testcode.yjp.last.service.*;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +25,8 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentsService commentsService;
     private final ReCommentsService reCommentsService;
+    private final CommentsRepository commentsRepository;
+    private final BoardRepository boardRepository;
 
 
 
@@ -57,12 +62,19 @@ public class BoardController {
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("comments", commentsService.findAllDesc());
         model.addAttribute("re_comments", reCommentsService.findAllDesc());
+        model.addAttribute("result", commentsService.getList(pageRequestDto));
+
 
         boardService.updateView(hb_num);
 
         List<CommentsListResponseDto> count = commentsService.findAllCount(hb_num);
         model.addAttribute("count",count.size());
         System.out.println("전체크기는"+count.size());
+
+        // board_id  값
+        Optional<Board> result = boardRepository.findById(hb_num);
+        commentsRepository.findByparentNum(result.get().getId());
+
 
         return "board/boardDetail";
     }

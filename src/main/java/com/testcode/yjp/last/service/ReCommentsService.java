@@ -31,6 +31,15 @@ public class ReCommentsService {
         reCommentsRepository.deleteById(id);
     }
 
+//    @Transactional(readOnly = true)
+//    public List<ReCommentsListResponseDto> findAllCount(Long id) {
+//        return reCommentsRepository.findAllCount(id).stream()
+//                .map(ReCommentsListResponseDto::new)
+//                .collect(Collectors.toList());
+//    }
+
+
+
 
 //    public Comment findByComments(Long ParentNum) {
 //        return commentsRepository.findBy(ParentNum);
