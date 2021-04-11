@@ -25,6 +25,7 @@ public class InBodyDto {
     private String inBody_rmr;
     private String inBody_bfp;
     private String inBody_smm;
+    private String inBody_date;
     private LocalDateTime regDate, modDate;
     private Member member;
 
@@ -35,7 +36,7 @@ public class InBodyDto {
         this.inBody_rmr = entity.getInBody_rmr();
         this.inBody_bfp = entity.getInBody_bfp();
         this.inBody_smm = entity.getInBody_smm();
-        this.modDate = entity.getModDate();
+        this.inBody_date = entity.getInBody_date();
     }
 
 
@@ -47,6 +48,7 @@ public class InBodyDto {
                 .inBody_rmr(inBody_rmr)
                 .inBody_bfp(inBody_bfp)
                 .inBody_smm(inBody_smm)
+                .inBody_date(inBody_date)
                 .build();
     }
 

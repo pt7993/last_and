@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,16 +32,12 @@ public class InBodyController {
         return "inBody/inBodyRegister";
     }
 
-    @GetMapping("/inBodyResult")
-    public String inBodyResult(Long id,Model model) {
-//        model.addAttribute("inBody",inBodyService.findAllDesc(id));
-        Optional<Member> result = memberRepository.findById(id);
-        String inBodyId = result.get().getUser_id();
 
-        InBody inBody = inBodyRepository.findByInBody(inBodyId);
-//        InBody inBody = inBodyRepository.findByInBody(result.get().getId());
-//        model.addAttribute("inBody", inBody);
-        model.addAttribute("inBody", inBody);
+    @GetMapping("/inBodyResult")
+    public String inBodyResult(String inBodyId,Model model) {
+        System.out.println(inBodyId);
+
+        model.addAttribute("inBody",inBodyService.findAllDesc(inBodyId));
         return "inBody/inBodyResult";
 
     }

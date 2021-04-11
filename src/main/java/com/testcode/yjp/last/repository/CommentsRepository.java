@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -47,6 +48,17 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Query("select c from Comment c where c.parentNum = :parentNum")
     List<Comment> findByparentNum(Long parentNum);
 
+    @Query("select c from Comment c where c.parentNum=:id order by c.like_check desc")
+    List<Comment> findLikeAll(Long id);
+
+    @Query("select c from Comment c where c.parentNum=:id order by c.dislike_check desc")
+    List<Comment> findDisLikeAll(Long id);
+
+    @Query("select c from Comment c where c.parentNum=:id order by c.regDate desc")
+    List<Comment> findLatestAll(Long id);
+
+    @Query("select c from Comment c where c.parentNum=:id order by c.regDate asc")
+    List<Comment> findPastAll(Long id);
 
 
 //    @Modifying

@@ -16,10 +16,8 @@
             체지방률(%) : <input type="text" name="inBody_bfp" id="inBody_bfp"/><br />
             골격근량(kg) : <input type="text" name="inBody_smm" id="inBody_smm"/><br />
             날짜 입력<input type="datetime-local" name="inBody_date" id="inBody_date"/><br />
-            <button type="submit" id="inBodyBtn">전송</button>
+            <button type="button" id="inBodyBtn">전송</button>
         </form>
-        <a th:href="@{/inBody/inBodyResult(id=${session.loginUser})}">인바디결과</a>
-
-
+        <a th:href="@{/inBody/inBodyResult(inBodyId=${session.loginId})}">인바디결과</a>
     </div>
 </html>

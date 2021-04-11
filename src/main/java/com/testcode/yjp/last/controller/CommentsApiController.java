@@ -4,7 +4,6 @@ import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
-import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,4 +42,27 @@ public class CommentsApiController {
         return id;
     }
 
+    @PostMapping("/findLikeAll/{id}")
+    public void findLikeAll(@PathVariable Long id, Model model) {
+        log.info("Post findLikeAll Controller");
+        model.addAttribute("commentLikeAll", commentsService.findLikeAll(id));
+    }
+
+    @PostMapping("/findDisLikeAll/{id}")
+    public void findDisLikeAll(@PathVariable Long id, Model model) {
+        log.info("Post findDisLikeAll Controller");
+        model.addAttribute("commentDisLikeAll", commentsService.findDisLikeAll(id));
+    }
+
+    @PostMapping("/findLatestAll/{id}")
+    public void findLikeLatestAll(@PathVariable Long id, Model model) {
+        log.info("Post findLikeLatestAll Controller");
+        model.addAttribute("commentLikeLatestAll", commentsService.findLatestAllClass(id));
+    }
+
+    @PostMapping("/findPastAll/{id}")
+    public void findPastAll(@PathVariable Long id, Model model) {
+        log.info("Post findLikeLatestAll Controller");
+        model.addAttribute("commentLikePastAll", commentsService.findPastAllClass(id));
+    }
 }

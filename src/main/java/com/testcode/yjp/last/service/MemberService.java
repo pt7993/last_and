@@ -7,7 +7,6 @@ import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
-import com.testcode.yjp.last.repository.MemberRepositoryTest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
@@ -26,7 +25,6 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final MemberRepositoryTest memberRepositoryTest;
 
     // 회원가입
     @Transactional

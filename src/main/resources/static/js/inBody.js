@@ -21,17 +21,21 @@ function inBody() {
         dataType: "json",
         data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
-    })
-        .done(function (data) {
-            console.log(data)
-
+        success: function (data) {
             alert("인바디 등록에 성공하셨습니다");
-            console.log(data);
-        })
-        .fail(function () {
+            console.log("인바디아이디는=" + data.inBody_user_id);
+            console.log("무게는=" + data.inBody_weight);
+            console.log("기초대사량=" + data.inBody_rmr);
+            console.log("체지방률=" + data.inBody_bfp);
+            console.log("골격근량=" + data.inBody_smm);
+            console.log("날짜는=" + data.inBody_date);
+            location.href = "/inBody/inBodyResult?inBodyId="+data.inBody_user_id;
+        },
+        error: function () {
             alert("인바디 등록에 실패하셨씁니다");
-        });
 
+        }
+    })
 }
 
 $(function () {
