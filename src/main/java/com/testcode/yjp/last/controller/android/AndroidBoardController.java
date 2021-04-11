@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,12 +28,13 @@ public class AndroidBoardController {
     private final AndroidBoardRepository androidBoardRepository;
 
     // 게시판 조회
-    @GetMapping("/select")
-    public List<BoardListResponseDto> select() {
+    @PostMapping("/select")
+    public ArrayList<BoardListResponseDto> select() {
         log.info("BoardController select 1st Line");
 
-        List<BoardListResponseDto> allDesc = boardService.findAllDesc();
+        ArrayList<BoardListResponseDto> allDesc = (ArrayList<BoardListResponseDto>) boardService.findAllDesc();
 
+        log.info("어우 렉걸려"+allDesc.toString());
         return allDesc;
     }
 
