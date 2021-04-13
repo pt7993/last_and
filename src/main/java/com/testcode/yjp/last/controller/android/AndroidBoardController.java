@@ -38,9 +38,17 @@ public class AndroidBoardController {
         return allDesc;
     }
 
+    @PostMapping("/idSelect")
+    public Board idSelect(@RequestBody Long id) {
+        log.info("BoardController idSelect 1st Line");
+        Board board = androidBoardRepository.findById(id).orElse(null);
+        return board;
+    }
+
     // 게시판 등록
     @PostMapping("/insert/{member_id}")
     public Board insert(@PathVariable("member_id") Long member_id, @RequestBody AndBoardSaveDto andBoardSaveDto) {
+
         log.info("BoardController insert 1st Line");
 
         Member member = memberRepository.findById(member_id).get();
