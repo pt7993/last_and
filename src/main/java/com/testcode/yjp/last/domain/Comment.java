@@ -1,9 +1,6 @@
 package com.testcode.yjp.last.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -38,6 +35,14 @@ public class Comment extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "hb_num")
     private Board board;
+
+
+    @Builder
+    public Comment(String user_id, String comments, Long parentNum) {
+        this.user_id = user_id;
+        this.comments = comments;
+        this.parentNum = parentNum;
+    }
 
 
     public void update(String comments ){

@@ -55,15 +55,27 @@ public class BoardController {
         return "board/boardUpdate";
     }
 
+//    @GetMapping("/trainerBoard/detail")
+//    public String trainerCommentDetail(Long cm_id, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+//        model.addAttribute("comment", commentsService.findById(cm_id));
+//        return "board/boardDetail";
+//    }
+
     // 게시판 디테일 페이지
     @GetMapping("/trainerBoard/detail")
-    public String trainerBoardDetail(Long hb_num , Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+    public String trainerBoardDetail(Long hb_num ,Model model,@ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+
 
         model.addAttribute("boards", boardService.findById(hb_num));
-        model.addAttribute("comments", commentsService.findAllDesc());
         model.addAttribute("re_comments", reCommentsService.findAllDesc());
-        model.addAttribute("result", commentsService.getList(pageRequestDto));
-
+        model.addAttribute("comments", commentsService.findAllDesc());
+//        model.addAttribute("result", boardService.getList(pageRequestDto));
+//        model.addAttribute("CoResult", commentsService.getList(pageCommentRequestDto));
+//        model.addAttribute("comment", commentsService.findById(cm_id));
+        model.addAttribute("commentLikeAll",commentsService.findLikeAll(hb_num));
+        model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
+        model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
+        model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
 
         boardService.updateView(hb_num);
 

@@ -1,6 +1,8 @@
 package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Board;
+import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.dto.CommentResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +16,8 @@ public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
+
 
     @Test
     public void Dummies() {

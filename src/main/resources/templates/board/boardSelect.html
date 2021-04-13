@@ -6,7 +6,6 @@
 <head>
     <title>boardSelect</title>
     <link rel="stylesheet" th:href="@{/css/board.css}">
-    <link rel="stylesheet" href="board.css">
     <script th:src="@{/js/board.js}" ></script>
 
     <style>
@@ -70,6 +69,8 @@
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" th:text="${board.title}"></a>
             </td>
+
+
             <td th:text="${board.user_id}"></td>
             <td th:text="${board.hit}"></td>
             <td th:text="${#temporals.format(board.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>

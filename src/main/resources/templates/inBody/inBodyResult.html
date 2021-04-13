@@ -14,18 +14,22 @@
     <div>
         <table border="1">
         <tr>
+            <th>인바디번호</th>
+            <th>인바디아이디</th>
             <th>체중</th>
             <th>기초대사량</th>
             <th>체지방률</th>
             <th>골격근량</th>
-            <th>생성날짜</th>
+            <th>등록날짜</th>
         </tr>
-        <tr>
-            <td th:text="${inBody.inBody_weight}"></td>
-            <td th:text="${inBody.inBody_rmr}"></td>
-            <td th:text="${inBody.inBody_bfp}"></td>
-            <td th:text="${inBody.inBody_smm}"></td>
-            <td th:text="${inBody.modDate}"></td>
+        <tr th:each="inbody : ${inBody}">
+            <td th:text="${inbody.id}"></td>
+            <td th:text="${inbody.inBody_user_id}"></td>
+            <td th:text="${inbody.inBody_weight}"></td>
+            <td th:text="${inbody.inBody_rmr}"></td>
+            <td th:text="${inbody.inBody_bfp}"></td>
+            <td th:text="${inbody.inBody_smm}"></td>
+            <td th:text="${inbody.inBody_date}"></td>
         </tr>
         </table>
     </div>

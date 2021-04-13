@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.service;
 
 import com.querydsl.core.BooleanBuilder;
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.CommentsRepository;
@@ -60,27 +61,39 @@ public class CommentsService {
     }
 
 
-    public PageResultDto<CommentDto, Comment> getList(PageRequestDto requestDto) {
-        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
-        Page<Comment> result = commentsRepository.findAll(pageable);
-        Function<Comment, CommentDto> fn = (entity -> entityToCoDto(entity));
-        return new PageResultDto<>(result, fn);
+    public CommentResponseDto findById(Long id) {
+        Comment entity = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다=id=" + id));
+        return new CommentResponseDto(entity);
     }
 
 
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findLikeAll(Long id) {
+        return commentsRepository.findLikeAll(id).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
-    private CommentDto entityToCoDto(Comment entity) {
-        CommentDto dto = CommentDto.builder()
-                .id(entity.getId())
-                .user_id(entity.getUser_id())
-                .like_check(entity.getLike_check())
-                .dislike_check(entity.getDislike_check())
-                .parentNum(entity.getParentNum())
-                .comments(entity.getComments())
-                .regDate(entity.getRegDate())
-                .modifiedDate(entity.getModDate())
-                .build();
-        return dto;
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findDisLikeAll(Long id) {
+        return commentsRepository.findDisLikeAll(id).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+        public List<CommentsListResponseDto> findLatestAllClass(Long id) {
+            return commentsRepository.findLatestAll(id).stream()
+                    .map(CommentsListResponseDto::new)
+                    .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findPastAllClass(Long id) {
+        return commentsRepository.findPastAll(id).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
 }
+

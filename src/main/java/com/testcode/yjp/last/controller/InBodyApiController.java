@@ -31,7 +31,6 @@ public class InBodyApiController {
         inBody.setMember(memberId.get());
         inBodyRepository.save(inBody);
 
-        Optional<InBody> result = inBodyRepository.findById(id);
 
         return inBody;
     }

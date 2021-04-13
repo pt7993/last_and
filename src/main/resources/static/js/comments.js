@@ -104,7 +104,7 @@ function ReCommentSave() {
             }).fail(function (request, status, error) {
                 alert(data.re_parentCoNum)
                 alert('답글 등록에 실패하였습니다.');
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 alert('댓글 등록이 실패하였습니다.')
                 console.log(JSON.stringify(error));
             });
@@ -180,11 +180,11 @@ function likeUnlike() {
     var com = like_button.children(".comId").val();
     var id = like_button.children(".likeId").val();
 
-    var likeUrl = "/board/like/"+ boardLike;
-    var unlikeUrl = "/board/dislike/"+ boardLike;
+    var likeUrl = "/board/like/" + boardLike;
+    var unlikeUrl = "/board/dislike/" + boardLike;
     var buttonClass = $(this).attr("class")
     var url;
-    if(buttonClass=="like_button") url = likeUrl;
+    if (buttonClass == "like_button") url = likeUrl;
     else url = unlikeUrl;
     // if (likeId == 0) {
     //     confirm("로그인을 이용해주세요");
@@ -233,8 +233,135 @@ function likeUnlike() {
     })
 }
 
-function buttonToggle(){
+function buttonToggle() {
     $(this).parent().parent().children('#reCmt').toggleClass("on off");
+}
+
+function findLikeAll() {
+    var id = $("#boards_id").val();
+    let form = $(this).parent();
+
+    let comment = form.children(".comment").val();
+
+    $.ajax({
+        url: "/comments/findLikeAll/" + id,
+        method: "post",
+        success: function (data) {
+            alert("성공하였습니다");
+            // $('.comment').attr("class", "LikeAllClass");
+            // $('.LikeAllClass').attr("th:each", "comment : ${commentLikeAll}");
+
+            $('.comment').hide();
+            $('.commentLike').show();
+
+
+            // $('#load').attr("id", "AllLoad");
+            // let start = 10;
+            // $('.LikeAllClass').slice(0, start).show(); // 최초 10개 선택
+            // $('#AllLoad').click(function (e) {
+            //     console.log("찍힌다");
+            //     console.log($('.LikeAllClass').length - start);
+            //     e.preventDefault();
+            //     $('.LikeAllClass').slice(0, start += 10).show();
+            //     if ($('.LikeAllClass').length - start < -10) {
+            //         alert("모든 댓글을 보셨습니다");
+            //     }
+            //
+            // });
+        },
+        error: function () {
+            alert("에러입니다")
+        }
+    })
+}
+
+function findDisLikeAll() {
+    var id = $("#boards_id").val();
+    $.ajax({
+        url: "/comments/findDisLikeAll/" + id,
+        method: "post",
+        success: function (data) {
+            alert("성공하였습니다");
+            console.log(data)
+
+            $('.comment').attr("class", "DisLikeAllClass");
+            $('.comment').attr("th:each", "comment : ${commentDisLikeAll}");
+            $('#load').attr("id", "DisAllLoad");
+            // let start = 10;
+            // $('.LikeAllClass').slice(0, start).show(); // 최초 10개 선택
+            // $('#DisAllLoad').click(function (e) {
+            //     console.log($('.DisLikeAllClass').length - start);
+            //     e.preventDefault();
+            //     $('.DisLikeAllClass').slice(0, start += 10).show();
+            //     if ($('.DisLikeAllClass').length - start < -10) {
+            //         alert("모든 댓글을 보셨습니다");
+            //     }
+            // });
+        },
+        error: function () {
+            alert("에러입니다")
+        }
+    })
+}
+
+function findLatestAll() {
+    var id = $("#boards_id").val();
+    $.ajax({
+        url: "/comments/findLatestAll/" + id,
+        method: "post",
+        success: function (data) {
+            alert("성공하였습니다");
+            console.log(data)
+            $('.comment').attr("class", "LikeLatestAllClass");
+            $('.comment').attr("th:each", "comment : ${findLatestAll}");
+            $('#load').attr("id", "LatestLoad");
+            // let start = 10;
+            //
+            // $('.LikeLatestAllClass').slice(0, start).show(); // 최초 10개 선택
+            // $('#LatestLoad').click(function (e) {
+            //     console.log("찍힌다");
+            //     console.log($('.LikeLatestAllClass').length - start);
+            //     e.preventDefault();
+            //     $('.LikeLatestAllClass').slice(0, start += 10).show();
+            //     if ($('.LikeLatestAllClass').length - start < -10) {
+            //         alert("모든 댓글을 보셨습니다");
+            //     }
+            // });
+        },
+        error: function () {
+            alert("에러입니다")
+        }
+    })
+}
+
+function findPastAll() {
+    var id = $("#boards_id").val();
+    $.ajax({
+        url: "/comments/findPastAll/" + id,
+        method: "post",
+        success: function (data) {
+            alert("성공하였습니다");
+            console.log(data)
+            $('.comment').attr("class", "LikePastAllClass");
+            $('.comment').attr("th:each", "comment : ${commentLikePastAll}");
+            // $('#load').attr("id", "PastLoad");
+            // let start = 10;
+            // ('.LikePastAllClass').slice(0, start).show(); // 최초 10개 선택
+            // $('#PastLoad').click(function (e) {
+            //     console.log("찍힌다");
+            //     console.log($('.LikePastAllClass').length - start);
+            //     e.preventDefault();
+            //     $('.LikePastAllClass').slice(0, start += 10).show();
+            //     if ($('.LikePastAllClass').length - start < -10) {
+            //         alert("모든 댓글을 보셨습니다");
+            //     }
+            // });
+
+        },
+        error: function () {
+            alert("에러입니다")
+        }
+    })
 }
 
 $(function () {
@@ -245,4 +372,14 @@ $(function () {
     $('.recmt_button').on("click", buttonToggle);
     $('.like_button').on("click", likeUnlike);
     $('.unlike_button').on("click", likeUnlike);
+
+    // like 순 조회
+    $('#findLikeAll').on("click", findLikeAll);
+    // dislike 순 조회
+    $('#findDisLikeAll').on("click", findDisLikeAll);
+    // 최신순
+    $('#findLatestAll').on("click", findLatestAll);
+    // 과거순
+    $('#findPastAll').on("click", findPastAll);
+
 });

@@ -17,7 +17,7 @@ public class InBody extends BaseEntity {
     @Column(name = "inBody_id")
     private Long id;
 
-    private String  inBody_user_id;
+    private String inBody_user_id;
 
 
     private String inBody_weight;
@@ -33,19 +33,22 @@ public class InBody extends BaseEntity {
     //    골격근량(kg)
     private String inBody_smm;
 
+    private String inBody_date;
+
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public InBody(Long id, String inBody_user_id, String inBody_weight, String inBody_rmr, String inBody_bfp, String inBody_smm) {
+    public InBody(Long id, String inBody_user_id, String inBody_weight, String inBody_rmr, String inBody_bfp, String inBody_smm,String inBody_date) {
         this.id = id;
         this.inBody_user_id = inBody_user_id;
         this.inBody_weight = inBody_weight;
         this.inBody_rmr = inBody_rmr;
         this.inBody_bfp = inBody_bfp;
         this.inBody_smm = inBody_smm;
+        this.inBody_date = inBody_date;
     }
 
 }
