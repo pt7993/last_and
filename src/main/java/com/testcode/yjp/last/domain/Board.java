@@ -58,8 +58,6 @@ public class Board extends BaseEntity{
     }
 
 
-
-
     public void update(String title, String content ){
         this.title = title;
         this.content = content;

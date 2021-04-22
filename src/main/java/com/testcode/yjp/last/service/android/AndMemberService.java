@@ -6,7 +6,7 @@ import com.testcode.yjp.last.domain.dto.android.AndMemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindPwDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberLoginDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
-import com.testcode.yjp.last.repository.android.AndroidRepository;
+import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AndMemberService {
     private final MemberRepository memberRepository;
-    private final AndroidRepository androidRepository;
+    private final AndroidMemberRepository androidMemberRepository;
     public Member signIn(AndMemberLoginDto andMemberLoginDto) {
         String user_id = andMemberLoginDto.getUser_id();
         String user_pw = andMemberLoginDto.getUser_pw();
@@ -31,7 +31,7 @@ public class AndMemberService {
     public Member findId(AndMemberFindIdDto andMemberFindIdDto) {
         String user_name = andMemberFindIdDto.getUser_name();
         String user_pn = andMemberFindIdDto.getUser_pn();
-        Member member = androidRepository.findId(user_name, user_pn);
+        Member member = androidMemberRepository.findId(user_name, user_pn);
 
         return member;
     }
@@ -41,7 +41,7 @@ public class AndMemberService {
         String user_pn = andMemberFindPwDto.getUser_pn();
         String user_id = andMemberFindPwDto.getUser_id();
 
-        Member member = androidRepository.findPw(user_name, user_pn, user_id);
+        Member member = androidMemberRepository.findPw(user_name, user_pn, user_id);
 
         return member;
     }
@@ -72,6 +72,16 @@ public class AndMemberService {
         Member save = memberRepository.save(byId);
 
         return save;
+    }
+
+    @Transactional
+    public String IdChk(String user_id) {
+        System.out.println(memberRepository.findByUser_id(user_id));
+        if (memberRepository.findByUser_id(user_id) != null) {
+            return "YES";
+        } else {
+            return "NO";
+        }
     }
 
 }

@@ -3,8 +3,6 @@ package com.testcode.yjp.last.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -1,15 +1,13 @@
 package com.testcode.yjp.last.controller.android;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindPwDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberLoginDto;
-import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
-import com.testcode.yjp.last.repository.android.AndroidRepository;
-import com.testcode.yjp.last.repository.MemberRepository;
-import com.testcode.yjp.last.service.MemberService;
+import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import com.testcode.yjp.last.service.android.AndMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +19,11 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/android")
-public class AndroidController {
+public class AndroidMemberController {
 
-    private final MemberRepository memberRepository;
-    private final AndroidRepository androidRepository;
-    private final MemberService memberService;
+//    private final MemberRepository memberRepository;
+    private final AndroidMemberRepository androidMemberRepository;
+//    private final MemberService memberService;
     private final AndMemberService andMemberService;
 
     // 조회
@@ -33,15 +31,15 @@ public class AndroidController {
     public List<Member> select() {
         log.info("AndroidController select 1st Line");
 
-        return memberRepository.findAll();
+        return androidMemberRepository.findAll();
     }
 
     //회원가입
     @PostMapping("/insert")
-    public Long save(@RequestBody MemberJoinDto memberJoinDto) {
+    public Member save(@RequestBody MemberJoinDto memberJoinDto) {
         log.info("AndroidController save 1st Line");
-
-        return memberService.save(memberJoinDto);
+        Member save = androidMemberRepository.save(memberJoinDto.toEntity());
+        return save;
     }
 
     // Json Id 중복검사
@@ -50,7 +48,7 @@ public class AndroidController {
         log.info("AndroidController IdChk 1st Line");
 
         user_id = user_id.replaceAll("\\\"", "");
-        String str = memberService.IdChk(user_id); // YES or NO
+        String str = andMemberService.IdChk(user_id); // YES or NO
         return str;
     }
 
@@ -68,7 +66,7 @@ public class AndroidController {
         log.info("AndroidController findPn 1st Line");
 
         user_pn = user_pn.replaceAll("\\\"", "");
-        Member member = androidRepository.findPn(user_pn);
+        Member member = androidMemberRepository.findPn(user_pn);
         return member;
     }
 
@@ -107,7 +105,8 @@ public class AndroidController {
     public Member mypageUpdate(@PathVariable("id") Long id, @RequestBody AndMemberMypageDto andMemberMypageDto) {
         log.info("AndroidController mypageUpdate 1st Line");
 
-        return mypageUpdate(id, andMemberMypageDto);
+        Member member = andMemberService.mypageUpdate(id, andMemberMypageDto);
+        return member;
     }
 
 
@@ -116,10 +115,11 @@ public class AndroidController {
     public Long userDelete(@PathVariable("id") Long id) {
         log.info("AndroidController userDelete 1st Line");
 
-        Member byId = memberRepository.findById(id).orElse(null);
-        memberRepository.delete(byId);
+        Member byId = androidMemberRepository.findById(id).orElse(null);
+        androidMemberRepository.delete(byId);
 
         return byId.getId();
+        // cascade 필수
     }
 
     // 아이디로 회원 찾기
@@ -127,7 +127,7 @@ public class AndroidController {
     public Member findMem(@RequestBody Long id) {
         log.info("AndroidController findMem 1st Line");
 
-        Member byId = memberRepository.findById(id).orElse(null);
+        Member byId = androidMemberRepository.findById(id).orElse(null);
 
         return byId;
     }

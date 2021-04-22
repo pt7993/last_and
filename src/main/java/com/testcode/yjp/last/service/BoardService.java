@@ -1,5 +1,4 @@
 package com.testcode.yjp.last.service;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.testcode.yjp.last.domain.Board;
@@ -7,10 +6,7 @@ import com.testcode.yjp.last.domain.Comment;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.QBoard;
 import com.testcode.yjp.last.domain.dto.*;
-import com.testcode.yjp.last.repository.BoardRepository;
-import com.testcode.yjp.last.repository.CommentsRepository;
-import com.testcode.yjp.last.repository.LikeRepository;
-import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -34,6 +30,7 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final LikeRepository likeRepository;
     private final CommentsRepository commentsRepository;
+    private final ReCommentsRepository reCommentsRepository;
 
 
 
@@ -75,9 +72,12 @@ public class BoardService {
     }
 
     // 게시판 삭제
+    @Transactional
     public void delete(Long id) {
-        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        boardRepository.delete(board);
+
+//        reCommentsRepository.deleteByreId(id);
+//        commentsRepository.deleteByCmId(id);
+        boardRepository.deleteById(id);
     }
 
 

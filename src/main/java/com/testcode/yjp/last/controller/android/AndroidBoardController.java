@@ -2,14 +2,16 @@ package com.testcode.yjp.last.controller.android;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.Recommend;
 import com.testcode.yjp.last.domain.dto.BoardListResponseDto;
-import com.testcode.yjp.last.domain.dto.android.AndBoardSaveDto;
-import com.testcode.yjp.last.domain.dto.android.AndBoardSearchDto;
-import com.testcode.yjp.last.domain.dto.android.AndBoardUpdateDto;
-import com.testcode.yjp.last.repository.android.AndroidBoardRepository;
+import com.testcode.yjp.last.domain.dto.android.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.android.AndroidBoardRepository;
+import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
+import com.testcode.yjp.last.repository.android.AndroidRecommendRepository;
 import com.testcode.yjp.last.service.BoardService;
+import com.testcode.yjp.last.service.android.AndBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -22,27 +24,55 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/android/board")
 public class AndroidBoardController {
-    private final BoardRepository boardRepository;
-    private final BoardService boardService;
-    private final MemberRepository memberRepository;
     private final AndroidBoardRepository androidBoardRepository;
+    private final AndBoardService andBoardService;
+    private final AndroidMemberRepository androidMemberRepository;
+    private final AndroidRecommendRepository androidRecommendRepository;
 
     // 게시판 조회
     @PostMapping("/select")
     public ArrayList<BoardListResponseDto> select() {
         log.info("BoardController select 1st Line");
 
-        ArrayList<BoardListResponseDto> allDesc = (ArrayList<BoardListResponseDto>) boardService.findAllDesc();
+        ArrayList<BoardListResponseDto> allDesc = (ArrayList<BoardListResponseDto>) andBoardService.findAllDesc();
 
         log.info("어우 렉걸려"+allDesc.toString());
         return allDesc;
     }
 
+    //상세조회
     @PostMapping("/idSelect")
-    public Board idSelect(@RequestBody Long id) {
+    public AndBoardFindIdDto idSelect(@RequestBody AndLikeDto andLikeDto) {
+        Long board_id = andLikeDto.getBoard_id();
+        Long member_id = andLikeDto.getMember_id();
         log.info("BoardController idSelect 1st Line");
-        Board board = androidBoardRepository.findById(id).orElse(null);
-        return board;
+        log.info("b_id = " + board_id + ", m_id = " + member_id);
+
+        Board board = androidBoardRepository.findById(board_id).orElse(null);
+        Member member = androidMemberRepository.findById(member_id).orElse(null);
+
+        AndBoardFindIdDto andBoardFindIdDto = new AndBoardFindIdDto(
+                board.getId(),
+                board.getTitle(),
+                board.getUser_id(),
+                board.getContent(),
+                board.getMember(),
+                board.getRegDate().toString(),
+                board.getModDate().toString()
+        );
+
+        Recommend ifRecommend = androidRecommendRepository.findByMemberAndBoard(member, board).orElse(null);
+
+        int size = androidRecommendRepository.findByBoard(board).size();
+        log.info("size = " + size);
+        andBoardFindIdDto.setRecommend_cnt(size);
+        if (ifRecommend == null) {
+            andBoardFindIdDto.setBool("false");
+        } else {
+            andBoardFindIdDto.setBool("true");
+        }
+
+        return andBoardFindIdDto;
     }
 
     // 게시판 등록
@@ -51,10 +81,10 @@ public class AndroidBoardController {
 
         log.info("BoardController insert 1st Line");
 
-        Member member = memberRepository.findById(member_id).get();
+        Member member = androidMemberRepository.findById(member_id).get();
         andBoardSaveDto.setUser_id(member.getUser_id());
         andBoardSaveDto.setMember(member);
-        return boardRepository.save(andBoardSaveDto.toEntity());
+        return androidBoardRepository.save(andBoardSaveDto.toEntity());
     }
 
     // 게시판 수정
@@ -62,11 +92,11 @@ public class AndroidBoardController {
     public Board update(@PathVariable("board_id") Long board_id, @RequestBody AndBoardUpdateDto andBoardUpdateDto) {
         log.info("BoardController update 1st Line");
 
-        Board board = boardRepository.findById(board_id).get();
+        Board board = androidBoardRepository.findById(board_id).get();
         board.setContent(andBoardUpdateDto.getContent());
         board.setTitle(andBoardUpdateDto.getTitle());
 
-        return boardRepository.save(board);
+        return androidBoardRepository.save(board);
     }
 
     // 게시판 삭제
@@ -74,7 +104,7 @@ public class AndroidBoardController {
     public Long delete(@PathVariable("board_id") Long board_id) {
         log.info("BoardController delete 1st Line");
 
-        boardService.delete(board_id);
+        andBoardService.delete(board_id);
         return board_id;
     }
 
@@ -92,6 +122,6 @@ public class AndroidBoardController {
         } else if (head.equals("u")) {
             return androidBoardRepository.userSearch(search);
         }
-        return boardService.findAllDesc();
+        return andBoardService.findAllDesc();
     }
 }
