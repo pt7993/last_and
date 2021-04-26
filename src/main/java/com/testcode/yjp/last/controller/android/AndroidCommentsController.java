@@ -2,6 +2,7 @@ package com.testcode.yjp.last.controller.android;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.dto.android.AndCommentDto;
 import com.testcode.yjp.last.repository.android.AndroidBoardRepository;
 import com.testcode.yjp.last.repository.android.AndroidCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,22 @@ public class AndroidCommentsController {
     private final AndroidCommentRepository androidCommentRepository;
 
     @PostMapping("select/{board_id}")
-    public ArrayList<Comment> selectAll(@PathVariable("board_id") Long board_id) {
+    public ArrayList<AndCommentDto> selectAll(@PathVariable("board_id") Long board_id) {
+        log.info("++selectComment in++");
         Board board = androidBoardRepository.findById(board_id).orElse(null);
         ArrayList<Comment> byBoard = androidCommentRepository.findByBoard(board);
+        ArrayList<AndCommentDto> commentDtos = new ArrayList<>();
+        for (Comment comment : byBoard) {
+            AndCommentDto andCommentDto = new AndCommentDto(
+                    comment.getId(),
+                    comment.getUser_id(),
+                    comment.getComments(),
+                    comment.getModDate()
+            );
+            commentDtos.add(andCommentDto);
+        }
 
-        return byBoard;
+        return commentDtos;
     }
 
     @PostMapping("insert/{user_id}/{board_id}")
