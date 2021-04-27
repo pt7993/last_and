@@ -13,5 +13,7 @@ public interface AndroidCommentRepository extends JpaRepository<Comment, Long> {
     @Query("select c from Comment c where c.board = :board order by c.id DESC ")
     ArrayList<Comment> findByBoard(Board board);
 
+    @Query("select c from Comment c where c.id = :comment_id")
+    Comment findByComments(Long comment_id);
 
 }
